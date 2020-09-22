@@ -36,6 +36,7 @@ const Button = ({children}) => {
         //console.log('Тестовая кнопка');
         messageData.push('Нормально');
         console.log(messageData);
+        renderPage();
     };
 
     return (
@@ -54,7 +55,7 @@ const renderPage = () => {
     );
 };
 
-setInterval(() => {
-    renderPage()
-}, 1000);
+//setInterval(() => {
+    renderPage();
+//}, 1000);
 
