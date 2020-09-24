@@ -16,6 +16,7 @@ interface AppState {
 
 export default class Messenger extends Component<Record<string, unknown>, AppState> {
   private bot = 'Bot';
+  private timeout: number | null = null;
 
   public state = {
     messagesData: [
@@ -55,13 +56,19 @@ export default class Messenger extends Component<Record<string, unknown>, AppSta
     const currentAuthor: string = messagesData[messagesData.length - 1].author;
     if (messagesData.length !== prevState.messagesData.length && currentAuthor !== this.bot) {
       const message: Data.Message = { text: `Hi, ${currentAuthor}`, author: this.bot };
-      setTimeout(
+      this.timeout = setTimeout(
         () =>
           this.setState({
             messagesData: [...messagesData, message],
           }),
         1000,
       );
+    }
+  }
+
+  public componentWillUnmount(): void {
+    if (typeof this.timeout === 'number') {
+      clearTimeout(this.timeout);
     }
   }
 
