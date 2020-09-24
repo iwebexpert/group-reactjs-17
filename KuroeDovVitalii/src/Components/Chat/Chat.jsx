@@ -2,21 +2,43 @@ import React, { Component } from 'react'
 import Message from '../Message/Message'
 import { Paper, Button, IconButton, TextField, Typography } from '@material-ui/core' 
 import SendIcon  from '@material-ui/icons/SendRounded'
+import {uuid} from 'uuidv4'
 
 class Chat extends Component{
-
     state = {
-        input : ''
+        input : '',
+        messages: []
     }
+
+    timeoutId = 0 
 
     handleSendMessage = (value) => {
-        this.props.addToChat(value)
+        this.props.addToChat({  text: value, author: 'me', id: uuid() })
         this.setState({input: ''})
     }
+
+    componentDidUpdate(prevProps, prevState) {
+        const currentMessage = this.props.chat
+        const lastMessage = currentMessage[currentMessage.length -1]
+
+        if(prevProps.chat.length < this.props.chat.length && lastMessage.author === 'me'){
+            this.timeoutId = setTimeout(() => {
+                this.setState(state => ({
+                    ...state,
+                    messages: [...this.state.messages, {author: 'Бот', text: `Бот компот`} ]
+                }),
+                    this.props.addToChat({author: 'Бот', text: "боткомпот", id: uuid()})
+
+                )
+            }, 1000)      
+        }
+    }
+
 
     handleChange = (event) => {
         this.setState({input: event.target.value})
     }
+    
     handleKeyUp = (event) => {
         if (this.state.input !== '') {
             if (event.keyCode === 13){
@@ -32,17 +54,17 @@ class Chat extends Component{
     }
 
     render(){
-        let Messages = <Typography>No Chats</Typography>
-
+        let messages = <Typography>No Chats</Typography>
 
         if(!this.props.chat.length == 0) {
-            Messages = this.props.chat.map( (item, idx) => 
+            messages = this.props.chat.map( (item, idx) => 
                 <Message key={idx} message={item} />)
         }
+
         return(
             <section className="chat">
                 <div className="message-list">
-                    { Messages }
+                    { messages }
                 </div>
                 <div className="chat-footer">
                     <TextField 
@@ -59,7 +81,7 @@ class Chat extends Component{
                     <IconButton
                         // disabled={id === undefined ? true : false}
                         color="primary" 
-                        onClick={() => this.handleClick(this.state.input)}>
+                        onClick={ () => this.handleClick(this.state.input) }>
                             <SendIcon/>
                     </IconButton>
                 </div>

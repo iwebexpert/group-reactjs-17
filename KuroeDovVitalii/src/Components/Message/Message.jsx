@@ -9,10 +9,10 @@ class Message extends Component {
                 <Chip 
                     deleteIcon={<DoneIcon />} 
                     color="primary" 
-                    className="me" 
+                    className={this.props.message.author === "me" ? "me" : "message"} 
                     clicable="true"
-                    label={this.props.message}
-                    avatar={<Avatar>{this.props.message.name}</Avatar>} />
+                    label={this.props.message.text}
+                    avatar={<Avatar>{this.props.message.author}</Avatar>} />
             </div>
             
         )
