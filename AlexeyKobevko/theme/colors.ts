@@ -30,6 +30,6 @@ const colors = {
   greyCod: '#070707',
   //Other
   otherWhite: '#ffffff',
-};
+} as const;
 
 export default colors;

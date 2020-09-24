@@ -1,7 +1,19 @@
-import React from 'react';
-import { ThemeProvider, createGlobalStyle, css } from 'styled-components';
+import * as styledComponents from 'styled-components';
+import { useContext } from 'react';
 
-export const GlobalStyle = createGlobalStyle`
+import { ThemeInterface } from './theme';
+
+export const {
+  default: styled,
+  css,
+  ThemeProvider,
+  ThemeContext,
+  createGlobalStyle,
+} = styledComponents as styledComponents.ThemedStyledComponentsModule<ThemeInterface>;
+
+export * from './theme';
+
+export const GlobalStyle = createGlobalStyle<styledComponents.ThemeProps<ThemeInterface>>`
   ${({ theme }) => css`
     * {
       box-sizing: border-box;
@@ -35,10 +47,6 @@ export const GlobalStyle = createGlobalStyle`
   `}
 `;
 
-import { theme } from './theme';
+export const useTheme = () => useContext<ThemeInterface>(ThemeContext);
 
-const Theme = ({ children }) => (
-  <ThemeProvider theme={theme}>{children}</ThemeProvider>
-);
-
-export default Theme;
+export default styled;
