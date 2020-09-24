@@ -14,7 +14,7 @@ interface AppState {
   messagesData: Data.Message[];
 }
 
-export default class Messenger extends Component<Record<string, unknown>, AppState> {
+export default class Messenger extends Component<unknown, AppState> {
   private bot = 'Bot';
   private timeout: number | null = null;
 
