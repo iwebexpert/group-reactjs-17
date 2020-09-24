@@ -15,7 +15,6 @@ class MessageField extends Component {
   onChangeHandler = (event) => {
     const fieldName = event.target.name
     const text = event.target.value
-    console.log(text)
 
     this.setState({ [fieldName]: text})
   }

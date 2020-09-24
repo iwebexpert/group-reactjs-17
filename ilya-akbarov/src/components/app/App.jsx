@@ -13,7 +13,6 @@ class App extends Component {
 
   componentDidUpdate() {
     const lastMessage = this.state.messages.slice(-1)[0]
-    console.log('last message: ', lastMessage)
     if (lastMessage.author !== 'Bot') {
       setTimeout(() => {
         const message = { text: 'test message', author: 'Bot' }
@@ -24,7 +23,6 @@ class App extends Component {
 
   onSubmit = (message) => {
     this.setState({ messages: [...this.state.messages, message] })
-    console.log(this.state.messages);
   }
   
   render() {
