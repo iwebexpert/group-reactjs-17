@@ -20,6 +20,9 @@ module.exports = {
         "root": ["./"],
         "alias": {
           "@app": "./src",
+          "@components": "./src/components",
+          "@theme": "./theme",
+          "@types": "./types",
         },
         "extensions": [".js", ".jsx", ".ts", ".tsx"]
       }

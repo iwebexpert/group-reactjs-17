@@ -1,6 +1,6 @@
 import React, { PureComponent, ReactNode } from 'react';
 import styled from 'styled-components';
-import { Data } from '../../types';
+import { Data } from '@types';
 
 export class Message extends PureComponent<Data.Message, unknown> {
   public render(): ReactNode {

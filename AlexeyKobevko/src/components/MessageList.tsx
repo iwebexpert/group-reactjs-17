@@ -1,6 +1,6 @@
 import React, { PureComponent, ReactNode } from 'react';
-import { Data } from '../../types';
-import { Message } from './Message';
+import { Data } from '@types';
+import { Message } from '@components';
 
 interface MessageListProps {
   items: Data.Message[];

@@ -1,8 +1,7 @@
-// eslint-disable-next-line no-use-before-define
 import React, { FC } from 'react';
 import styled, { css } from 'styled-components';
 
-import { Data } from '../../types';
+import { Data } from '@types';
 
 type IBox = Data.Indents;
 

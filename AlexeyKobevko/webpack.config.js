@@ -1,4 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const path = require('path');
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
@@ -10,9 +12,9 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx'],
     alias: {
-      components: path.resolve(__dirname, 'src', 'components'),
-      assets: path.resolve(__dirname, 'src', 'assets'),
-      containers: path.resolve(__dirname, 'src', 'containers'),
+      '@components': path.resolve(__dirname, 'src', 'components'),
+      '@theme': path.resolve(__dirname, 'theme'),
+      '@types': path.resolve(__dirname, 'types'),
     },
   },
   module: {

@@ -1,12 +1,9 @@
 import React, { ChangeEvent, Component, ReactNode } from 'react';
 import styled, { css } from 'styled-components';
 
-import { Data } from '../types';
-import { MessageList } from './components/MessageList';
-import { Button } from './components/Button';
-import { FormField } from './components/FormField';
-import { Box } from './components/Box';
-import { theme } from '../theme';
+import { Data } from '@types';
+import { theme } from '@theme';
+import { MessageList, Button, FormField, Box } from '@components';
 
 interface AppState {
   text: string;
