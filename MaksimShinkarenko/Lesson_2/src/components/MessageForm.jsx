@@ -28,7 +28,7 @@ export class MessageForm extends Component
 
         if(typeof onSend === 'function'){
             onSend(this.state);
-            this.setState({text: ''});
+            this.setState({text: '', author: ''});
         }
 
         console.log(this.state);

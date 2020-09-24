@@ -6,18 +6,26 @@ import {MessageForm} from './MessageForm';
 export class Messenger extends Component
 {
     state = {
-        messages: ['Hi', 'Hello', 'Test message'],
-        // messages: [{author: '', text: ''}] //TODO
+        messages: [
+            { author: 'default', text: 'Hi'},
+            { author: 'default', text: 'Hello'},
+            { author: 'default', text: 'Test message'},
+        ],
     };
 
     handleMessageSend = (message) => {
-        //TODO
-        this.setState({messages: this.state.messages.concat([message.text])});
+        this.setState({messages: this.state.messages.concat([{author: message.author, text: message.text}])});
+    };
+
+    answerBot = (lastAuthorName) => {
+        this.setState({messages: this.state.messages.concat([{author: 'Bot', text: lastAuthorName + ', спасибо'}])});
     };
 
     componentDidUpdate(){
-        //TODO - через 1 сек. ответ на сообщение, Bot
-    }
+        let lastAuthorName = this.state.messages[this.state.messages.length - 1].author
+        if (lastAuthorName !== 'Bot') //костыль...
+            setTimeout(() => this.answerBot(lastAuthorName), 1000);
+    };
 
     render()
     {
@@ -29,5 +37,5 @@ export class Messenger extends Component
                <MessageForm onSend={this.handleMessageSend} />
             </>
             );
-    }
+    };
 }
