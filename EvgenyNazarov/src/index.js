@@ -1,19 +1,15 @@
 import React from 'react';
 import ReactDom from 'react-dom';
 
-//Вариант 1
-//const element = React.createElement('h1', {className: 'react-app', id: 'test-app'}, 'Hello, React.js!');
-
-//JSX
-const element = <h1 className="react-app" id="test-app">Hello, React.js!!!</h1>;
+import {Messenger} from 'components/Messenger';
 
 const messagesData = ['Hi', 'Hello', 'Test message'];
 
 const Message = ({text, author}) => {
     return (
-    <div>
-        <p>{text} <b>({author})</b></p>
-    </div>
+        <div>
+            <p>{text} <b>({author})</b></p>
+        </div>
     );
 };
 
@@ -24,20 +20,30 @@ const MessageList = ({items}) => {
 
 const Button = ({children}) => {
     const handleClick = (event) => {
-        console.log(event);
-        console.log('Тестовая кнопка');
+        messagesData.push(children);
+        messagerRender();
     };
 
     return (
-    <button onClick={handleClick}>{children}</button>
+        <button onClick={handleClick}>{children}</button>
     );
 };
 
+function messagerRender(){
+    ReactDom.render(
+        <>
+            <MessageList items={messagesData} />
+            <Button>Привет</Button>
+        </>,
+        document.getElementById('root')
+    );
+}
+
+messagerRender();
 
 ReactDom.render(
     <>
-        <MessageList items={messagesData} />
-        <Button>Тестовая кнопка new</Button>
+        <Messenger />
     </>, 
     document.getElementById('root')
 );
