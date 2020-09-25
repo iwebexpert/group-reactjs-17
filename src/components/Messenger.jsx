@@ -22,6 +22,28 @@ export default class Messenger extends Component {
     ],
   }
 
+  componentDidUpdate() {
+    const botAnswer = {
+      message: this.state.messageData[this.state.messageData.length - 1].author + ' Спасибо за ваше сообщение, но в чате никого нет, кроме меня...',
+      author: 'BOT'
+
+    }
+    const tempAuthor = this.state.messageData[this.state.messageData.length - 1].author
+    if (tempAuthor !== 'BOT') {
+      const timerBotAnswer = setTimeout( () => {
+        this.setState({
+          messageData: this.state.messageData.concat(botAnswer)
+        })
+      }, 1000)
+    }
+  }
+
+  handleMessageSend = (message) => {
+    this.setState({
+      messageData: this.state.messageData.concat(message)
+    })
+  }
+
 
   render() {
     const {messageData} = this.state
@@ -29,7 +51,7 @@ export default class Messenger extends Component {
       <>
         <h2>Messenger</h2>
         <MessageList messageData={messageData}/>
-        <MessengerField />
+        <MessengerField onSend={this.handleMessageSend}/>
       </>
     )
   }
