@@ -1,6 +1,9 @@
 import React from 'react';
 import ReactDom from 'react-dom';
 
+import {App} from 'components/App';
+import {Messenger} from "components/Messenger";
+
 const element = <h1 className="react-app" id="test-app">Hello, React.js</h1>;
 const messagesData = ['Hi', 'Hello', 'Test message'];
 const Message = ({text, author}) => {
@@ -29,6 +32,8 @@ const Button = ({children}) => {
 
 const renderer = () => ReactDom.render(
     <>
+        <Messenger />
+        <App />
         {element}
         <Message text={messagesData[0]} author="WebDev"/>
         <Message text={messagesData[1]} author="WebDev"/>
