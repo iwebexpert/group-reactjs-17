@@ -1,16 +1,19 @@
-import React from 'react';
+import React, { FC, HTMLAttributes } from 'react';
 import styled, { css } from 'styled-components';
-import PropTypes from 'prop-types';
 
-export const Button = ({ width, children, mt, ...props }) => (
-  <$Button {...props} width={width} mt={mt}>
+interface ButtonProps extends HTMLAttributes<HTMLButtonElement> {
+  width?: string;
+  mt?: string;
+  onClick?: () => void;
+}
+
+export const Button: FC<ButtonProps> = ({ width, children, onClick, mt, ...props }) => (
+  <ToButton onClick={onClick} {...props} width={width} mt={mt}>
     {children}
-  </$Button>
+  </ToButton>
 );
 
-const $Button = styled.div.attrs({
-  role: 'button',
-})`
+const ToButton = styled.button<ButtonProps>`
   ${({ mt, width, theme: { colors, indents } }) => css`
     margin-top: ${mt ?? ''};
     display: flex;
@@ -32,8 +35,3 @@ const $Button = styled.div.attrs({
     }
   `}
 `;
-
-Button.propTypes = {
-  width: PropTypes.string,
-  mt: PropTypes.string,
-};

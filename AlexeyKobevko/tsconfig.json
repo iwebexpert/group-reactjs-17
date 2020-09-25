@@ -1,0 +1,38 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist",
+    "target": "ES5",
+    "module": "ES6",
+    "jsx": "react",
+    "noImplicitAny": true,
+    "allowSyntheticDefaultImports": true,
+    "moduleResolution": "Node",
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "noStrictGenericChecks": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "strict": false,
+    "allowJs": true,
+    "strictNullChecks": true,
+    "forceConsistentCasingInFileNames": false,
+    "isolatedModules": true,
+    "skipLibCheck": true,
+    "downlevelIteration": true,
+    "sourceMap": false,
+    "keyofStringsOnly": true,
+    "baseUrl": ".",
+    "paths": {
+      "@app/*": ["src/*"],
+      "@components": ["src/components/index.ts"],
+      "@theme": ["theme/index.ts"],
+      "@types": ["types/index.ts"]
+    },
+    "typeRoots": ["./types", "./node_modules/@types"],
+    "lib": ["dom", "dom.iterable", "es2015.iterable", "esnext"]
+  },
+  "exclude": ["node_modules"],
+  "include": ["types", "theme", "src"]
+}

@@ -13,6 +13,6 @@ const indents = {
   i32: rem(32, baseFont),
   i40: rem(40, baseFont),
   i48: rem(48, baseFont),
-};
+} as const;
 
 export default indents;

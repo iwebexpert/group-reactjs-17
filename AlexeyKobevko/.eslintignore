@@ -1,0 +1,7 @@
+/.git
+/.vscode
+/.idea
+shipitfile.js
+node_modules
+next-env.d.ts
+next-config.ts
