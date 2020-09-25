@@ -1,0 +1,13 @@
+.container {
+    width: 500px;
+    margin: 50px auto;
+}
+
+.message-container {
+    width: 100%;
+    padding: 1rem;
+    border: 1px solid gray;
+    border-radius: 5px;
+    height: 500px;
+    overflow-y: scroll;
+}
