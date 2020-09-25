@@ -10,6 +10,8 @@ export class Messenger extends Component {
             {text: 'Test message', author: 'WebDev'},
         ]
     };
+    botAnswer = 0;
+
 
     handleMessageSend = (message) => {
         this.setState({
@@ -18,10 +20,11 @@ export class Messenger extends Component {
     };
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        const botAnswer = setTimeout(() => {
+        this.botAnswer = setTimeout(() => {
             this.setState({
                 messages: this.state.messages.concat([{text: 'Привет!', author: 'Бот'}])
             });
+            clearTimeout(this.botAnswer);
         }, 1000);
     }
 

@@ -5,7 +5,7 @@ export class Message extends Component {
         const {text, author} = this.props;
         return (
             <div>
-                <p>{text} (<b>{author}</b>)</p>
+                <p><b>{author}</b><br/>{text}</p>
             </div>
         );
     }
