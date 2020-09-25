@@ -5,9 +5,7 @@ import { Data } from '@types';
 import { theme } from '@theme';
 import { MessageList, Button, FormField, Box } from '@components';
 
-interface AppState {
-  text: string;
-  author: string;
+interface AppState extends Data.Message {
   messagesData: Data.Message[];
 }
 
