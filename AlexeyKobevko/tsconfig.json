@@ -26,7 +26,7 @@
     "baseUrl": ".",
     "paths": {
       "@app/*": ["src/*"],
-      "@components": ["src/components/index.ts"],
+      "@components/*": ["src/components/*"],
       "@theme": ["theme/index.ts"],
       "@types": ["types/index.ts"]
     },

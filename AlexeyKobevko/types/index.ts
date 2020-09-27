@@ -19,6 +19,9 @@ namespace Data {
     pb?: string;
     pl?: string;
   }
+  export interface ColorMode {
+    mode: string;
+  }
 }
 
 export type { Data };

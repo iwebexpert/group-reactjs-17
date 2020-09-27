@@ -1,34 +1,44 @@
-import React, { PureComponent, ReactNode } from 'react';
-import styled from 'styled-components';
+import React, { FC } from 'react';
+import styled, { css } from 'styled-components';
+
 import { Data } from '@types';
+import { Box, Text } from '@components/basic';
+import { Avatar } from '@components/Avatar';
+import { useTheme } from '@theme';
 
-export class Message extends PureComponent<Data.Message, unknown> {
-  public render(): ReactNode {
-    const { text, author } = this.props;
-    return (
-      <MessageBox>
+export const Message: FC<Data.Message> = ({ text, author }) => {
+  const me = author === '@Djedaj';
+  const { colors } = useTheme();
+  return (
+    <MessageBox author={author} justifyContent={me ? 'flex-end' : 'flex-start'}>
+      {!me && <Avatar size={30} alt={author.charAt(0).toUpperCase()} />}
+      <Paper bg={me ? colors.accentMain : colors.darkHeader}>
         <Text>
-          {text} <Author>({author})</Author>
+          {text} {!me && <Author>({author})</Author>}
         </Text>
-      </MessageBox>
-    );
-  }
-}
+      </Paper>
+    </MessageBox>
+  );
+};
 
-// export const Message: FC<Data.Message> = ({ text, author }) => (
-//   <MessageBox>
-//     <Text>
-//       {text} <Author>({author})</Author>
-//     </Text>
-//   </MessageBox>
-// );
+const Paper = styled(Box).attrs(({ theme }) => ({
+  maxWidth: 'max-content',
+  color: theme.colors.mainWhite,
+  mb: theme.indents.i4,
+  borderRadius: theme.indents.i12,
+  p: `${theme.indents.i4} ${theme.indents.i12}`,
+  ml: theme.indents.i12,
+}))``;
 
-const MessageBox = styled.div`
-  padding: ${({ theme }) => `${theme.indents.i4} 0`};
-`;
-
-const Text = styled.p`
-  color: ${({ theme }) => theme.colors.greyDark2};
+const MessageBox = styled(Box).attrs({
+  display: 'flex',
+  maxWidth: '90%',
+})<Pick<Data.Message, 'author'>>`
+  ${({ author }) =>
+    author === '@Djedaj' &&
+    css`
+      align-self: flex-end;
+    `}
 `;
 
 const Author = styled.span`
