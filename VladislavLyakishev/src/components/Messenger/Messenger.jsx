@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {MessageList} from "../MessageList";
 import {MessengerField} from "../MessengerField";
 
+import './Messenger.scss'
 
 export class Messenger extends Component {
 
@@ -48,11 +49,13 @@ export class Messenger extends Component {
   render() {
     const {messageData} = this.state
     return (
-      <>
+      <div className="messenger">
         <h2>Messenger</h2>
-        <MessageList messageData={messageData}/>
+        <div className='messenger-list'>
+          <MessageList messageData={messageData}/>
+        </div>
         <MessengerField onSend={this.handleMessageSend}/>
-      </>
+      </div>
     )
   }
 }

@@ -1,11 +1,13 @@
 import React, {Component} from 'react'
 
+import './Message.scss'
+
 export class Message extends Component {
   render() {
     const {message, author} = this.props
     return (
-      <div>
-        <p>{message} | <small>{author}</small></p>
+      <div className='message'>
+        <p>{message}</p><small>{author}</small>
       </div>
     )
   }
