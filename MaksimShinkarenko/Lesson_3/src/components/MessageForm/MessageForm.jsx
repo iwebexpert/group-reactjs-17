@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
+import PropTypes, {instanceOf} from 'prop-types';
 import {Button, TextField, Fab} from '@material-ui/core';
 import {Send} from '@material-ui/icons';
 
@@ -19,7 +19,7 @@ export class MessageForm extends Component
         this.setState({[fieldName]: event.target.value});
     };
 
-    onSubmitForm = () => {
+    onSubmitForm = (e) => {
         const {text} = this.state;
         const {onSend} = this.props;
 
@@ -32,9 +32,16 @@ export class MessageForm extends Component
             onSend(this.state);
             this.setState({text: ''});
         }
-
-        console.log(this.state);
     };
+
+    onSubmitFormEnter = (e) => {
+        if (e.keyCode === 13 && e.ctrlKey){
+            e.preventDefault();
+            this.onSubmitForm(e);
+        }
+        else
+            return false;
+    }
 
     render()
     {
@@ -56,8 +63,9 @@ export class MessageForm extends Component
                 value={text}
                 multiline
                 autoFocus
+                onKeyDown={this.onSubmitFormEnter}
                     />
-                    <Fab variant="round" color="primary" onClick={this.onSubmitForm}><Send /></Fab>
+                    <Fab className="sendBtn" variant="round" color="primary" onClick={this.onSubmitForm}><Send /></Fab>
             </div>
             );
     }

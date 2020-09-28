@@ -4,7 +4,7 @@ import {nanoid} from 'nanoid';
 import {MessageList} from '../MessageList';
 import {MessageForm} from '../MessageForm';
 
-import './Messenger.css';
+import './Messenger.scss';
 
 export class Messenger extends Component
 {
@@ -20,10 +20,11 @@ export class Messenger extends Component
     };
 
     componentDidUpdate(){
-        const {author} = this.state.messages[this.state.messages.length - 1];
+        const {author, id} = this.state.messages[this.state.messages.length - 1];
         if (author !== 'Bot'){
             setTimeout(() => {
-                this.handleMessageSend({text: `Hi, ${author}! Это бот...`, author: 'Bot'});
+                if (id === this.state.messages[this.state.messages.length - 1].id)
+                    this.handleMessageSend({text: `Hi, ${author}! Это бот...`, author: 'Bot'});
             }, 2000);
         }
     }
@@ -34,7 +35,7 @@ export class Messenger extends Component
 
         return (
             <div className="messenger">
-                <div className="messages-list ">
+                <div className="messages-list" id="mess-list">
                     <MessageList items={messages} />
                 </div>
                <MessageForm onSend={this.handleMessageSend} />

@@ -1,12 +1,11 @@
 .messenger {
-    height: 100vh;
-    width: 70%;
     margin: 0 auto;
     display: flex;
     align-items: center;
     flex-direction: column;
     justify-content: left;
-    padding-bottom: 20%;
+    padding: 0;
+    height: 60vh;
 }
 
 .messages-list {
@@ -14,8 +13,10 @@
     flex-direction: column;
     flex-grow: 1;
     background-color: lightblue;
-    height: 80%;
-    padding: 20px;
-    width: calc(100% - 40px);
+    width: 100%;
     overflow-y: scroll;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    flex-basis: 5rem;
 }
