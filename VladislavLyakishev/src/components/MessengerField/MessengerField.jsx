@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 
-export default class MessengerField extends Component {
+export class MessengerField extends Component {
 
   state = {
     author: '',

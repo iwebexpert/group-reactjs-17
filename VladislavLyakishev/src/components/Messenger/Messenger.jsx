@@ -1,9 +1,9 @@
 import React, {Component} from 'react'
-import MessageList from "components/MessageList";
-import MessengerField from "components/MessengerField";
+import {MessageList} from "components/MessageList";
+import {MessengerField} from "components/MessengerField";
 
 
-export default class Messenger extends Component {
+export class Messenger extends Component {
 
   state = {
     messageData: [

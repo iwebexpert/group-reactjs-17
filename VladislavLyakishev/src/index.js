@@ -1,12 +1,12 @@
 import ReactDom from 'react-dom'
 import React from 'react'
-import App from 'components/App'
+import {Messenger} from 'components/Messenger'
 
 
 
 ReactDom.render(
     <>
-      <App />
+      <Messenger />
     </>,
     document.getElementById('root')
   )

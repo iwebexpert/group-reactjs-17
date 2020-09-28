@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
-import Message from "components/Message";
+import {Message} from "components/Message";
 
-export default class MessageList extends Component {
+export class MessageList extends Component {
 
   render() {
     const {messageData} = this.props
