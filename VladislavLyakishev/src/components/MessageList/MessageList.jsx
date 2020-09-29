@@ -7,8 +7,8 @@ export class MessageList extends Component {
   render() {
     const {messageData} = this.props
     return (
-      messageData.map( (elem, index) => {
-        return <Message {...elem} key={index}/>
+      messageData.map( (elem) => {
+        return <Message {...elem} key={elem.id}/>
       })
     )
   }

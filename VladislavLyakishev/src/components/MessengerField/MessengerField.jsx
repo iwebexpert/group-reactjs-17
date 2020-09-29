@@ -1,4 +1,8 @@
 import React, {Component} from 'react'
+import {TextField, Fab} from '@material-ui/core'
+import SendIcon from '@material-ui/icons/Send'
+
+import './MessengerField.scss'
 
 export class MessengerField extends Component {
 
@@ -34,11 +38,31 @@ export class MessengerField extends Component {
     const {author, message} = this.state
     return (
       <>
-        <input type="text" name='author' placeholder='Введите имя' onChange={this.inputFieldHandler} value={author}/>
-        <br/>
-        <textarea name="message" id="message" placeholder='Введите сообщение' cols="30" rows="10" onChange={this.inputFieldHandler} value={message}/>
-        <br/>
-        <button onClick={this.sendMessageHandler}>Отправить</button>
+        <div>
+          <TextField
+              label="Введите имя"
+              variant="outlined"
+              name='author'
+              onChange={this.inputFieldHandler}
+              value={author}
+          />
+          <TextField
+              label="Введите сообщение"
+              variant="outlined"
+              name='message'
+              onChange={this.inputFieldHandler}
+              value={message}
+              autoFocus
+              multiline
+          />
+          <Fab
+              variant="round"
+              color="primary"
+              onClick={this.sendMessageHandler}
+          >
+            <SendIcon />
+          </Fab>
+        </div>
       </>
     )
   }
