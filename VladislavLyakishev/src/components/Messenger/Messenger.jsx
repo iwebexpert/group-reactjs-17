@@ -23,13 +23,15 @@ export class Messenger extends Component {
       author: 'BOT',
       id: nanoid()
     };
-    const tempAuthor = this.state.messageData[this.state.messageData.length - 1].author
-    if (tempAuthor !== 'BOT') {
+    const {author, id} = this.state.messageData[this.state.messageData.length - 1]
+    if (author !== 'BOT') {
       const timerBotAnswer = setTimeout( () => {
-        this.setState({
-          messageData: this.state.messageData.concat(botAnswer)
-        })
-      }, 1000)
+        if (id === this.state.messageData[this.state.messageData.length - 1].id) {
+          this.setState({
+            messageData: this.state.messageData.concat(botAnswer)
+          })
+        }
+      }, 2000)
     }
   }
 
