@@ -19,7 +19,11 @@ export class Messenger extends Component
     };
 
     componentDidUpdate(){
-
+        let lastName = this.state.messages[this.state.messages.length - 1].author;
+        console.log(lastName);
+        if (lastName != 'Bot'  && lastName != 'bot'){
+            setTimeout(() => this.handleMessageSend({author: 'Bot', text: 'Спасибо'}), 1000);
+        } 
     };
 
     render()
