@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import './Message.scss'
+import classNames from 'classnames'
 
 class Message extends Component {
 
@@ -10,10 +12,21 @@ class Message extends Component {
 
   render() {
     const { text, author } = this.props
+
+    const classes = classNames({
+      message: true,
+      bot: author === 'Bot',
+      user: author !== 'Bot'
+    })
+
     return (
-      <p><strong>{author}:&nbsp;</strong>{text}</p>
+      <div className={classes}>
+        <div className="body">
+          <strong>{author}:&nbsp;</strong>{text}
+        </div>
+      </div>
     )
   }
 }
 
-export default Message
+export { Message }
