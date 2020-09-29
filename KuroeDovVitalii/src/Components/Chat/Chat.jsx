@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Message from '../Message/Message'
 import { Paper, Button, IconButton, TextField, Typography } from '@material-ui/core' 
 import SendIcon  from '@material-ui/icons/SendRounded'
-import {uuid} from 'uuidv4'
+import { nanoid } from 'nanoid'
 
 class Chat extends Component{
     state = {
@@ -13,7 +13,7 @@ class Chat extends Component{
     timeoutId = 0 
 
     handleSendMessage = (value) => {
-        this.props.addToChat({  text: value, author: 'me', id: uuid() })
+        this.props.addToChat({  text: value, author: 'me', id: nanoid(4) })
         this.setState({input: ''})
     }
 
@@ -27,7 +27,7 @@ class Chat extends Component{
                     ...state,
                     messages: [...this.state.messages, {author: 'Бот', text: `Бот компот`} ]
                 }),
-                    this.props.addToChat({author: 'Бот', text: "боткомпот", id: uuid()})
+                    this.props.addToChat({author: 'Бот', text: "боткомпот", id: nanoid(4)})
 
                 )
             }, 1000)      

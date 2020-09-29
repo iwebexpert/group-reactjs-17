@@ -11,10 +11,10 @@ class App extends Component {
         chat: [],
         currentChat: 0,
         chats: [
-            {id: nanoid(6), name: "Сушист", avatar: `https://i.pravatar.cc/150?img=${nanoid(4)}`},
-            {id: nanoid(6), name: "Визажист", avatar: `https://i.pravatar.cc/150?img=${nanoid(4)}`},
-            {id: nanoid(6), name: "Стилист", avatar: `https://i.pravatar.cc/150?img=${nanoid(4)}`},
-            {id: nanoid(6), name: "Повар", avatar: `https://i.pravatar.cc/150?img=${nanoid(4)}`}
+            {id: nanoid(6), name: "Сушист", avatar: `https://i.pravatar.cc/150?img=1`},
+            {id: nanoid(6), name: "Визажист", avatar: `https://i.pravatar.cc/150?img=2`},
+            {id: nanoid(6), name: "Стилист", avatar: `https://i.pravatar.cc/150?img=3`},
+            {id: nanoid(6), name: "Повар", avatar: `https://i.pravatar.cc/150?img=4`}
         ]
 
     }
