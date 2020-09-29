@@ -1,9 +1,10 @@
-import React, { ChangeEvent, Component, ReactNode } from 'react';
+import React, { ChangeEvent, Component, ReactNode, KeyboardEvent, createRef } from 'react';
 import styled, { css } from 'styled-components';
 
 import { Data } from '@types';
-import { theme } from '@theme';
-import { MessageList, Button, FormField, Box } from '@components';
+import { MessageList } from '@components/MessageList';
+import { MessageField } from '@components/MessageField';
+import { Box } from '@components/basic';
 
 interface AppState extends Data.Message {
   messagesData: Data.Message[];
@@ -11,7 +12,9 @@ interface AppState extends Data.Message {
 
 export default class Messenger extends Component<unknown, AppState> {
   private bot = 'Bot';
+  private me = '@Djedaj';
   private timeout: number | null = null;
+  private ref = createRef<HTMLTextAreaElement>();
 
   public state = {
     messagesData: [
@@ -24,16 +27,23 @@ export default class Messenger extends Component<unknown, AppState> {
   };
 
   private handleMessageSend = (): void => {
-    const { text, author } = this.state;
+    const { text } = this.state;
 
-    if (!text && !author) return;
+    if (!text) return;
 
     this.setState(prevState => ({
       ...prevState,
-      messagesData: [...prevState.messagesData, { text, author }],
+      messagesData: [...prevState.messagesData, { text, author: this.me }],
       text: '',
       author: '',
     }));
+  };
+
+  private keyDownHandler = (e: KeyboardEvent<HTMLTextAreaElement>): void => {
+    const { keyCode, ctrlKey } = e;
+    if (keyCode === 13 && ctrlKey) {
+      this.handleMessageSend();
+    }
   };
 
   private handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
@@ -43,10 +53,14 @@ export default class Messenger extends Component<unknown, AppState> {
     this.setState({ [name]: value });
   };
 
-  public componentDidUpdate(
-    prevProps: Readonly<Record<string, unknown>>,
-    prevState: Readonly<AppState>,
-  ): void {
+  public componentDidMount(): void {
+    const input = this.ref.current;
+    if (input) {
+      input.focus();
+    }
+  }
+
+  public componentDidUpdate(prevProps: Readonly<unknown>, prevState: Readonly<AppState>): void {
     const { messagesData } = this.state;
     const currentAuthor: string = messagesData[messagesData.length - 1].author;
     if (messagesData.length !== prevState.messagesData.length && currentAuthor !== this.bot) {
@@ -68,50 +82,38 @@ export default class Messenger extends Component<unknown, AppState> {
   }
 
   public render(): ReactNode {
-    const { messagesData, text, author } = this.state;
+    const { messagesData, text } = this.state;
     return (
       <PageBox>
         <MessageList items={messagesData} />
-        <FieldBox my={theme.indents.i10}>
-          <FormField
-            placeholder="Автор"
-            value={author}
-            name="author"
-            onChange={this.handleChange}
-          />
-        </FieldBox>
-        <FieldBox>
-          <FormField
-            placeholder="Сообщение"
-            field="textArea"
-            name="text"
-            value={text}
-            onChange={this.handleChange}
-          />
-        </FieldBox>
-        <Button width="150px" mt={theme.indents.i4} onClick={this.handleMessageSend}>
-          Send
-        </Button>
+        <MessageField
+          value={text}
+          name="text"
+          placeholder="Сообщение"
+          onChange={this.handleChange}
+          onClick={this.handleMessageSend}
+          onKeyDown={this.keyDownHandler}
+          forwardRef={this.ref}
+        />
       </PageBox>
     );
   }
 }
 
 const PageBox = styled(Box).attrs(({ theme: { indents } }) => ({
-  p: indents.i10,
+  px: indents.i10,
+  display: 'flex',
+  flexDirection: 'column',
+  bg: '#0d1722',
+  pb: '60px',
+  pt: '60px',
+  minHeight: '100vh',
+  position: 'relative',
 }))`
   ${({ theme: { breakpoints, indents } }) => css`
     ${breakpoints.up('sm')} {
-      padding: ${indents.i20};
-    }
-  `}
-`;
-
-const FieldBox = styled(Box)`
-  ${({ theme }) => css`
-    width: 100%;
-    ${theme.breakpoints.up('sm')} {
-      width: 560px;
+      padding-left: ${indents.i20};
+      padding-right: ${indents.i20};
     }
   `}
 `;

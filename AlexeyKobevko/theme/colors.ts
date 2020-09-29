@@ -1,4 +1,9 @@
 const colors = {
+  darkHeader: '#212d3b',
+  lightHeader: '#3c5c78',
+  mainWhite: '#f7f7f7',
+  darkSidebar: '#222a30',
+  accentMain: '#55b6f0',
   // blue
   blueMain: '#0077EE',
   blueDark2: '#2AA8FF',
@@ -8,7 +13,7 @@ const colors = {
   blueLight3: '#F2F8FE',
   blueLight4: '#e4f0fc',
   // accent
-  accentMain: '#15A863',
+  // accentMain: '#15A863',
   accentDark: '#008B52',
   accentLight: '#8CD5B3',
   // red
@@ -20,7 +25,7 @@ const colors = {
   greyDark4: '#474747',
   greyDark2: '#323232',
   greyDark: '#666666',
-  greyMain: '#908F8F',
+  // greyMain: '#908F8F',
   greyLight2: '#CCCCCC',
   greyLight3: '#f8f8f8',
   greyLight: '#F2F2F2',
@@ -28,7 +33,7 @@ const colors = {
   greyMineShaft: '#212121',
   greyThunder: '#252123',
   greyCod: '#070707',
-  //Other
+  // Other
   otherWhite: '#ffffff',
 } as const;
 
