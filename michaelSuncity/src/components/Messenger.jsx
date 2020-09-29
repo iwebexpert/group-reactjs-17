@@ -7,11 +7,19 @@ import {MessageForm} from './MessageForm';
 export class Messenger extends Component
 {
     state = {
-        messages: ['Hi', 'Hello', 'Test message'],
+        messages: [
+            {author: 'author1', text:'Hi'},
+            {author: 'author2', text:'Hello'},
+            {author: 'author3', text:'Test'},
+        ],
     };
 
     handleMessageSend = (message) => {
-        this.setState({messages: this.state.messages.concat([message.text])})
+        this.setState({messages: this.state.messages.concat([{author: message.author, text: message.text}])})
+    };
+
+    componentDidUpdate(){
+
     };
 
     render()

@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-export const Message = ({text, author}) => {
-    return (
-        <div>
-            <p>{text} <b>{author}</b></p>
-        </div>
-    );
-};
+export class Message extends Component
+{
+    render(){
+        return (
+            <div>
+                <p>{this.props.text} <b>{this.props.author}</b></p>
+            </div>
+        );
+    };
+}

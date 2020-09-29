@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { Component } from 'react';
 
 import {Message} from './Message';
 
-export const MessageList = ({items}) => {
-    return items.map((item, index) => <Message text = {item} author = "WebDev" key = {index}/>);
+export class MessageList extends Component
+{
+    render()
+    {
+        return this.props.items.map((item, index) => <Message text = {item.text} author = {item.author} key = {index}/>);
+    }
 }
