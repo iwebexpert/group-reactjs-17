@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 
 import {MessageList} from './MessageList';
+import {MessageForm} from './MessageForm';
+
 
 export class Messenger extends Component
 {
@@ -8,8 +10,8 @@ export class Messenger extends Component
         messages: ['Hi', 'Hello', 'Test message'],
     };
 
-    handleToggle = () => {
-
+    handleMessageSend = (message) => {
+        this.setState({messages: this.state.messages.concat([message.text])})
     };
 
     render()
@@ -19,6 +21,7 @@ export class Messenger extends Component
         return (
             <>
                 <MessageList items={messages}/>
+                <MessageForm onSend={this.handleMessageSend}/>
             </>
         );
     }
