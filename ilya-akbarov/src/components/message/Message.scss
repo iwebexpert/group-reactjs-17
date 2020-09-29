@@ -1,0 +1,32 @@
+.message {
+  width: 100%;
+  display: flex;
+  font-size: 20px;
+  margin-bottom: 1rem;
+
+  &:last-of-type {
+    margin-bottom: 0;
+  }
+
+  & .body {
+    padding: 1rem;
+    border-radius: 5px;
+  }
+
+  &.bot {
+    justify-content: flex-start;
+    
+    & .body {
+      background-color: #ef5350;
+    }
+
+  }
+
+  &.user {
+    justify-content: flex-end;
+    
+    & .body {
+      background-color: #d1c4e9;
+    }
+  }
+}

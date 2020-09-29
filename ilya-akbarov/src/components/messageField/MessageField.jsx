@@ -1,6 +1,8 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import './messageField.scss'
+import {TextField, Grid, Button} from '@material-ui/core'
+import {Send} from '@material-ui/icons'
+import './MessageField.scss'
 
 class MessageField extends Component {
   state = {
@@ -16,45 +18,71 @@ class MessageField extends Component {
     const fieldName = event.target.name
     const text = event.target.value
 
-    this.setState({ [fieldName]: text})
+    this.setState({[fieldName]: text})
   }
 
-  onSubmitHandler = (event) => {
-    event.preventDefault()
-    this.props.onSubmit({...this.state})
-    this.setState({ text: '' })
+  onSubmitHandler = () => {
+    if (this.state.text.trim()) {
+      this.props.onSubmit({...this.state})
+      this.setState({text: ''})
+    }
+  }
+
+  onKeyPressHandler = (event) => {
+    if (event.key === 'Enter' && event.shiftKey) {
+      event.preventDefault()
+      this.onSubmitHandler()
+    }
   }
 
   render() {
-    const { text, author } = this.state
+    const {text, author} = this.state
 
     return (
-      <form
-        className="message-form"
-        onSubmit={this.onSubmitHandler}
+      <Grid
+        container
+        alignItems="center"
+        spacing={2}
+        className="message-field"
+        onKeyPress={this.onKeyPressHandler}
       >
-        <div>
-          <input
-            type="text"
-            placeholder="Введите имя"
-            className="name-input"
+        <Grid item sm={3}>
+          <TextField
+            variant="filled"
+            className="text-field"
+            label="Введите имя"
             name="author"
             value={author}
             onChange={this.onChangeHandler}
           />
-        </div>
-        <textarea
-          name="text"
-          placeholder="Введите сообщение"
-          name="text"
-          className="message-field"
-          value={text}
-          onChange={this.onChangeHandler}
-        />
-        <button type="submit">Отправить</button>
-      </form>
+        </Grid>
+
+        <Grid item sm={6}>
+          <TextField
+            variant="filled"
+            className="text-field"
+            label="Введите сообщение"
+            name="text"
+            value={text}
+            multiline
+            onChange={this.onChangeHandler}
+          />
+        </Grid>
+
+        <Grid item sm={3}>
+          <Button 
+            variant="contained" 
+            color="secondary" 
+            size="large"
+            onClick={this.onSubmitHandler}
+          >
+            Отправить  &nbsp;
+            <Send />
+          </Button>
+        </Grid>
+      </Grid>
     )
   }
 }
 
-export default MessageField
+export {MessageField}
