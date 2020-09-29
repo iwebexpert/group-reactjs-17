@@ -1,0 +1,23 @@
+.mainContent{
+    grid-gap: 0;
+}
+.chatList{
+    background: antiquewhite;
+}
+.messenger {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+}
+
+.messages-list {
+    display: flex;
+    flex-direction: column;
+    background-color: lightblue;
+    height: 50%;
+    padding: 20px;
+    width: calc(100% - 40px);
+    overflow-y: scroll;
+}
