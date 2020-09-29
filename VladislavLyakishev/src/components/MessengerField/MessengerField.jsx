@@ -16,6 +16,13 @@ export class MessengerField extends Component {
     this.setState({[fieldName]: event.target.value})
   }
 
+  inputPressKeyHandler = (event) => {
+    if (event.keyCode === 13 && event.ctrlKey){
+      event.preventDefault()
+      this.sendMessageHandler()
+    }
+  }
+
 
   sendMessageHandler = () => {
     const {author, message} = this.state
@@ -52,6 +59,7 @@ export class MessengerField extends Component {
               variant="outlined"
               name='message'
               onChange={this.inputFieldHandler}
+              onKeyDown={this.inputPressKeyHandler}
               value={message}
               autoFocus
               multiline
