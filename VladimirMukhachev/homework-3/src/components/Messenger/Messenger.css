@@ -1,0 +1,28 @@
+
+.chatlist {
+    background-color: lightskyblue;
+}
+
+.messenger {
+    height: 100%;
+    width: 70%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    background-color: lightsteelblue;
+}
+
+.messages-list {
+    display: flex;
+    flex-direction: column;
+    height: 50%;
+    padding: 20px;
+    width: calc(100% - 40px);
+    overflow-y: scroll;
+}
+
+.message-form{
+    margin: 20px;
+} 
