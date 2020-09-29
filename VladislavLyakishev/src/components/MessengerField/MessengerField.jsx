@@ -38,7 +38,7 @@ export class MessengerField extends Component {
     const {author, message} = this.state
     return (
       <>
-        <div>
+        <div className="messenger-form">
           <TextField
               label="Введите имя"
               variant="outlined"
@@ -47,6 +47,7 @@ export class MessengerField extends Component {
               value={author}
           />
           <TextField
+              className="messenger-form_message"
               label="Введите сообщение"
               variant="outlined"
               name='message'
