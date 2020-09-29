@@ -3,12 +3,20 @@ import Header from '../Header/Header'
 import Chat from '../Chat/Chat'
 import ChatList from '../ChatList/ChatList'
 import '../../layout/css/style.css'
+import {nanoid} from 'nanoid'
 
 class App extends Component {
     state  = {
         title: "React GB",
         chat: [],
-        currentChat: 0
+        currentChat: 0,
+        chats: [
+            {id: nanoid(6), name: "Сушист", avatar: `https://i.pravatar.cc/150?img=${nanoid(4)}`},
+            {id: nanoid(6), name: "Визажист", avatar: `https://i.pravatar.cc/150?img=${nanoid(4)}`},
+            {id: nanoid(6), name: "Стилист", avatar: `https://i.pravatar.cc/150?img=${nanoid(4)}`},
+            {id: nanoid(6), name: "Повар", avatar: `https://i.pravatar.cc/150?img=${nanoid(4)}`}
+        ]
+
     }
 
     handleAddToChat = (input) => {
@@ -23,7 +31,7 @@ class App extends Component {
                 <Header title={this.state.title}/>
                 <main>
                     <Chat chat={this.state.chat} addToChat={this.handleAddToChat} />
-                    <ChatList />
+                    <ChatList chats={this.state.chats}/>
                 </main>
             </Fragment>
         )
