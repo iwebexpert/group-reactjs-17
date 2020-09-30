@@ -1,0 +1,46 @@
+.messenger {
+    height: 100%;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.main-container-msg {
+    min-height: 50vh;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    width: 100%;
+}
+
+.content-wrapper {
+    display: flex;
+    flex: 1;
+    min-height: 0;
+}
+
+.overflow-container {
+    flex: 1;
+    overflow: auto;
+    height: 100%;
+}
+
+
+.overflow-content {
+    height: 290px;
+    color: black;
+    background-color: #b9ade6;
+}
+
+.messages-list {
+    display: flex;
+    flex-direction: column;
+    background-color: #b9ade6;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    flex: 1
+}
