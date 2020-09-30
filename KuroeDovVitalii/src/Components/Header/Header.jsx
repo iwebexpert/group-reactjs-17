@@ -13,7 +13,6 @@ export default class Header extends Component {
                         { Title }
                     </Typography>
                     <ButtonGroup className="button-group" variant="contained">
-                        <Button variant="outlined">Чаты</Button>
                         <NewChat user={this.props.user} users={this.props.users} handleNewChat={this.props.handleNewChat}/>
                     </ButtonGroup>
                 </Toolbar>
