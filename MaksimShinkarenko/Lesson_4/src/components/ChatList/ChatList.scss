@@ -1,0 +1,18 @@
+.chatList {
+  height: 50vh;
+  width: 100%;
+  background-color: #40ad40;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  border-radius: 15px;
+  
+  & .chatListItem {
+    background-color: #7bc60b;
+    width: 90%;
+    margin: 10px auto;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+}
