@@ -26,11 +26,12 @@ export class MessageForm extends Component {
             return
         }
         this.props.onSend(this.state);
-        this.setState({text: '', author: ''})
+        this.setState({text: '', author: author})
     }
 
     onKeyEnter = (event) => {
         if (event.keyCode === 13 && event.ctrlKey) {
+            event.preventDefault();
             this.submitForm();
         }
     };

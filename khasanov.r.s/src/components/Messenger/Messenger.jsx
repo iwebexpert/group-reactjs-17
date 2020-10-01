@@ -30,9 +30,12 @@ export class Messenger extends Component {
         const {author} = this.state.messages[this.state.messages.length - 1];
         if (author !== 'Бот') {
             setTimeout(() => {
-                this.setState({
-                    messages: this.state.messages.concat([{text: `Привет, ${author}! Это Бот!`, author: 'Бот'}])
-                });
+                const {author} = this.state.messages[this.state.messages.length - 1];
+                if (author !== 'Бот') {
+                    this.setState({
+                        messages: this.state.messages.concat([{text: `Привет, ${author}! Это Бот!`, author: 'Бот'}])
+                    });
+                }
             }, 1000);
         }
     }
@@ -48,10 +51,10 @@ export class Messenger extends Component {
                     <Grid item xs={2}>
                         <List component="nav" aria-label="secondary mailbox folders">
                             <ListItem button>
-                                <ListItemText primary="Trash" />
+                                <ListItemText primary="Trash"/>
                             </ListItem>
                             <ListItem button>
-                                <ListItemText primary="Spam" />
+                                <ListItemText primary="Spam"/>
                             </ListItem>
                         </List>
                     </Grid>
