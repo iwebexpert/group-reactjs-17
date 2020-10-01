@@ -4,38 +4,44 @@ import styled, { css } from 'styled-components';
 import { Data } from '@types';
 import { MessageList } from '@components/MessageList';
 import { MessageField } from '@components/MessageField';
-import { Box } from '@components/basic';
+import { Box, Text } from '@components/basic';
+import { chats } from './helpers/chatsData';
 
-interface AppState extends Data.Message {
-  messagesData: Data.Message[];
+import { RouteComponentProps } from 'react-router-dom';
+
+interface AppState {
+  chats: Data.Chat[];
+  text: string;
 }
 
-export default class Messenger extends Component<unknown, AppState> {
+export default class Messenger extends Component<RouteComponentProps<any>, AppState> {
   private bot = 'Bot';
   private me = '@Djedaj';
   private timeout: number | null = null;
   private ref = createRef<HTMLTextAreaElement>();
 
   public state = {
-    messagesData: [
-      { text: 'Hi', author: 'WebDev' },
-      { text: 'Hello', author: 'WebDev' },
-      { text: 'Test message', author: 'WebDev' },
-    ],
+    chats,
     text: '',
-    author: '',
   };
 
   private handleMessageSend = (): void => {
-    const { text } = this.state;
+    const { text, chats } = this.state;
+    const { match } = this.props;
 
     if (!text) return;
+    const chat: Data.Chat = chats[match.params.id];
+    const id = chat.messages[chat.messages.length - 1].id! + 1;
+    const message: Data.Message = { text, author: this.me, id };
+    chat.messages = [...this.messages, message];
 
     this.setState(prevState => ({
       ...prevState,
-      messagesData: [...prevState.messagesData, { text, author: this.me }],
+      chats: {
+        ...chats,
+        [match.params.id]: chat,
+      },
       text: '',
-      author: '',
     }));
   };
 
@@ -60,41 +66,78 @@ export default class Messenger extends Component<unknown, AppState> {
     }
   }
 
-  public componentDidUpdate(prevProps: Readonly<unknown>, prevState: Readonly<AppState>): void {
-    const { messagesData } = this.state;
-    const currentAuthor: string = messagesData[messagesData.length - 1].author;
-    if (messagesData.length !== prevState.messagesData.length && currentAuthor !== this.bot) {
-      const message: Data.Message = { text: `Hi, ${currentAuthor}`, author: this.bot };
+  public componentDidUpdate(
+    prevProps: Readonly<RouteComponentProps<any>>,
+    prevState: Readonly<AppState>,
+  ): void {
+    const { chats } = this.state;
+    console.log(chats);
+    const { match } = this.props;
+    const chat = chats[match.params.id];
+    const currentAuthor: string = chat.messages[chat.messages.length - 1].author;
+    const prevMessages = prevState.chats[match.params.id].messages;
+    if (chat.messages.length === prevMessages.length && currentAuthor !== this.bot) {
+      const id = prevMessages[prevMessages.length - 1].id! + 1;
+      const message: Data.Message = { text: `Hi, ${currentAuthor}`, author: this.bot, id };
+      chat.messages = [...this.messages, message];
       this.timeout = setTimeout(
         () =>
-          this.setState({
-            messagesData: [...messagesData, message],
-          }),
+          this.setState(prevState => ({
+            ...prevState,
+            chats: {
+              ...chats,
+              [match.params.id]: chat,
+            },
+          })),
         1000,
       );
     }
+  }
+
+  get messages(): Data.Message[] {
+    const { chats } = this.state;
+    const { match } = this.props;
+
+    let messages = null;
+    // console.log(chats);
+    if (match && chats[match.params.id]) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      messages = chats[match.params.id]?.messages;
+    }
+    return messages as Data.Message[];
   }
 
   public componentWillUnmount(): void {
     if (typeof this.timeout === 'number') {
       clearTimeout(this.timeout);
     }
+    localStorage.setItem('chats', JSON.stringify(this.state.chats));
   }
 
   public render(): ReactNode {
-    const { messagesData, text } = this.state;
+    const { text } = this.state;
+    const messagesData = this.messages;
     return (
       <PageBox>
-        <MessageList items={messagesData} />
-        <MessageField
-          value={text}
-          name="text"
-          placeholder="Сообщение"
-          onChange={this.handleChange}
-          onClick={this.handleMessageSend}
-          onKeyDown={this.keyDownHandler}
-          forwardRef={this.ref}
-        />
+        {messagesData ? (
+          <MessageList items={messagesData} />
+        ) : (
+          <Box>
+            <Text color="white">Выберите чат слева</Text>
+          </Box>
+        )}
+        {messagesData && (
+          <MessageField
+            value={text}
+            name="text"
+            placeholder="Сообщение"
+            onChange={this.handleChange}
+            onClick={this.handleMessageSend}
+            onKeyDown={this.keyDownHandler}
+            forwardRef={this.ref}
+          />
+        )}
       </PageBox>
     );
   }
