@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import ChatIcon from '@material-ui/icons/Chat';
 import HomeIcon from '@material-ui/icons/Home';
 import ErrorIcon from '@material-ui/icons/Error';
+import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
@@ -38,6 +39,14 @@ export class ChatList extends Component {
                 <ListItemIcon><HomeIcon /></ListItemIcon>
                 <Link to="/">
                     <ListItemText primary="Main" />
+                </Link>
+            </ListItem>
+            </div>
+            <div>
+            <ListItem button className="button-menu">
+                <ListItemIcon><AccountBoxIcon /></ListItemIcon>
+                <Link to="/profile">
+                    <ListItemText primary="Profile" />
                 </Link>
             </ListItem>
             </div>

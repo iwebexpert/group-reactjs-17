@@ -1,6 +1,7 @@
 import {Home} from 'pages/Home';
 import {About} from 'pages/About';
 import {Error} from 'pages/Error';
+import {Profile} from 'components/Profile';
 import {Messenger} from 'components/Messenger';
 
 
@@ -19,6 +20,11 @@ export const routes = [
         path: '/chats/:id([0-9]+)',
         exact: true,
         component: Messenger,
+    },
+    {
+        path: '/profile',
+        exact: true,
+        component: Profile,
     },
     {
         path: '*',
