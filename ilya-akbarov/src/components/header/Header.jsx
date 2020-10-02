@@ -16,6 +16,7 @@ class Header extends Component {
       { name: 'Home', path: '/'},
       { name: 'Chats', path: '/chats'},
       { name: 'About', path: '/about'},
+      { name: 'Profile', path: '/profile'},
     ]
     return (
       <Box

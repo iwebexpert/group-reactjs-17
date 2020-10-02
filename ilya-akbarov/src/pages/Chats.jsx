@@ -13,9 +13,13 @@ class ChatsPage extends Component {
   }
   
   componentDidUpdate() {
-    const lastMessage = this.currentChat.messages.slice(-1)[0]
-    if ((lastMessage && lastMessage.author !== 'Bot')) {
-      this.answer()
+    const chat = this.currentChat
+    
+    if (chat) {
+      const lastMessage = chat.messages.slice(-1)[0]
+      if ((lastMessage && lastMessage.author !== 'Bot')) {
+        this.answer()
+      }
     }
   }
   

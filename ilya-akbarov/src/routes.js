@@ -1,6 +1,7 @@
 import Home from '@/pages/Home'
 import About from '@/pages/About'
 import Chats from '@/pages/Chats'
+import Profile from '@/pages/Profile'
 
 export const routes = [
   {
@@ -17,6 +18,10 @@ export const routes = [
     path: '/chats/:id?',
     exact: true,
     component: Chats
+  },
+  {
+    path: '/profile',
+    exact: true,
+    component: Profile
   }
-  
 ]
