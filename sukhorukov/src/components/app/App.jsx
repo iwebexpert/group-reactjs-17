@@ -1,99 +1,114 @@
 import React from 'react'
+import {Link} from 'react-router-dom'
 import {nanoid} from 'nanoid'
-import {Grid, Paper, Box} from '@material-ui/core'
-import List from '@material-ui/core/List'
-import ListItem, { ListItemProps } from '@material-ui/core/ListItem'
-import ListItemIcon from '@material-ui/core/ListItemIcon'
-import ListItemText from '@material-ui/core/ListItemText'
-import ForumOutlinedIcon from '@material-ui/icons/ForumOutlined'
+import {Typography, Grid, Paper, Box, IconButton} from '@material-ui/core'
+import Alert from '@material-ui/lab/Alert'
+import PersonIcon from '@material-ui/icons/Person'
+import chats from '../chats/chatsSampleData.js'
+import {Chats} from '../chats'
 import {Messages} from '../messages'
 import {Sender} from '../sender'
 import './app.sass'
 
 export class App extends React.Component {
    state = {
-      messages: [
-         {
-               id: nanoid(),
-               author: 'robot',
-               text: 'Можно ввести новое имя сообщателя и нажать на старое для применения изменений'
-         }, {
-               id: nanoid(),
-               author: 'robot',
-               text: 'Можно ввести сообщение и отправить его кнопкой, которая появится справа'
-         }
-      ],
+      chats,
       robotCanAnswer: true
    }
 
    componentDidUpdate() {
-      const {author} = this.state.messages[this.state.messages.length - 1]
+      const {chats} = this.state
+      const {match} = this.props
+
+      const author = chats.list[match.params.id].messages[chats.list[match.params.id].messages.length - 1].author
       const {robotCanAnswer} = this.state
 
       if (author !== 'robot' && robotCanAnswer) {
          setTimeout(() => {
-               this.addNewMessage({author: 'robot', text: `Спасибо тебе, ${author}, за информацию`})
+            if (author !== 'robot') {
+               this.addMessage({author: 'robot', text: `Спасибо тебе, ${author}, за информацию`})
                this.setState({robotCanAnswer: true})
+            }
          }, 3000)
 
          this.setState({robotCanAnswer: false})
       }
+
+      const blockToScroll = document.getElementById("scroll")
+      blockToScroll.scrollTop = blockToScroll.scrollHeight
    }
 
-   addNewMessage = (message) => {
-      const {author, text} = message
-      this.setState({
+   addChat = (title) => {
+      const {chats} = this.state
+      const {match} = this.props
+      const newId = chats.list.length
+      const newChat = {
+         id: newId,
+         title: title,
          messages: [
-               ...this.state.messages, {
-                  id: nanoid(),
-                  author: author,
-                  text: text
-               }
+            {
+               id: 0,
+               author: "robot",
+               text: `${chats.currentAuthor}, Вы создали новый чат с названием "${title}"`
+           }
          ]
-      })
+     }
+      chats.list.push(newChat)
+      this.setState({chats})
+   }
+   
+   addMessage = (message) => {
+      const {chats} = this.state
+      const {match} = this.props
+      message.id = nanoid()
+      chats.list[match.params.id].messages.push(message)
+      this.setState({chats})
    }
 
    render() {
-      const {messages} = this.state
+      const {chats} = this.state
+      const {match} = this.props
 
       return (
          <div className="layout">  
-            <div className="header">
-               <span>geekMessenger</span>
-               <span>{messages[messages.length - 1].author}</span>
-            </div>
+
+            {/* заголовок */}
+            <Paper className="header"  elevation={3}>
+               <Box className="header-app-name">geekMessenger</Box>
+               <Box>
+                  <Typography variant="body1">
+                     <Link to={`/profile/${chats.currentAuthor}`}>
+                        <IconButton edge="start" color="inherit" aria-label="profile">
+                           <PersonIcon color="action" />   
+                        </IconButton>
+                     </Link>
+                  </Typography>
+               </Box>
+            </Paper>
+         
             <Grid container alignItems="stretch" spacing={2}>
+               
+               {/* чаты */}
                <Grid item xs={3}>
-               <Paper  className="charts" elevation={3}>
-                  <List component="nav" aria-label="main mailbox folders">
-                     <ListItem button>
-                       <ListItemIcon>
-                         <ForumOutlinedIcon />
-                       </ListItemIcon>
-                       <ListItemText primary="Чат1" />
-                     </ListItem>
-                     <ListItem button>
-                       <ListItemIcon>
-                         <ForumOutlinedIcon />
-                       </ListItemIcon>
-                       <ListItemText primary="Чат2" />
-                     </ListItem>
-                     <ListItem button>
-                       <ListItemIcon>
-                         <ForumOutlinedIcon />
-                       </ListItemIcon>
-                       <ListItemText primary="Чат3" />
-                     </ListItem>
-                  </List>
-               </Paper>
+                  <Chats 
+                     chats={chats}
+                     currentChatId={match.params.id}
+                     addChatDisable={match.path === "/" ? true : false}
+                     accessToAppState={(title) => this.addChat(title)}/>
                </Grid>
+
+               {/* сообщения */}
                <Grid item xs={9}>
-                  <Paper className="messeges"elevation={3}>
-                     <Messages messages={messages} />
+                  <Paper id="scroll" className="messages" elevation={3}>
+                     {match.params.id 
+                     ? <Messages messages={chats.list[match.params.id].messages} /> 
+                     : <Alert variant="filled" severity="info">Выберите чат слева</Alert>} 
                   </Paper>
-                  <Box component="div" className="sender">
-                     <Sender accessToAppState={this.addNewMessage} />
-                  </Box>
+                  
+                  {/* посылатель */}
+                  <Paper className="sender" elevation={3}>
+                     <Sender accessToAppState={this.addMessage} />
+                  </Paper>
                </Grid>
             </Grid> 
          </div>

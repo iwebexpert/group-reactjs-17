@@ -1,11 +1,12 @@
 import React from 'react'
 import Type from 'prop-types'
-import {Button, TextField, Box, Fab} from '@material-ui/core'
-import MailOutlineRoundedIcon from '@material-ui/icons/MailOutlineRounded'
+import {Button, TextField, Box, Fab, Typography, Tooltip} from '@material-ui/core'
+import CheckIcon from '@material-ui/icons/Check'
+import './sender.sass'
 
 export class Sender extends React.Component {
     state = {
-      author: 'Сообщатель',
+      author: 'Вася',
       text: ''
     }
 
@@ -25,47 +26,44 @@ export class Sender extends React.Component {
       }
     }
 
-    authorChangeHandler = () => {
-        const {text} = this.state
-        text && this.setState({author: text, text: ''}) 
-    }
+   //  authorChangeHandler = () => {
+   //      const {text} = this.state
+   //      text && this.setState({author: text, text: ''}) 
+   //  }
 
     render() {   
       const {text, author} = this.state
            
       return (
          <>
-            <Box mr={3}>
-               <Button
-                  onClick={this.authorChangeHandler}
-                  color="primary"
-                  title="Это нажимается после ввода имени сообщателя">
-                     {author}:
-               </Button>
-            </Box>
-
-            <Box mr={3}>
-               <TextField
-                  onChange={this.inputEventHandler}
-                  onKeyDown={this.messageSendHandler}
-                  id="text"
-                  name="text"
-                  value={text}
-                  title="Имя сообщателя или текст сообщения"
-                  label="сообщатель или сообщение"
-                  multiline
-                  autoFocus />
-            </Box> 
+            <Tooltip title="текст сообщения" aria-label="Teкст">
+               <Box className="text-input" ml={2} mr={2}>
+                  <TextField
+                     onChange={this.inputEventHandler}
+                     onKeyDown={this.messageSendHandler}
+                     id="text"
+                     name="text"
+                     value={text}
+                     label={author}
+                     fullWidth
+                     rows={1}
+                     rowsMax={2}
+                     size="small"
+                     variant="outlined"
+                     multiline
+                     autoFocus />
+               </Box> 
+            </Tooltip>
             
             {text &&
-            <Box>
+            <Box mr={2}>
                <Fab 
                   onClick={this.messageSendHandler}
                   variant="round"
                   color="primary"
                   size="small"
                   title="Отправить сообщения">
-                     <MailOutlineRoundedIcon />
+                     <CheckIcon />
                </Fab>
             </Box>}
          </>
