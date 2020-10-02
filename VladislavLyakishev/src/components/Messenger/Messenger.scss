@@ -17,5 +17,15 @@
         overflow-y: scroll;
         width: 100%;
     }
+
+    &-empty {
+        font-family: 'Roboto Light', sans-serif;
+        margin: 25px auto;
+        font-size: 25px;
+
+        &:before {
+            content: '<  ';
+        }
+    }
 }
 
