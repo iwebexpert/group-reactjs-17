@@ -3,6 +3,7 @@ import ChatIcon from '@material-ui/icons/Chat';
 import HomeIcon from '@material-ui/icons/Home';
 import ErrorIcon from '@material-ui/icons/Error';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
+import AddCircleIcon from '@material-ui/icons/AddCircle';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
@@ -71,6 +72,12 @@ export class ChatList extends Component {
         <List>
             {chatsList}
         </List>
+        <ListItem button className="button-menu">
+            <ListItemIcon><AddCircleIcon /></ListItemIcon>
+            <Link to="/addchat">
+                <ListItemText primary="Add new chat" />
+            </Link>
+        </ListItem>
       </>
        )
    }
