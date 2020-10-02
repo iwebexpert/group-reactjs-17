@@ -21,21 +21,25 @@ export class Messenger extends Component {
   };
 
   componentDidUpdate() {
-    // const botAnswer = {
-    //   message: this.state.messageData[this.state.messageData.length - 1].author + ' Спасибо за ваше сообщение, но в чате никого нет, кроме меня...',
-    //   author: 'BOT',
-    //   id: nanoid()
-    // };
-    // const {author, id} = this.state.messageData[this.state.messageData.length - 1]
-    // if (author !== 'BOT') {
-    //   const timerBotAnswer = setTimeout( () => {
-    //     if (id === this.state.messageData[this.state.messageData.length - 1].id) {
-    //       this.setState({
-    //         messageData: this.state.messageData.concat(botAnswer)
-    //       })
-    //     }
-    //   }, 2000)
-    // }
+    const botAnswer = {
+      message: this.messages[this.messages.length - 1].author + ' Спасибо за ваше сообщение, но в чате никого нет, кроме меня...',
+      author: 'BOT',
+      id: nanoid()
+    };
+    const {author, id} = this.messages[this.messages.length - 1]
+    if (this.messages) {
+      if (author !== 'BOT') {
+        setTimeout( () => {
+          if (id === this.messages[this.messages.length - 1].id) {
+            this.handleMessageSend(botAnswer)
+          }
+        }, 2000)
+      }
+    }
+  }
+
+  componentWillUnmount() {
+
   }
 
   get messages() {
@@ -62,10 +66,9 @@ export class Messenger extends Component {
     this.setState({
       chats: {
         ...chats,
-        [chat]: chat
+        [id]: chat
       }
     })
-    console.log(this.state.chats)
   };
 
 
