@@ -1,16 +1,19 @@
 import React, { FC, useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
+import { useHistory } from 'react-router-dom';
 
 import { Burger } from './components/Burger';
 import { Data } from '@types';
 import { ModeButton } from '@components/ModeButton';
 import { Box, Text } from '@components/basic';
 import { useTheme } from '@theme';
+import { Avatar } from '@components/Avatar';
 
 export const Header: FC = () => {
   const [isChecked, setChecked] = useState<boolean>(false);
   const [mode, setMode] = useState<string>('night');
-  const { colors } = useTheme();
+  const { colors, indents } = useTheme();
+  const history = useHistory();
 
   const modeHandler = () => {
     const mode = localStorage.getItem('mode');
@@ -30,6 +33,8 @@ export const Header: FC = () => {
     }
   }, []);
 
+  const profileHandler = () => history.push('/profile');
+
   return (
     <HeaderBox mode={mode}>
       <Content>
@@ -41,8 +46,19 @@ export const Header: FC = () => {
             My Awesome Chat
           </Text>
         </Box>
-        <Box width="auto" onClick={modeHandler}>
-          <ModeButton />
+        <Box width="auto" display="flex">
+          <Box display="flex" width="auto" onClick={modeHandler}>
+            <ModeButton />
+          </Box>
+          <Box
+            cursor="pointer"
+            ml={indents.i12}
+            display="flex"
+            width="auto"
+            onClick={profileHandler}
+          >
+            <Avatar size={30} alt="D" />
+          </Box>
         </Box>
       </Content>
     </HeaderBox>

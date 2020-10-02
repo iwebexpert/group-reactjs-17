@@ -11,8 +11,14 @@ export class MessageList extends PureComponent<MessageListProps, unknown> {
     const { items } = this.props;
     return (
       <>
-        {items.map((message, idx) => (
-          <Message key={`message-${idx}` as string} text={message.text} author={message.author} />
+        {items.map(message => (
+          <Message
+            id={message.id}
+            key={message.id}
+            text={message.text}
+            author={message.author}
+            {...this.props}
+          />
         ))}
       </>
     );
