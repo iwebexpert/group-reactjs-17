@@ -1,16 +1,20 @@
 import ReactDom from 'react-dom'
 import React from 'react'
-import {Messenger} from 'components/Messenger'
 import {Grid, List, ListItem, ListItemIcon, ListItemText, Container, AppBar, Toolbar, IconButton, Button, Typography} from '@material-ui/core'
 import InboxIcon from '@material-ui/icons/Inbox'
 import DraftsIcon from '@material-ui/icons/Drafts'
 import MenuIcon from '@material-ui/icons/Menu'
+import {BrowserRouter, Switch, Route, Link} from 'react-router-dom'
+import {ChatsNav} from './components/ChatsNav'
 
+import {routes} from './routes'
 
 import './index.scss'
 
+
 ReactDom.render(
         <Container>
+            <BrowserRouter>
             <Grid container spacing={2}>
                 <Grid item xs={12}>
                     <AppBar position="static">
@@ -19,7 +23,7 @@ ReactDom.render(
                                 <MenuIcon />
                             </IconButton>
                             <Typography variant="h6" className="menu-title">
-                                Chat
+                                <Link to='/'>Chat</Link>
                             </Typography>
                             <Button color="inherit">Login</Button>
                         </Toolbar>
@@ -27,26 +31,18 @@ ReactDom.render(
                 </Grid>
                 <Grid item container xs={12} spacing={2}>
                     <Grid item xs={3} className="chat-list">
-                        <List component="nav" aria-label="main mailbox folders">
-                            <ListItem button>
-                                <ListItemIcon>
-                                    <InboxIcon />
-                                </ListItemIcon>
-                                <ListItemText primary="Inbox" />
-                            </ListItem>
-                            <ListItem button>
-                                <ListItemIcon>
-                                    <DraftsIcon />
-                                </ListItemIcon>
-                                <ListItemText primary="Drafts" />
-                            </ListItem>
-                        </List>
+                        <ChatsNav />
                     </Grid>
                     <Grid item xs={9}>
-                        <Messenger />
+                            <Switch>
+                                {routes.map( (route, index) => (
+                                    <Route key={index} {...route} />
+                                ))}
+                            </Switch>
                     </Grid>
                 </Grid>
             </Grid>
+        </BrowserRouter>
         </Container>
     ,
     document.getElementById('root')

@@ -13,6 +13,7 @@ module.exports = {
     extensions: ['.js', '.jsx'],
     alias: {
       components: path.join(__dirname, 'src', 'components'),
+      pages: path.join(__dirname, 'src', 'pages'),
     }
   },
 

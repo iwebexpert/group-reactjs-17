@@ -3,11 +3,14 @@ import {MessageList} from "../MessageList";
 import {MessengerField} from "../MessengerField";
 import {nanoid} from "nanoid";
 
+import {chats} from '../../helpers/chatsData'
+
 import './Messenger.scss'
 
 export class Messenger extends Component {
 
   state = {
+    chats,
     messageData: [
       {
         id: nanoid(),
