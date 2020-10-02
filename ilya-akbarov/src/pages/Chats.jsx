@@ -10,10 +10,6 @@ import { Typography } from '@material-ui/core'
 class ChatsPage extends Component {
   state = {
     chats,
-    // messages: [
-    //   {text: 'Hello!', author: 'Bot'},
-    //   {text: 'How are you?', author: 'Bot'},
-    // ],
   }
   
   componentDidUpdate() {
@@ -35,8 +31,6 @@ class ChatsPage extends Component {
   }
 
   answer = debounce(() => {
-    // const message = {text: 'test message', author: 'Bot'}
-    // this.setState({messages: [...this.state.messages, message]})
     this.onSubmit({text: 'test message', author: 'Bot'})
   }, 1000).bind(this)
 
@@ -50,7 +44,7 @@ class ChatsPage extends Component {
   }
 
   render() {
-    const {messages, chats} = this.state
+    const {chats} = this.state
     const currentChat = this.currentChat
     
     return (
