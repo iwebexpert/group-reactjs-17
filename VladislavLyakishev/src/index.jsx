@@ -22,9 +22,15 @@ ReactDom.render(
                             <IconButton edge="start" color="inherit" aria-label="menu">
                                 <MenuIcon />
                             </IconButton>
-                            <Typography variant="h6" className="menu-title">
-                                <Link to='/'>Chat</Link>
-                            </Typography>
+                            <div className="menu-title">
+                                <Typography variant="h6" className="menu-title_item">
+                                    <Link to='/'>Chat</Link>
+                                </Typography>
+                                <Typography variant="h6" className="menu-title_item">
+                                    <Link to='/profile'>Profile</Link>
+                                </Typography>
+                            </div>
+
                             <Button color="inherit">Login</Button>
                         </Toolbar>
                     </AppBar>
