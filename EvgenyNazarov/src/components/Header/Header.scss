@@ -6,9 +6,29 @@
     border: 0;
 
 
-    &-menu{
-      margin: 0 10px;
-    }
+      & .link {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+
+        & li {
+          width: auto;
+
+          & a {
+            text-decoration: none;
+            color: #b52404;
+            & span {
+              font-size: 18px;
+            }
+            &:hover {
+              text-decoration: underline;
+            }
+          }
+        }
+      }
+
+
+
 
     &-nameProject{
       order: 999;
