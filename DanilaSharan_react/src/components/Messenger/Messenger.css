@@ -9,7 +9,7 @@
 }
 
 .main-container-msg {
-    min-height: 50vh;
+    min-height: 90vh;
     display: flex;
     flex-direction: column;
     padding: 0;
@@ -28,9 +28,8 @@
     height: 100%;
 }
 
-
 .overflow-content {
-    height: 290px;
+    height: 70vh;
     color: black;
     background-color: #b9ade6;
 }
@@ -43,4 +42,25 @@
     margin: 0;
     width: 100%;
     flex: 1
+}
+
+Link {
+    text-decoration: none;
+    text-underline-style: none;
+    color: antiquewhite;
+}
+
+.list-item-text {
+    text-decoration: none;
+    color: antiquewhite;
+    font-size: 18px;
+}
+
+.choose-your-destiny {
+    padding-top: 40px;
+    padding-left: 40px;
+    font-size: 35px;
+    margin: 0 auto;
+    text-align: center;
+    line-height: 30px   ;
 }

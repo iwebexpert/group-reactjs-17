@@ -1,7 +1,8 @@
 .main-container {
     background-color: mediumpurple;
     width: 60%;
-    min-height: 50vh;
-    margin: 0 auto;
+    min-height: 100vh;
+    margin: -20px auto;
 }
+
 
