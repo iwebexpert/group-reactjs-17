@@ -1,36 +1,33 @@
 import React, {Component} from 'react';
-import {ListItemIcon,ListItemText,List,ListItem, Divider} from '@material-ui/core';
+
+import {Link} from 'react-router-dom';
+import {List, ListItem, ListItemText, ListItemIcon} from '@material-ui/core';
 import DraftsIcon from '@material-ui/icons/Drafts';
 
-function ListItemLink(props) {
-    return <ListItem button component="a" {...props} />;
-}
-export class ChatList extends Component{
+import {chats} from '../../helpers/chatsData';
 
-    render(){
+export class ChatList extends Component
+{
+    state = {
+        chats,
+    };
+
+    render()
+    {
+        console.log(this.state);
+        const {chats} = this.state;
+
+        const chatsList = chats.map((item) => (
+            <ListItem key={item.id}>
+                <ListItemIcon>
+                    <DraftsIcon />
+                </ListItemIcon>
+                <Link to={`/chats/${item.id}`}><ListItemText primary={item.title} /></Link>
+            </ListItem>
+        ));
         return(
             <div>
-                <List component="nav" aria-label="main mailbox folders">
-                    <ListItem button>
-                        <ListItemIcon>
-                            <DraftsIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Чат №1" />
-                    </ListItem>
-                    <ListItem button>
-                        <ListItemIcon>
-                            <DraftsIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Чат №2" />
-                    </ListItem>
-                    <ListItem button>
-                        <ListItemIcon>
-                            <DraftsIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Чат №3" />
-                    </ListItem>
-                </List>
-                <Divider />
+                {chatsList}
             </div>
         );
     }

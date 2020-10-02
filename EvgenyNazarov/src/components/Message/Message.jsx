@@ -5,6 +5,7 @@ import {Paper, Grid, Avatar, Typography} from '@material-ui/core';
 import './Message.scss';
 
 export const Message = ({text, author}) => {
+
     const classes = classNames('message', {
         'message-bot': author === 'Bot',
         'message-sender': author !== 'Bot',
@@ -15,7 +16,7 @@ export const Message = ({text, author}) => {
         <Paper className="message-paper">
             <Grid container wrap="nowrap" spacing={2}>
                 <Grid item>
-                    <Avatar>W</Avatar>
+                    <Avatar>{author.slice(0,1).toUpperCase()}</Avatar>
                 </Grid>
                 <Grid item xs zeroMinWidth>
                     <Typography noWrap>{text}</Typography>
