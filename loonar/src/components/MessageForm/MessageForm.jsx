@@ -51,7 +51,8 @@ export class MessageForm extends Component
 
         return (
             <Grid container spacing={3}>
-                <Grid container item spacing={1}><TextField 
+                <Grid container item spacing={1}>
+                    <TextField 
                 variant="outlined" 
                 name="author" 
                 label="Автор" 

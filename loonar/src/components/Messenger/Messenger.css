@@ -1,4 +1,4 @@
-/* .messenger {
+.messenger {
     height: 100%;
     width: 70%;
     margin: 0 auto;
@@ -6,7 +6,7 @@
     align-items: center;
     flex-direction: column;
     justify-content: center;
-} */
+} 
 
 .messages-list {
     display: flex;
