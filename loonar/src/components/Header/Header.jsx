@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {AppBar, Toolbar, Typography} from '@material-ui/core';
+import {AppBar, Toolbar, Typography, Link, Button} from '@material-ui/core';
 
 export class Header extends Component{
     render(){
@@ -7,7 +7,7 @@ export class Header extends Component{
           <AppBar position="static">
           <Toolbar>
             <Typography variant="h5">
-              GeekChat
+              <Link variant="button" color="inherit" href="/profile">Profile</Link>
             </Typography>
           </Toolbar>
         </AppBar>

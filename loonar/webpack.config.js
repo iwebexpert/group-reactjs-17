@@ -12,6 +12,7 @@ module.exports = {
       extensions: ['.js', '.jsx'],
       alias: {
         components: path.join(__dirname, 'src', 'components'),
+        pages: path.join(__dirname, 'src', 'pages'),
       },
     },
 
@@ -49,4 +50,8 @@ module.exports = {
           filename: 'index.html',
       }),
     ],
+    devtool: 'eval-source-map',
+    devServer: {
+      historyApiFallback: true,
+    },
 }
