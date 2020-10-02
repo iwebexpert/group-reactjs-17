@@ -1,28 +1,49 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { Chip, Avatar } from '@material-ui/core'
 import DoneIcon from '@material-ui/icons/Done'
-import { nanoid } from 'nanoid'
 import classNames from 'classnames'
-class Message extends Component {
-    render(){
+
+export default class Message extends Component {
+
+    state = {
+        isSelectMessage: false,
+    }
+
+    handleDelete = () => {
+        this.setState({isSelectMessage: !this.state.isSelectMessage})
+
+        this.props.handleAlert(
+            `выбрано сообщение ${this.props.message.name} : ${this.props.message.text}`, 
+            'message alert',
+            { id: this.props.message.id, isSelect: false, status: !this.state.isSelectMessage }
+        )
+    }
+    
+    static propTypes = {
+        message: PropTypes.shape({
+            text: PropTypes.string.isRequired,
+            name: PropTypes.string.isRequired
+        })
+    }
+ 
+    render() {
         const classes = classNames('messages', {
-            'me' : this.props.message.author === 'me',
-            'message' : this.props.message.author !== 'me'
+            'me' : this.props.message.name === 'me',
+            'message' : this.props.message.name !== 'me'
         }) 
         return(
-            <div className="message-block">
+            <div className="message-block"> 
                 <Chip 
                     deleteIcon={<DoneIcon />} 
-                    color="primary" 
-                    className={classes} 
+                    color={this.props.message.name === 'me' ? 'primary' : 'secondary'}
+                    className={classes}
                     clicable="true"
+                    onDelete={this.handleDelete} 
                     label={this.props.message.text}
-                    avatar={<Avatar>{this.props.message.author}</Avatar>} />
+                    avatar={<Avatar>{this.props.message.name}</Avatar>} />
             </div>
-            
         )
     }
 }
 
-
-export default Message

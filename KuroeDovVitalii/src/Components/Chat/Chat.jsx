@@ -3,48 +3,21 @@ import Message from '../Message/Message'
 import { Paper, Button, IconButton, TextField, Typography } from '@material-ui/core' 
 import SendIcon  from '@material-ui/icons/SendRounded'
 import { nanoid } from 'nanoid'
+class Chat extends Component {
 
-class Chat extends Component{
     state = {
-        input : '',
+        input: '',
         messages: []
     }
 
-    timeoutId = 0 
-
     handleSendMessage = (value) => {
-        this.props.addToChat({  text: value, author: 'me', id: nanoid(4) })
+        const { id } = this.props.match.params
+        this.setState(state => ({
+            ...state,
+            messages: [...this.state.messages, {name: 'me', text: value} ]
+        }))
         this.setState({input: ''})
-    }
-
-    componentDidUpdate(prevProps, prevState) {
-        const currentMessage = this.props.chat
-        const lastMessage = currentMessage[currentMessage.length -1]
-
-        if(prevProps.chat.length < this.props.chat.length && lastMessage.author === 'me'){
-            this.timeoutId = setTimeout(() => {
-                this.setState(state => ({
-                    ...state,
-                    messages: [...this.state.messages, {author: 'Бот', text: `Бот компот`} ]
-                }),
-                    this.props.addToChat({author: 'Бот', text: "боткомпот", id: nanoid(4)})
-
-                )
-            }, 1000)      
-        }
-    }
-
-
-    handleChange = (event) => {
-        this.setState({input: event.target.value})
-    }
-    
-    handleKeyUp = (event) => {
-        if (this.state.input !== '') {
-            if (event.keyCode === 13){
-                this.handleSendMessage(this.state.input)
-            }    
-        }
+        this.props.addMessage({name: 'me', text: value, id: nanoid(4)}, id)
     }
 
     handleClick = (value) => {
@@ -53,22 +26,59 @@ class Chat extends Component{
         }
     }
 
-    render(){
-        let messages = <Typography>No Chats</Typography>
+    handleKeyUp = (event) => {
+        if (this.state.input !== '') {
+            if (event.keyCode === 13){
+                this.handleSendMessage(this.state.input)
+            }    
+        }
+    }
 
-        if(!this.props.chat.length == 0) {
-            messages = this.props.chat.map( (item, idx) => 
-                <Message key={idx} message={item} />)
+    handleChange = (event) => {
+        this.setState({input: event.target.value})
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        const { id } = this.props.match.params
+        const currentMessage = this.state.messages
+        const lastMessage = currentMessage[currentMessage.length -1]
+
+        if(prevState.messages.length < this.state.messages.length && lastMessage.name === 'me'){
+            setTimeout(() => {
+                this.setState(state => ({
+                    ...state,
+                    messages: [...this.state.messages, {name: 'Бот', text: `Бот компот`} ]
+                }),
+                    this.props.addMessage({name: 'Бот', text: "боткомпот", id: nanoid(4)}, id)
+
+                )
+            }, 1000)      
+        }
+    }
+
+    render() {
+
+        const { id }  = this.props.match.params
+        let Messages = <Typography>No Chats</Typography>
+        const avatar = this.props.chats[this.props.numSelectedChat].id
+        const currentChat = this.props.chats[this.props.numSelectedChat].messages 
+        if (id !== undefined && this.props.chats) {
+            Messages = currentChat.map( (item) => 
+                <Message 
+                    key={item.id} 
+                    avatar={avatar} 
+                    handleAlert={this.props.handleAlert} 
+                    message={item} />)
         }
 
         return(
             <section className="chat">
                 <div className="message-list">
-                    { messages }
+                    { Messages }
                 </div>
                 <div className="chat-footer">
                     <TextField 
-                        // disabled={id === undefined ? true : false}
+                        disabled={id === undefined ? true : false}
                         autoFocus
                         fullWidth
                         size="small"
@@ -79,9 +89,9 @@ class Chat extends Component{
                         onKeyUp={(event) => this.handleKeyUp(event, this.state.input)}/>
 
                     <IconButton
-                        // disabled={id === undefined ? true : false}
+                        disabled={id === undefined ? true : false}
                         color="primary" 
-                        onClick={ () => this.handleClick(this.state.input) }>
+                        onClick={() => this.handleClick(this.state.input)}>
                             <SendIcon/>
                     </IconButton>
                 </div>
