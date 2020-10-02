@@ -14,6 +14,11 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import {Messenger} from '../Messenger';
 import {ChatList} from '../ChatList';
 
+import {Switch, Route, Link} from 'react-router-dom';
+//import {Home} from 'pages/Home';
+//import {About} from 'pages/About';
+//import {Error} from 'pages/Error';
+import {routes} from '../../routes';
 
 
 const drawerWidth = 240;
@@ -136,7 +141,19 @@ export const Layout = () => {
       >
         <div className={classes.drawerHeader} />
         <Typography paragraph>
-            <Messenger/>
+           {/*<Switch>
+                <Route path="/" exact component={Messenger} />
+                <Route path="/about" exact>
+                    <About />
+                </Route>
+                <Route path="*">
+                    <Error />
+                </Route>
+           </Switch>*/}
+              <Switch>
+                {routes.map((route, index) => (<Route key={index} {...route} />))}
+            </Switch>
+        <Divider />
         </Typography>
       </main>
     </div>
