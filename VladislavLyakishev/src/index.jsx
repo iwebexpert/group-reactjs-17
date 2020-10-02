@@ -36,10 +36,10 @@ ReactDom.render(
                     </AppBar>
                 </Grid>
                 <Grid item container xs={12} spacing={2}>
-                    <Grid item xs={3} className="chat-list">
+                    <Grid item xs={4} className="chat-list">
                         <ChatsNav />
                     </Grid>
-                    <Grid item xs={9}>
+                    <Grid item xs={8}>
                             <Switch>
                                 {routes.map( (route, index) => (
                                     <Route key={index} {...route} />
