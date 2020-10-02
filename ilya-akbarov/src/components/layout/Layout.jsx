@@ -6,10 +6,10 @@ import {blue} from '@material-ui/core/colors'
 
 class Layout extends Component {
   render() {
-    const {children} = this.props
+    const {children, chatList} = this.props
     return (
       <>
-        <Header />
+        <Header margin />
         <Box
           height="100vh"
           paddingTop="100px"
@@ -22,13 +22,13 @@ class Layout extends Component {
             width="20%"
             bgcolor={blue[300]}
           >
-            <ChatList />
+            {chatList}
           </Box>
 
           <Box
             height="100%"
             width="80%"
-            bgcolor={blue[200]} 
+            bgcolor={blue[200]}
           >
             {children}
           </Box>
