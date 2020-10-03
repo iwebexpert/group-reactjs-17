@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { nanoid } from 'nanoid'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import '../../layout/css/style.css'
@@ -6,7 +6,7 @@ import ChatList from '../ChatList/ChatList'
 import Header from '../Header/Header'
 import Chat from '../Chat/Chat'
 import AlertShow from '../AlertShow/AlertShow'
-
+import {Provider} from 'react-redux'
 class App extends Component {
 
     state = {
@@ -191,50 +191,50 @@ class App extends Component {
 
     render(){
         return(
-                <BrowserRouter>
-                    <Header 
-                        title={this.state.title} 
-                        user={this.state.user} 
-                        chatName={this.state.currentActiveChatName}
-                        users={this.state.users}
-                        handleNewChat={this.handleNewChat}
-                        handleNameChange={this.handleNameChange}/>
-                    <main>
-                        <Switch>
-                            <Route path='/' >
-                                <Switch>
-                                    <Route path='/' exact render={ (props) => 
-                                        <Chat 
-                                            {...props}
-                                            handleAlert={this.handleAlert}
-                                            chats={this.state.chats} 
-                                            addMessage={this.handleAddMessage} 
-                                            numSelectedChat={this.state.numSelectedChat}
-                                            currentActiveChat={this.state.currentActiveChat} />}
-                                    />
-                                    <Route path='/:id' exact render={(props) => 
-                                        <Chat 
-                                            {...props}
-                                            handleAlert={this.handleAlert}
-                                            chats={this.state.chats} 
-                                            addMessage={this.handleAddMessage} 
-                                            numSelectedChat={this.state.numSelectedChat}
-                                            currentActiveChat={this.state.currentActiveChat} />}
-                                    />
-                                    {/* <Route path='/:id' /> */}
-                                </Switch>
-                                <ChatList 
-                                    chats={this.state.chats} 
-                                    selectChat={this.handleCurrentChatName} 
-                                    currentActiveChat={this.state.currentActiveChat}/>
-                                <AlertShow 
-                                    handleDeleteMessage={this.handleDeleteMessage}
-                                    popoup={this.state.popoup} 
-                                    hanldeCloseAlert={this.hanldeCloseAlert}/>
-                            </Route>
-                        </Switch>
-                    </main>
-                </BrowserRouter>
+            <Fragment>     
+                <Header 
+                    title={this.state.title} 
+                    user={this.state.user} 
+                    chatName={this.state.currentActiveChatName}
+                    users={this.state.users}
+                    handleNewChat={this.handleNewChat}
+                    handleNameChange={this.handleNameChange}/>
+                <main>
+                    <Switch>
+                        <Route path='/' >
+                            <Switch>
+                                <Route path='/' exact render={ (props) => 
+                                    <Chat 
+                                        {...props}
+                                        handleAlert={this.handleAlert}
+                                        chats={this.state.chats} 
+                                        addMessage={this.handleAddMessage} 
+                                        numSelectedChat={this.state.numSelectedChat}
+                                        currentActiveChat={this.state.currentActiveChat} />}
+                                />
+                                <Route path='/:id' exact render={(props) => 
+                                    <Chat 
+                                        {...props}
+                                        handleAlert={this.handleAlert}
+                                        chats={this.state.chats} 
+                                        addMessage={this.handleAddMessage} 
+                                        numSelectedChat={this.state.numSelectedChat}
+                                        currentActiveChat={this.state.currentActiveChat} />}
+                                />
+                            </Switch>
+                            <ChatList 
+                                chats={this.state.chats} 
+                                selectChat={this.handleCurrentChatName} 
+                                currentActiveChat={this.state.currentActiveChat}/>
+                            <AlertShow 
+                                handleDeleteMessage={this.handleDeleteMessage}
+                                popoup={this.state.popoup} 
+                                hanldeCloseAlert={this.hanldeCloseAlert} />
+                        </Route>
+                    </Switch>
+                </main>
+            </Fragment>
+
         )
     }
 }
