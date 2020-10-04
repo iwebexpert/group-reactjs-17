@@ -1,13 +1,14 @@
 import React from 'react';
 import ReactDom from 'react-dom';
+import {BrowserRouter, Switch, Route} from "react-router-dom";
 
-import {Messenger} from "./components/Messenger";
+import {routes} from './routes';
 
-const renderer = () => ReactDom.render(
-    <>
-        <Messenger />
-    </>,
+ReactDom.render(
+    <BrowserRouter>
+        <Switch>
+            {routes.map((route, index) => (<Route key={index} {...route}/>))}
+        </Switch>
+    </BrowserRouter>,
     document.getElementById('root')
-)
-
-renderer();
+);
