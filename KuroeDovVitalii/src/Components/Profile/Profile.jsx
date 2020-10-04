@@ -130,10 +130,10 @@ export default function Profile(props) {
         </DialogContent>
         <DialogActions>
             <Button autoFocus onClick={handleClose} color="primary">
-                Cancel
+                Отмена
             </Button>
             <Button onClick={handleConfirm} color="primary">
-                Confirm
+                Потдвердить
             </Button>
         </DialogActions>
       </Dialog>

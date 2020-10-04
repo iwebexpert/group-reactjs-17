@@ -4,9 +4,8 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import '../../layout/css/style.css'
 import ChatList from '../ChatList/ChatList'
 import Header from '../Header/Header'
-import Chat from '../Chat/Chat'
+import { ChatContainer } from '../../containers/ChatContainer'
 import AlertShow from '../AlertShow/AlertShow'
-import {Provider} from 'react-redux'
 class App extends Component {
 
     state = {
@@ -51,22 +50,22 @@ class App extends Component {
         popoup: {text: '', status: false},
 
         users: {
-            1: {name: 'Михаил', avatar: `https://i.pravatar.cc/150?img=${nanoid(4)}`, id: nanoid(4)},
-            2: {name: 'Игорь', avatar: `https://i.pravatar.cc/150?img=${nanoid(4)}`, id: nanoid(4)},
-            3: {name: 'Света', avatar: `https://i.pravatar.cc/150?img=${nanoid(4)}`, id: nanoid(4)},
-            4: {name: 'Наташа', avatar: `https://i.pravatar.cc/150?img=${nanoid(4)}`, id: nanoid(4)},
-            5: {name: 'Олег', avatar: `https://i.pravatar.cc/150?img=${nanoid(4)}`, id: nanoid(4)},
-            6: {name: 'Антон', avatar: `https://i.pravatar.cc/150?img=${nanoid(4)}`, id: nanoid(4)},
-            7: {name: 'Катя', avatar: `https://i.pravatar.cc/150?img=${nanoid(4)}`, id: nanoid(4)},
-            8: {name: 'Маша', avatar: `https://i.pravatar.cc/150?img=${nanoid(4)}`, id: nanoid(4)},
-            9: {name: 'Петя', avatar: `https://i.pravatar.cc/150?img=${nanoid(4)}`, id: nanoid(4)},
-            10: {name: 'Равиль', avatar: `https://i.pravatar.cc/150?img=${nanoid(4)}`, id: nanoid(4)},
-            11: {name: 'Татьяна', avatar: `https://i.pravatar.cc/150?img=${nanoid(4)}`, id: nanoid(4)},
-            12: {name: 'Настя', avatar: `https://i.pravatar.cc/150?img=${nanoid(4)}`, id: nanoid(4)},
-            13: {name: 'Ира', avatar: `https://i.pravatar.cc/150?img=${nanoid(4)}`, id: nanoid(4)},
-            14: {name: 'Алла', avatar: `https://i.pravatar.cc/150?img=${nanoid(4)}`, id: nanoid(4)},
-            15: {name: 'Анна', avatar: `https://i.pravatar.cc/150?img=${nanoid(4)}`, id: nanoid(4)},
-            16: {name: 'Боря', avatar: `https://i.pravatar.cc/150?img=${nanoid(4)}`, id: nanoid(4)},
+            1: { name: 'Михаил', avatar: `https://i.pravatar.cc/150?img=${nanoid(4)}`, id: nanoid(4) },
+            2: { name: 'Игорь', avatar: `https://i.pravatar.cc/150?img=${nanoid(4)}`, id: nanoid(4) },
+            3: { name: 'Света', avatar: `https://i.pravatar.cc/150?img=${nanoid(4)}`, id: nanoid(4) },
+            4: { name: 'Наташа', avatar: `https://i.pravatar.cc/150?img=${nanoid(4)}`, id: nanoid(4) },
+            5: { name: 'Олег', avatar: `https://i.pravatar.cc/150?img=${nanoid(4)}`, id: nanoid(4) },
+            6: { name: 'Антон', avatar: `https://i.pravatar.cc/150?img=${nanoid(4)}`, id: nanoid(4) },
+            7: { name: 'Катя', avatar: `https://i.pravatar.cc/150?img=${nanoid(4)}`, id: nanoid(4) },
+            8: { name: 'Маша', avatar: `https://i.pravatar.cc/150?img=${nanoid(4)}`, id: nanoid(4) },
+            9: { name: 'Петя', avatar: `https://i.pravatar.cc/150?img=${nanoid(4)}`, id: nanoid(4) },
+            10: { name: 'Равиль', avatar: `https://i.pravatar.cc/150?img=${nanoid(4)}`, id: nanoid(4) },
+            11: { name: 'Татьяна', avatar: `https://i.pravatar.cc/150?img=${nanoid(4)}`, id: nanoid(4) },
+            12: { name: 'Настя', avatar: `https://i.pravatar.cc/150?img=${nanoid(4)}`, id: nanoid(4) },
+            13: { name: 'Ира', avatar: `https://i.pravatar.cc/150?img=${nanoid(4)}`, id: nanoid(4) },
+            14: { name: 'Алла', avatar: `https://i.pravatar.cc/150?img=${nanoid(4)}`, id: nanoid(4) },
+            15: { name: 'Анна', avatar: `https://i.pravatar.cc/150?img=${nanoid(4)}`, id: nanoid(4) },
+            16: { name: 'Боря', avatar: `https://i.pravatar.cc/150?img=${nanoid(4)}`, id: nanoid(4) },
         }
     }
     timeoutID = null
@@ -125,13 +124,13 @@ class App extends Component {
                 },
             }, this.handleAlert(`добавлен новый чат с "${data.name}"`))
         } else {
-            this.setState({error: 'chat is exists'})
+            this.setState({ error: 'Такой чат уже существует' })
         }
     }
 
     handleNameChange = (data) => {
         this.setState({
-            user: {...this.state.user, firstName: data.firstName, lastName: data.lastName}
+            user: { ...this.state.user, firstName: data.firstName, lastName: data.lastName }
         }, this.handleAlert(`Изменения сохраненны`))
     }
 
@@ -185,57 +184,56 @@ class App extends Component {
     }
     
     handleCurrentChatName = (data) => {
-        this.setState({currentActiveChat: data})
+        this.setState({ currentActiveChat: data })
         this.handleSelectChat(data)
     }
 
     render(){
         return(
-            <Fragment>     
+            <BrowserRouter>     
                 <Header 
-                    title={this.state.title} 
-                    user={this.state.user} 
-                    chatName={this.state.currentActiveChatName}
-                    users={this.state.users}
-                    handleNewChat={this.handleNewChat}
-                    handleNameChange={this.handleNameChange}/>
+                    title={ this.state.title } 
+                    user={ this.state.user } 
+                    chatName={ this.state.currentActiveChatName }
+                    users={ this.state.users }
+                    handleNewChat={ this.handleNewChat }
+                    handleNameChange={ this.handleNameChange }/>
                 <main>
                     <Switch>
                         <Route path='/' >
                             <Switch>
                                 <Route path='/' exact render={ (props) => 
-                                    <Chat 
-                                        {...props}
-                                        handleAlert={this.handleAlert}
-                                        chats={this.state.chats} 
-                                        addMessage={this.handleAddMessage} 
-                                        numSelectedChat={this.state.numSelectedChat}
-                                        currentActiveChat={this.state.currentActiveChat} />}
+                                    <ChatContainer 
+                                        { ...props }
+                                        handleAlert={ this.handleAlert }
+                                        chats={ this.state.chats } 
+                                        addMessage={ this.handleAddMessage } 
+                                        numSelectedChat={ this.state.numSelectedChat }
+                                        currentActiveChat={ this.state.currentActiveChat } />}
                                 />
-                                <Route path='/:id' exact render={(props) => 
-                                    <Chat 
-                                        {...props}
-                                        handleAlert={this.handleAlert}
-                                        chats={this.state.chats} 
-                                        addMessage={this.handleAddMessage} 
-                                        numSelectedChat={this.state.numSelectedChat}
-                                        currentActiveChat={this.state.currentActiveChat} />}
+                                <Route path='/:id' exact render={ (props) => 
+                                    <ChatContainer 
+                                        { ...props }
+                                        handleAlert={ this.handleAlert }
+                                        chats={ this.state.chats } 
+                                        addMessage={ this.handleAddMessage } 
+                                        numSelectedChat={ this.state.numSelectedChat }
+                                        currentActiveChat={ this.state.currentActiveChat } />}
                                 />
                             </Switch>
                             <ChatList 
-                                chats={this.state.chats} 
-                                selectChat={this.handleCurrentChatName} 
-                                currentActiveChat={this.state.currentActiveChat}/>
+                                chats={ this.state.chats } 
+                                selectChat={ this.handleCurrentChatName } 
+                                currentActiveChat={ this.state.currentActiveChat }/>
                             <AlertShow 
-                                handleDeleteMessage={this.handleDeleteMessage}
-                                popoup={this.state.popoup} 
-                                hanldeCloseAlert={this.hanldeCloseAlert} />
+                                handleDeleteMessage={ this.handleDeleteMessage }
+                                popoup={ this.state.popoup } 
+                                hanldeCloseAlert={ this.hanldeCloseAlert } />
                         </Route>
                     </Switch>
                 </main>
-            </Fragment>
-
+            </BrowserRouter>
         )
     }
 }
-export default App
+export default App 

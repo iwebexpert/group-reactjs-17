@@ -36,12 +36,12 @@ export default class Message extends Component {
             <div className="message-block"> 
                 <Chip 
                     deleteIcon={<DoneIcon />} 
-                    color={this.props.message.name === 'me' ? 'primary' : 'secondary'}
-                    className={classes}
+                    color={ this.props.message.name === 'me' ? 'primary' : 'secondary' }
+                    className={ classes }
                     clicable="true"
-                    onDelete={this.handleDelete} 
-                    label={this.props.message.text}
-                    avatar={<Avatar>{this.props.message.name}</Avatar>} />
+                    onDelete={ this.handleDelete } 
+                    label={ this.props.message.text }
+                    avatar={ <Avatar> { this.props.message.name }</Avatar> } />
             </div>
         )
     }

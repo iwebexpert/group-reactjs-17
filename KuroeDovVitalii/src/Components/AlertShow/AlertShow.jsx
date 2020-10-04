@@ -32,13 +32,13 @@ export default function AlertShow(props) {
       aria-label="delete"
       color="inherit"
       size="small"
-      onClick={() => handleDeleteMessage()}
+      onClick={ () => handleDeleteMessage() }
       >
         <DeleteIcon fontSize="inherit" />
     </IconButton> : null
   return (
-    <div className={classes.root}>
-      <Collapse in={props.popoup.status}>
+    <div className={ classes.root }>
+      <Collapse in={ props.popoup.status }>
         <Alert 
           variant="filled" 
           severity="success"
@@ -59,7 +59,7 @@ export default function AlertShow(props) {
             </div>
           }
         > 
-          {props.popoup.text}
+          { props.popoup.text }
         </Alert>
       </Collapse>
     </div>
