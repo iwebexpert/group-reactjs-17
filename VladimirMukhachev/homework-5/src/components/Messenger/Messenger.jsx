@@ -9,7 +9,8 @@ import {MessageForm} from '../MessageForm';
 // import {About} from 'pages/About';
 // import {Error} from 'pages/Error';
 
-import {chats} from '../../helpers/chatsData';
+// import {chats} from '../../helpers/chatsData';
+
 import './Messenger.css';
 
 export class Messenger extends Component
@@ -35,7 +36,7 @@ export class Messenger extends Component
         // </ListItem>
         // ));
         const chatsList = chats.map((item) => (
-            <Link to={`/chats/${item.id}`}>
+            <Link key={item.id} to={`/chats/${item.id}`}>
                 <ListItem key={item.id}>
                     <ListItemText primary={item.title} />
                 </ListItem>

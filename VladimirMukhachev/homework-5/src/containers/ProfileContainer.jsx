@@ -1,7 +1,5 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {nanoid} from 'nanoid';
-
 import {profileLoadAction} from '../actions/profile';
 
 class ProfileContainerClass extends React.Component {
@@ -10,7 +8,6 @@ class ProfileContainerClass extends React.Component {
     }
 
     render(){
-        // console.log(this.props);
         const {profile} = this.props;
         return (
             <div>
