@@ -6,6 +6,7 @@ import {chatsLoadAction, chatsMessageSendAction} from '../actions/chats';
 
 class MessengerContainerClass extends Component {
     componentDidMount() {
+        console.log(this.props)
         const {chatsLoadAction} = this.props;
         chatsLoadAction();
     }

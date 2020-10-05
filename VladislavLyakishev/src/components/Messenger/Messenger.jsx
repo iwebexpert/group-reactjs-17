@@ -2,23 +2,9 @@ import React, {Component} from 'react'
 import {MessageList} from "../MessageList";
 import {MessengerField} from "../MessengerField";
 import {nanoid} from "nanoid";
-
-import {chats} from '../../helpers/chatsData'
-
 import './Messenger.scss'
 
 export class Messenger extends Component {
-
-  state = {
-    chats,
-    messageData: [
-      {
-        id: nanoid(),
-        message: 'First message',
-        author: 'first author'
-      },
-    ],
-  };
 
   componentDidUpdate() {
     // const botAnswer = {
@@ -39,20 +25,7 @@ export class Messenger extends Component {
   }
 
   componentWillUnmount() {
-
   }
-
-  // get messages() {
-  //   const {chats} = this.state
-  //   const {id} = this.props.match.params
-  //
-  //   let messages = []
-  //
-  //   if (id && chats[id]) {
-  //     messages = chats[id].messages
-  //   }
-  //   return messages
-  // }
 
   handleMessageSend = (message) => {
     const {chats} = this.state
