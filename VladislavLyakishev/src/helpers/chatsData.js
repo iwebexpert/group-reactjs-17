@@ -30,5 +30,21 @@ export const chats = [
                 text: 'Test text'
             }
         ]
+    },
+    {
+        id: 2,
+        title: 'New',
+        messages: [
+            {
+                id: 0,
+                author: 'New',
+                text: 'New text'
+            },
+            {
+                id: 1,
+                author: 'New',
+                text: 'New text'
+            }
+        ]
     }
 ]

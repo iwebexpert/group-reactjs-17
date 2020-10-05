@@ -4,15 +4,12 @@ import InboxIcon from '@material-ui/icons/Inbox'
 import AddBox from '@material-ui/icons/AddBox'
 import {Link} from 'react-router-dom'
 
-import {chats} from '../../helpers/chatsData'
-
 import './Chatsnav.scss'
 import {nanoid} from "nanoid";
 
 export class ChatsNav extends Component {
 
     state = {
-        chats,
         chatName: ''
     }
 
@@ -53,7 +50,7 @@ export class ChatsNav extends Component {
 }
 
     render() {
-        const chatList = this.state.chats.map( (item) => (
+        const chatList = this.props.chats.map( (item) => (
             <ListItem button key={item.id}>
                 <ListItemIcon>
                     <InboxIcon />
