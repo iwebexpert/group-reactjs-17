@@ -23,10 +23,8 @@ export class AddChatForm extends Component {
             return;
         }
 
-        console.log(this.props)
-
         if(typeof onSend === 'function'){
-            onSend(this.state.title);
+            onSend(this.state);
             this.setState({title: ''});
         }
     };

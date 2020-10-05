@@ -22,12 +22,12 @@ export class Messenger extends Component {
     }*/
 
     render() {
-        const {chats, messages, handleMessageSend} = this.props;
+        const {chats, messages, handleMessageSend, handleChatAdd} = this.props;
 
         return (
             <Grid container item spacing={2} className="container-chat">
                 <Grid item xs={2}>
-                    <ChatList chats={chats} onChatAdd={this.props.onChatAdd}/>
+                    <ChatList chats={chats} onChatAdd={handleChatAdd}/>
                 </Grid>
                 <Grid item xs={10}>
                     <div className="messenger">

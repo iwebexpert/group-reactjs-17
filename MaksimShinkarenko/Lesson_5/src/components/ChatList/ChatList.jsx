@@ -7,7 +7,7 @@ import {AddChatForm} from "components/AddChatForm";
 
 export class ChatList extends Component {
 
-    handleChatAdd = (title) => {
+    /*handleChatAdd = (title) => {
         const {chats} = this.props;
 
         let chatList = chats.concat([
@@ -24,29 +24,29 @@ export class ChatList extends Component {
             }
         ])
 
-        console.log(chatList)
-
         this.props.onChatAdd({
             chats: chatList
         })
-    }
+    }*/
 
     render() {
-        const {chats} = this.props;
+        const {chats, onChatAdd} = this.props;
 
         const chatsList = chats.map((item) => (
-            <ListItem key={item.id}>
-                <Link to={`/chats/${item.id}`}><ListItemText primary={item.title} /></Link>
+            <ListItem key={item.id} className='chatListItem'>
+                <Link to={`/chats/${item.id}`}><ListItemText primary={item.title}/></Link>
             </ListItem>
         ));
 
         return (
-            <div className='chatList'>
-                <List>
-                    {chatsList}
-                </List>
-                <AddChatForm onSend={this.handleChatAdd}/>
-            </div>
+            <>
+                <div className='chatList'>
+                    <List className='chatListUl'>
+                        {chatsList}
+                    </List>
+                </div>
+                <AddChatForm onSend={onChatAdd}/>
+            </>
         )
     }
 }
