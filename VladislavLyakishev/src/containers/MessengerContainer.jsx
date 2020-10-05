@@ -1,20 +1,26 @@
 import React, {Component} from "react";
 import {connect} from 'react-redux';
-
+import {nanoid} from "nanoid";
 import {Messenger} from '../components/Messenger';
 import {chatsLoadAction, chatsMessageSendAction} from '../actions/chats';
 
 class MessengerContainerClass extends Component {
     componentDidMount() {
-        console.log(this.props)
         const {chatsLoadAction} = this.props;
         chatsLoadAction();
     }
 
+    handleMessageSend = (message) => {
+        message.id = nanoid();
+        message.chatId = this.props.chatId;
+        this.props.chatsMessageSendAction(message)
+    };
+
+
     render() {
         const {messages} = this.props;
         return (
-            <Messenger messages={messages} />
+            <Messenger messages={messages} handleMessageSend={this.handleMessageSend}/>
         );
     }
 }
@@ -29,13 +35,15 @@ function mapStateToProps(state, ownProps) {
     };
     return {
         messages,
+        chatId: match ? match.params.id : null,
+        chats,
     }
 }
 
 function mapDispatchToProps(dispatch) {
     return {
         chatsLoadAction: () => dispatch(chatsLoadAction()),
-        chatsMessageSendAction: (message) => dispatch(chatsMessageSendAction()),
+        chatsMessageSendAction: (message) => dispatch(chatsMessageSendAction(message)),
     }
 }
 

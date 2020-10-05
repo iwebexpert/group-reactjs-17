@@ -1,7 +1,6 @@
 import {About} from './pages/About';
 import {Error} from './pages/Error';
 import {Profile} from './pages/Profile';
-// import {Messenger} from "./components/Messenger";
 import {MessengerContainer} from './containers/MessengerContainer'
 
 export const routes = [

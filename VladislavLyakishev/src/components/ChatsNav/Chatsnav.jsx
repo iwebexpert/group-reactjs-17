@@ -5,7 +5,6 @@ import AddBox from '@material-ui/icons/AddBox'
 import {Link} from 'react-router-dom'
 
 import './Chatsnav.scss'
-import {nanoid} from "nanoid";
 
 export class ChatsNav extends Component {
 
@@ -19,35 +18,21 @@ export class ChatsNav extends Component {
         })
     }
 
-    addChatHandler = (event) => {
+    addChat = () => {
         const {chatName} = this.state
-        const {chats} = this.state
-        let isChatName = false
-        chats.forEach( (item) => {
-            if (item.title === chatName) {
-                isChatName = true
-            }
-        })
-        if (!isChatName) {
+        const {addChat} = this.props
+
+        if( typeof addChat === 'function'){
+            addChat(chatName)
             this.setState({
-                chats: chats.concat({
-                    id: nanoid(),
-                    title: chatName,
-                    messages: [
-                        {
-                            id: 0,
-                            author: 'Test',
-                            text: 'Test messages'
-                        }
-                    ]
-                }),
                 chatName: ''
             })
-        } else {
-            alert('Чат с таким именем уже существует')
         }
 
-}
+
+    }
+
+
 
     render() {
         const chatList = this.props.chats.map( (item) => (
@@ -73,7 +58,7 @@ export class ChatsNav extends Component {
                     />
                     <Fab
                         variant="round"
-                        onClick={this.addChatHandler}
+                        onClick={this.addChat}
                     >
                         <AddBox />
                     </Fab>

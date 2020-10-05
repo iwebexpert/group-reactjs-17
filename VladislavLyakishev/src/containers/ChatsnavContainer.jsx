@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import {connect} from 'react-redux';
 
 import {ChatsNav} from '../components/ChatsNav';
-import {chatsLoadAction} from '../actions/chats';
+import {chatsLoadAction, chatsAddAction} from '../actions/chats';
 
 class ChatsnavContainerClass extends Component {
     componentDidMount() {
@@ -10,10 +10,14 @@ class ChatsnavContainerClass extends Component {
         chatsLoadAction();
     }
 
+    addChatHandler = (name) => {
+        this.props.chatsAddAction(name)
+    }
+
     render() {
         const {chats} = this.props;
         return (
-            <ChatsNav chats={chats} />
+            <ChatsNav chats={chats} addChat={this.addChatHandler}/>
         );
     }
 }
@@ -30,6 +34,7 @@ function mapStateToProps(state, ownProps) {
 function mapDispatchToProps(dispatch) {
     return {
         chatsLoadAction: () => dispatch(chatsLoadAction()),
+        chatsAddAction: (name) => dispatch(chatsAddAction(name))
     }
 }
 

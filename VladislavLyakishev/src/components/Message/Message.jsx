@@ -6,7 +6,7 @@ import './Message.scss';
 
 export class Message extends Component {
   render() {
-    const {message, author} = this.props;
+    const {text, author} = this.props;
     const classes = classNames('', {
       'message-sender': author !== 'BOT',
       'message-incoming': author === 'BOT'
@@ -21,7 +21,7 @@ export class Message extends Component {
               <Grid item container direction={"column"} xs zeroMinWidth>
                 <Grid item>
                   <Typography>
-                    {message}
+                    {text}
                   </Typography>
                 </Grid>
                 <Grid item>
