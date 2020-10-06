@@ -3,10 +3,9 @@ import PropTypes from 'prop-types';
 import {TextField, Fab} from '@material-ui/core';
 import {Send} from '@material-ui/icons';
 
-export class MessageForm extends Component {
+export class ChatForm extends Component {
     state = {
-        text: '',
-        author: '',
+        name: '',
     }
 
     static propTypes = {
@@ -20,8 +19,8 @@ export class MessageForm extends Component {
     }
 
     submitForm = () => {
-        const {text, author} = this.state;
-        if (!text || !author) {
+        const {name, author} = this.state;
+        if (!name || !author) {
             alert('Заполните форму');
             return
         }
@@ -30,27 +29,21 @@ export class MessageForm extends Component {
     }
 
     onKeyEnter = (event) => {
-        if (event.keyCode === 13 && event.ctrlKey) {
+        if (event.keyCode === 13) {
             event.preventDefault();
             this.submitForm();
         }
     };
 
     render() {
-        const {text, author} = this.state;
+        const {name} = this.state;
         return (
             <div>
-                <TextField id="author" label="Author" variant="outlined" name="author"
-                           value={author} onChange={this.onChangeInputHandler}
-                           placeholder='Укажите автора сообщения'/>
                 <TextField id="text" label="Text" variant="outlined" name="text"
-                           value={text} onChange={this.onChangeInputHandler}
-                           placeholder='Введите текст сообщения'
-                           multiline
-                           autoFocus
+                           value={name} onChange={this.onChangeInputHandler}
+                           placeholder='Добавить чат'
                            onKeyDown={this.onKeyEnter}
                 />
-                <Fab variant="round" color="primary" onClick={this.submitForm}><Send/></Fab>
             </div>
         );
     }

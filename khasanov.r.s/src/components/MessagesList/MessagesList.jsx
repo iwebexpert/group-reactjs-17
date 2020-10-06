@@ -8,7 +8,7 @@ export class MessagesList extends Component {
         const {items} = this.props;
 
         return (
-            <div className="messages-list" item>
+            <div className="messages-list">
                 {items.map((item, index) => <Message {...item} key={index}/>)}
             </div>
         );
