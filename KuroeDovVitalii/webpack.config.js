@@ -10,7 +10,12 @@ module.exports = {
         filename: 'app.js'
     },
     resolve: {
-        extensions: ['.js', '.jsx']
+        extensions: ['.js', '.jsx'],
+        alias: {
+            actions: path.join(__dirname, 'src', 'actions'),
+            reducers: path.join(__dirname, 'src', 'reducers'),
+            containers: path.join(__dirname, 'src', 'containers')
+        }
     },
     module: {
         rules: [

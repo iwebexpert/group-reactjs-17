@@ -103,36 +103,35 @@ export default function NewChat(props) {
     
   return (
     <div>
-        <Button variant="outlined" onClick={handleClickOpen} >Новый чат</Button>
+        <Button variant="outlined" onClick={ handleClickOpen } >Новый чат</Button>
         <Dialog
-            open={open}
+            open={ open }
             fullWidth
-            TransitionComponent={Transition}
-            onClose={handleClose}
-            PaperComponent={PaperComponent}
+            TransitionComponent={ Transition }
+            onClose={ handleClose }
+            PaperComponent={ PaperComponent }
             aria-labelledby="draggable-dialog-title"
         >
         <DialogTitle style={{ cursor: 'move' }} id="draggable-dialog-title">
-            <div className={classes.profileTitleContainer}>
+            <div className={ classes.profileTitleContainer }>
                 Новый чат 
-                {/* <Button variant="contained" color="primary" disabled onClick={handleLogOut}>LogOut</Button> */}
             </div>
           
         </DialogTitle>
-        <DialogContent onKeyUp={handleKeyUp}>
-            <Avatar className="avatar" className={classes.large} src={selectedUser.avatar} />
-            <FormControl className={classes.formControl} fullWidth>
+        <DialogContent onKeyUp={ handleKeyUp }>
+            <Avatar className="avatar" className={ classes.large } src={ selectedUser.avatar } />
+            <FormControl className={ classes.formControl } fullWidth>
                 <InputLabel shrink htmlFor="age-native-label-placeholder">
-                    Select user
+                    Выберите пользователя
                 </InputLabel>
                 <Select
                     labelId="age-native-label-placeholder"
-                    value={selectedUser.id}
+                    value={ selectedUser.id }
                     onChange={handleChange}
                     >
-                    {user.map((userItem) => (
-                        <MenuItem  key={userItem.id} value={userItem.id}>
-                            {userItem.name}
+                    { user.map((userItem) => (
+                        <MenuItem  key={ userItem.id } value={ userItem.id }>
+                            { userItem.name }
                         </MenuItem >
                     ))}
                 </Select>
@@ -143,14 +142,14 @@ export default function NewChat(props) {
                 onClick={handleClose} 
                 color="primary"
                 variant={selectedUser.name.length > 0 ? "text" : "contained"}>
-                Cancel
+                Отмена
             </Button>
             <Button 
                 autoFocus 
                 variant={selectedUser.name.length > 0 ? "contained" : "text"}
                 disabled={selectedUser.name.length > 0 ? false : true } 
                 onClick={handleConfirm} color="primary">
-                Confirm
+                Подтвердить
             </Button>
         </DialogActions>
       </Dialog>

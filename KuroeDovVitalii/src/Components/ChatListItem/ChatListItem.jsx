@@ -10,15 +10,14 @@ export default class ChatListItem extends Component {
 
     render() {
         return(
-            <Link className="link" to={`/${this.props.id}`} replace>
-                <ListItem button onClick={this.handleSelectChat} selected={this.props.selected === this.props.id}>
+            <Link className="link" to={ `/${this.props.id}` } replace>
+                <ListItem button onClick={ this.handleSelectChat } selected={ this.props.selected === this.props.id }>
                     <ListItemIcon>
-                        <Avatar src={this.props.avatar}></Avatar>
+                        <Avatar src={ this.props.avatar }></Avatar>
                     </ListItemIcon>
-                    <ListItemText primary={this.props.name} />
+                    <ListItemText primary={ this.props.name } />
                 </ListItem>  
             </Link>
-            
         )
     }
 }
