@@ -1,0 +1,1 @@
+export const profile = {id: 0, name: 'Makc'};
