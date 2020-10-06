@@ -12,7 +12,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import {Messenger} from '../Messenger';
-import {ChatList} from '../ChatList';
+import {ChatListContainer} from '../../containers/ChatListContainer';
 
 import {Switch, Route, Link} from 'react-router-dom';
 //import {Home} from 'pages/Home';
@@ -132,7 +132,7 @@ export const Layout = () => {
           </IconButton>
         </div>
         <Divider />
-        <ChatList />
+        <ChatListContainer />
       </Drawer>
       <main
         className={clsx(classes.content, {
@@ -140,7 +140,7 @@ export const Layout = () => {
         })}
       >
         <div className={classes.drawerHeader} />
-        <Typography paragraph>
+        <div>
            {/*<Switch>
                 <Route path="/" exact component={Messenger} />
                 <Route path="/about" exact>
@@ -153,8 +153,7 @@ export const Layout = () => {
               <Switch>
                 {routes.map((route, index) => (<Route key={index} {...route} />))}
             </Switch>
-        <Divider />
-        </Typography>
+        </div>
       </main>
     </div>
   );

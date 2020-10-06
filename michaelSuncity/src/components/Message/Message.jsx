@@ -17,7 +17,7 @@ export class Message extends Component
                 <Paper className="message-paper">
                     <Grid container wrap="nowrap" spacing={2}>
                         <Grid item>
-                            <Avatar>W</Avatar>
+                            <Avatar>{this.props.author.slice(0,1).toUpperCase()}</Avatar>
                         </Grid>
                         <Grid item xs zeroMinWidth>
                              <Typography noWrap>{this.props.text}</Typography>
