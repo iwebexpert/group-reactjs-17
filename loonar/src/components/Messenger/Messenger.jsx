@@ -51,41 +51,37 @@ export class Messenger extends Component
         });
     }
 
-    componentDidUpdate(){
-        if(this.messages.length){
-            const {author} = this.messages[this.messages.length - 1];
-            if (author !== 'Bot'){
-                setTimeout(() => {
-                    this.handleMessageSend({text: `Hi, ${author}! Это бот...`, author: 'Bot'});
-                }, 2000);
-            }
-        }
-    }
+    // componentDidUpdate(){
+    //     if(this.messages.length){
+    //         const {author} = this.messages[this.messages.length - 1];
+    //         if (author !== 'Bot'){
+    //             setTimeout(() => {
+    //                 this.handleMessageSend({text: `Hi, ${author}! Это бот...`, author: 'Bot'});
+    //             }, 2000);
+    //         }
+    //     }
+    // }
 
-    get messages(){
-        const {chats} = this.state;
-        const {match} = this.props;
-
-        let messages = null;
-
-        if(match && chats[match.params.id]){
-            messages = chats[match.params.id].messages;
-        }
-        return messages;
-    }
+    // get messages(){
+    //     const {chats} = this.state;
+    //     const {match} = this.props;
+    //     let messages = null;
+    //     if(match && chats[match.params.id]){
+    //         messages = chats[match.params.id].messages;
+    //     }
+    //     return messages;
+    // }
 
     render()
     {
-        console.log(this.state);
-        const {chats} = this.state;
-        const messages = this.messages;
+        // console.log(this.state);
+        // const {chats} = this.state;
+        // const messages = this.messages;
+        const {chats, messages, handleMessageSend} = this.props;
         const chatsList = chats.map((item) => (
         <ListItem button key={item.id}>
             <Link to={`/chats/${item.id}`}><ListItemText primary={item.title} /></Link>
         </ListItem>
-
-
-
         ));
         return (
             <>
@@ -99,7 +95,7 @@ export class Messenger extends Component
                  <div className="messages-list ">
                      {messages ? <MessageList items={messages} /> : <div>Выберите чат слева</div>}
                  </div>
-                 {messages && <MessageForm onSend={this.handleMessageSend} />}
+                 {messages && <MessageForm onSend={handleMessageSend} />}
              </Grid>
             </>
             );
