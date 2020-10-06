@@ -153,7 +153,6 @@ export const Layout = () => {
               <Switch>
                 {routes.map((route, index) => (<Route key={index} {...route} />))}
             </Switch>
-        <Divider />
         </div>
       </main>
     </div>

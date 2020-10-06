@@ -5,6 +5,7 @@ import {Profile} from 'components/Profile';
 //import {Messenger} from 'components/Messenger';
 import {AddChat} from 'components/AddChat';
 import {MessengerContainer} from 'containers/MessengerContainer';
+import {ProfileContainer} from 'containers/ProfileContainer';
 
 
 export const routes = [
@@ -26,7 +27,7 @@ export const routes = [
     {
         path: '/profile',
         exact: true,
-        component: Profile,
+        component: ProfileContainer,
     },
     {
         path: '/addchat',
