@@ -3,6 +3,7 @@ import {AppBar, Toolbar, Typography, Link, Button} from '@material-ui/core';
 
 export class Header extends Component{
     render(){
+
         return(
           <AppBar position="static">
           <Toolbar>

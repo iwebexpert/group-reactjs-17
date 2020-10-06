@@ -3,27 +3,29 @@ import {About} from 'pages/About';
 import {Error} from 'pages/Error';
 import {Profile} from 'pages/Profile';
 import {Messenger} from 'components/Messenger';
+import {MessengerContainer} from 'containers/MessengerContainer';
+import {ProfileContainer} from 'containers/ProfileContainer.jsx';
 
 export const routes = [
     {
         path: '/',
         exact: true,
-        component: Messenger
+        component: MessengerContainer,
     },
     {
         path: '/about',
         exact: true,
-        component: About
+        component: About,
     },
     {
         path: '/chats/:id([0-9]+)',
         exact: true,
-        component: Messenger
+        component: MessengerContainer,
     },
     {
         path: '/profile',
         exact: true,
-        component: Profile
+        component: ProfileContainer,
     },
     {
         path: '*',
