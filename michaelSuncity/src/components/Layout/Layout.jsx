@@ -140,7 +140,7 @@ export const Layout = () => {
         })}
       >
         <div className={classes.drawerHeader} />
-        <Typography paragraph>
+        <div>
            {/*<Switch>
                 <Route path="/" exact component={Messenger} />
                 <Route path="/about" exact>
@@ -154,7 +154,7 @@ export const Layout = () => {
                 {routes.map((route, index) => (<Route key={index} {...route} />))}
             </Switch>
         <Divider />
-        </Typography>
+        </div>
       </main>
     </div>
   );

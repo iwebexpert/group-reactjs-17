@@ -11,10 +11,10 @@ import {chats} from '../../helpers/chatsData';
 
 export class Messenger extends Component
 {
-    state = {
+   /* state = {
         chats,
-    };
-
+    };*/
+/*
     handleMessageSend = (message) => {
         const {chats} = this.state;
         const {match} = this.props;
@@ -31,6 +31,7 @@ export class Messenger extends Component
             chats,
         });
     };
+*/
 /*
     componentDidUpdate(){
         if(this.messages.length){
@@ -45,7 +46,7 @@ export class Messenger extends Component
         }
     };
     */
-
+/*
     get messages(){
         const {chats} = this.state;
         const {match} = this.props;
@@ -58,10 +59,10 @@ export class Messenger extends Component
 
         return messages;
     }
-
+*/
     render()
     {
-        const messages = this.messages;
+        const {messages, handleMessageSend} = this.props;
    
 
         return (
@@ -70,7 +71,7 @@ export class Messenger extends Component
                  <div className="messages-list ">
                      {messages ? <MessageList items={messages} /> : <div>Выберите чат слева</div>}
                  </div>
-                 {messages && <MessageForm onSend={this.handleMessageSend} />}
+                 {messages && <MessageForm onSend={handleMessageSend} />}
              </div>
         </div>
         );
