@@ -3,13 +3,12 @@ import PropTypes from 'prop-types';
 import {TextField, Fab} from '@material-ui/core';
 import {Send} from '@material-ui/icons';
 
-import {chats} from '../../helpers/chatsData';
+//import {chats} from '../../helpers/chatsData';
 
 export class AddChat extends Component
 {
 
     state = {
-        chats,
         title: '',
     }
 
@@ -26,26 +25,25 @@ export class AddChat extends Component
     onSubmitForm = () => {
         const {title} = this.state;
         const {onSend} = this.props;
-        const {chats} = this.state;
 
         if(!title){
-            alert('Введите текст сообщения');
+            alert('Введите название нового чата');
             return;
         }
 
         if(typeof onSend === 'function'){
             onSend(this.state);
         }
-
+        /*
         const newId = this.state.chats.length;
         chats.push({id: newId, title: title, messages: [{id: 0, author: 'Bot', text: `Стартовал чат "${title}"`}]});
-  
-        console.log(this.state.chats);
+        */
+        console.log(this.state.title);
     };
  
     render(){
 
-        const {title, chats} = this.state;
+        const {title} = this.state;
 
         return (
             <div>

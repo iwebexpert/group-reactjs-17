@@ -16,13 +16,13 @@ import './ChatList.scss';
 import {chats} from '../../helpers/chatsData';
 
 export class ChatList extends Component {
- state = {
-     chats,
- }
+    /* state = {
+        chats,
+    }*/
 
    render(){
 
-    const {chats} = this.state;
+    const {chats} = this.props;
     const chatsList = chats.map((item) => (
         <ListItem button className="button-menu" key={item.id}>
             <ListItemIcon><ChatIcon /></ListItemIcon>

@@ -54,6 +54,7 @@ function mapDispatchToProps(dispatch){
     return {
         chatsLoadAction: () => dispatch(chatsLoadAction()),
         chatsMessageSendAction: (message) => dispatch(chatsMessageSendAction(message)),
+        chatsAddAction: (chat) => dispatch(chatsAddAction(chat)),
     };
 }
 
