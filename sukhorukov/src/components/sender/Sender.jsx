@@ -1,6 +1,6 @@
 import React from 'react'
 import Type from 'prop-types'
-import {Button, TextField, Box, Fab, Typography, Tooltip} from '@material-ui/core'
+import {IconButton, TextField, Box, Typography} from '@material-ui/core'
 import CheckIcon from '@material-ui/icons/Check'
 import './sender.sass'
 
@@ -11,7 +11,7 @@ export class Sender extends React.Component {
     }
 
     static propTypes = {
-      accessToAppState: Type.func.isRequired
+      parentMethod: Type.func.isRequired
     };
 
     inputEventHandler = (e) => {
@@ -20,24 +20,22 @@ export class Sender extends React.Component {
     }
 
     messageSendHandler = (e) => {
+      const {parentMethod} = this.props
+
       if (e.keyCode===13 && e.ctrlKey || e.type === 'click') {
-         this.props.accessToAppState(this.state)
+         parentMethod(this.state)
          this.setState({text: ''})
       }
     }
 
-   //  authorChangeHandler = () => {
-   //      const {text} = this.state
-   //      text && this.setState({author: text, text: ''}) 
-   //  }
-
-    render() {   
+    render() {
       const {text, author} = this.state
-           
+
       return (
          <>
-            <Tooltip title="текст сообщения" aria-label="Teкст">
-               <Box className="text-input" ml={2} mr={2}>
+            {/*поле для ввода сообщения*/}
+            <Box className="sender">
+               <Box className="sender-text">
                   <TextField
                      onChange={this.inputEventHandler}
                      onKeyDown={this.messageSendHandler}
@@ -49,23 +47,23 @@ export class Sender extends React.Component {
                      rows={1}
                      rowsMax={2}
                      size="small"
-                     variant="outlined"
                      multiline
                      autoFocus />
-               </Box> 
-            </Tooltip>
-            
-            {text &&
-            <Box mr={2}>
-               <Fab 
-                  onClick={this.messageSendHandler}
-                  variant="round"
-                  color="primary"
-                  size="small"
-                  title="Отправить сообщения">
-                     <CheckIcon />
-               </Fab>
-            </Box>}
+               </Box>
+
+               {/*кнопка отправки сообщения*/}
+               {text &&
+               <Box ml={1}>
+                  <IconButton
+                     onClick={this.messageSendHandler}
+                     color="primary"
+                     size="medium"
+                     title="Отправить сообщения"
+                     aria-label="send">
+                        <CheckIcon />
+                  </IconButton>
+               </Box>}
+            </Box>
          </>
       )
     }
