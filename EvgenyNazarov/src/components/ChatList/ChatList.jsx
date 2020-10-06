@@ -14,7 +14,6 @@ export class ChatList extends Component
 
     render()
     {
-        console.log(this.state);
         const {chats} = this.state;
 
         const chatsList = chats.map((item) => (
