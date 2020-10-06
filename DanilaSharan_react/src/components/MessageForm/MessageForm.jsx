@@ -75,9 +75,10 @@ export class MessageForm extends Component
                       autoFocus
                       onKeyDown={this.onSubmitFormEnter}
                     />
-                    <Fab variant="round" color="primary" onClick={this.onSubmitForm}><Send /></Fab>
+                    <Fab variant="round" color="primary" style={{ background: "#3b2666" }} onClick={this.onSubmitForm}><Send /></Fab>
                 </Grid>
             </Grid>
             );
     }
 }
+

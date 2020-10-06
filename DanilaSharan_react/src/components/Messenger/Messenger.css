@@ -44,12 +44,6 @@
     flex: 1
 }
 
-Link {
-    text-decoration: none;
-    text-underline-style: none;
-    color: antiquewhite;
-}
-
 .list-item-text {
     text-decoration: none;
     color: antiquewhite;
