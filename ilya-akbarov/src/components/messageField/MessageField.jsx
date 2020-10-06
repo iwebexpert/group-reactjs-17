@@ -1,13 +1,13 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import {TextField, Grid, Button} from '@material-ui/core'
+import {TextField, Grid, Button, Typography} from '@material-ui/core'
 import {Send} from '@material-ui/icons'
 import './MessageField.scss'
 
 class MessageField extends Component {
   state = {
     text: '',
-    author: '',
+    // author: '',
   }
 
   static propTypes = {
@@ -23,7 +23,10 @@ class MessageField extends Component {
 
   onSubmitHandler = () => {
     if (this.state.text.trim()) {
-      this.props.onSubmit({...this.state})
+      this.props.onSubmit({
+        text: this.state.text,
+        author: this.props.username,
+      })
       this.setState({text: ''})
     }
   }
@@ -36,7 +39,8 @@ class MessageField extends Component {
   }
 
   render() {
-    const {text, author} = this.state
+    const { text } = this.state
+    const { username } = this.props
 
     return (
       <Grid
@@ -47,14 +51,12 @@ class MessageField extends Component {
         onKeyPress={this.onKeyPressHandler}
       >
         <Grid item sm={3}>
-          <TextField
-            variant="filled"
-            className="text-field"
-            label="Введите имя"
-            name="author"
-            value={author}
-            onChange={this.onChangeHandler}
-          />
+          <Typography
+            variant="h4"
+            align="center"
+          >
+            {username}
+          </Typography>
         </Grid>
 
         <Grid item sm={6}>
@@ -70,9 +72,9 @@ class MessageField extends Component {
         </Grid>
 
         <Grid item sm={3}>
-          <Button 
-            variant="contained" 
-            color="secondary" 
+          <Button
+            variant="contained"
+            color="secondary"
             size="large"
             onClick={this.onSubmitHandler}
           >

@@ -1,7 +1,7 @@
 import Home from '@/pages/Home'
 import About from '@/pages/About'
-import Chats from '@/pages/Chats'
-import Profile from '@/pages/Profile'
+import Chats from '@containers/MessengerContainer'
+import Profile from '@containers/ProfileContainer'
 
 export const routes = [
   {
