@@ -4,7 +4,6 @@ import './Header.css';
 import {List, ListItem} from "@material-ui/core";
 import {Link} from 'react-router-dom';
 
-
 export const Header = () => {
   return (
     <div className="header-container">

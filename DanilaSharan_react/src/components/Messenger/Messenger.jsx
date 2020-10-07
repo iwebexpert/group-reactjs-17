@@ -1,10 +1,9 @@
 import React, {Component} from 'react';
-import {nanoid} from 'nanoid';
+
 
 import {MessageList} from '../MessageList';
 import {MessageForm} from '../MessageForm';
 
-import {chats} from '../../helpers/chatsData'
 import './Messenger.css';
 import {Grid} from "@material-ui/core";
 import {ChatList} from "../ChatList";
@@ -17,61 +16,24 @@ import {ArrowBackIos} from "@material-ui/icons";
 
 export class Messenger extends Component
 {
-    state = {
-        chats,
-    };
-
-    handleMessageSend = (message) => {
-        const {chats} = this.state;
-        const {match} =this.props;
-
-        const chat = chats[match.params.id]
-        message.id = nanoid()
-        chat.messages = this.messages.concat([message])
-
-        chats[match.params.id] = chat;
-
-        this.setState({
-            chats,
-        });
-
-
-        let body = document.querySelector('.messages-list').lastChild;
-        body.scrollIntoView();
-
-    };
-
-    componentDidUpdate() {
-        if(this.messages.length) {
-            const {author, id} = this.messages[this.messages.length - 1];
-            if (author !== 'Bot'){
-                setTimeout(() => {
-                    if (id === this.messages[this.messages.length - 1].id)
-                        this.handleMessageSend({text: `Hi, ${author}! Это бот...`, author: 'Bot'});
-                }, 2000);
-            }
-        }
-
-        let body = document.querySelector('.messages-list').lastChild;
-        body.scrollIntoView();
-    }
-
-    get messages(){
-        const {chats} =this.state;
-        const {match} =this.props;
-
-        let messages = 0;
-
-        if(match && chats[match.params.id]) {
-            messages = chats[match.params.id].messages;
-        }
-        return messages;
-    }
+    // componentDidUpdate() {
+    //     if(this.messages.length) {
+    //         const {author, id} = this.messages[this.messages.length - 1];
+    //         if (author !== 'Bot'){
+    //             setTimeout(() => {
+    //                 if (id === this.messages[this.messages.length - 1].id)
+    //                     this.handleMessageSend({text: `Hi, ${author}! Это бот...`, author: 'Bot'});
+    //             }, 2000);
+    //         }
+    //     }
+    //
+    //     let body = document.querySelector('.messages-list').lastChild;
+    //     body.scrollIntoView();
+    // }
 
     render()
     {
-        const {chats} = this.state;
-        const messages = this.messages;
+        const {chats, messages, username, handleMessageSend} = this.props;
 
         const chatsList = chats.map((item) => (
             <ListItem key={item.id} button>
@@ -83,7 +45,7 @@ export class Messenger extends Component
                 <Link className="list-item-text" to={`/chats/${item.id}`}>{item.title}</Link>
             </ListItem>
         ));
-        console.log(chatsList);
+
         return (
             <Grid container spacing={1}>
                 <ChatList chatsList={chatsList}/>
@@ -98,7 +60,7 @@ export class Messenger extends Component
                                 </div>
                             </div>
                         </div>
-                        {messages ? <MessageForm onSend={this.handleMessageSend} /> : <></>}
+                        {messages ? <MessageForm username={username} onSend={handleMessageSend} /> : <></>}
                     </div>
                 </Grid>
             </Grid>

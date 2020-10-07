@@ -6,7 +6,6 @@ import List from "@material-ui/core/List";
 import Grid from "@material-ui/core/Grid";
 
 export const ChatList = (chatsList) => {
-  console.log(chatsList.chatsList)
   const list = chatsList.chatsList;
   return (
     <Grid item xs={3} className="chat-list-container">
