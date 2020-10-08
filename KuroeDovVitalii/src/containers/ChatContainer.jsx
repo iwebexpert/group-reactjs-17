@@ -1,16 +1,11 @@
 import React, { Fragment, Component } from 'react'
 import { connect } from 'react-redux'
 import Chat from '../Components/Chat/Chat'
-import { chatsLoadAction, chatsMessageSendAction, chatsMessageDeleteAction,  } from '../actions/chats'
+import { chatsMessageSendAction, chatsMessageDeleteAction,  } from '../actions/chats'
 import { nanoid } from 'nanoid'
 class ChatContainerClass extends Component {
     
-    componentDidMount() {
-        const { chats,  } = this.props
-        if (!chats.length ) {
-            this.props.chatsLoadAction()
-        }
-    }
+    
     
     handleMessageSend = (message, id, numSelectedChat) => {
         message.chatId = id
@@ -27,7 +22,6 @@ class ChatContainerClass extends Component {
     }
 
     render() {
-        console.log(this.props)
         const { chats, messages } = this.props
        
         return (
@@ -40,7 +34,6 @@ class ChatContainerClass extends Component {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        chatsLoadAction: () => dispatch(chatsLoadAction()),
         chatsMessageSendAction: (message) => dispatch(chatsMessageSendAction(message)),
         chatsMessageDeleteAction: (message) => dispatch(chatsMessageDeleteAction(message)),
     }

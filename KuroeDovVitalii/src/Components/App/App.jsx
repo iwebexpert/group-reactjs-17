@@ -10,32 +10,6 @@ class App extends Component {
 
     state = {
         title: 'React GB',
-        chats: {
-            1: {
-                id: nanoid(4),
-                name: 'Сушист',
-                avatar: `https://i.pravatar.cc/150?img=${nanoid(4)}`,
-                messages: [{name: "me", text: "first", id: nanoid(4) }]
-            },
-            2: {
-                id: nanoid(4),
-                name: 'Визажист',
-                avatar: `https://i.pravatar.cc/150?img=${nanoid(4)}`,
-                messages: [{name: "me", text: "second", id: nanoid(4) }]
-            },
-            3: {
-                id: nanoid(4),
-                name: 'Массажист',
-                avatar: `https://i.pravatar.cc/150?img=${nanoid(4)}`,
-                messages: [{name: "me", text: "third", id: nanoid(4) }]
-            },
-            4: {
-                id: nanoid(4),
-                name: 'Хореограф',
-                avatar: `https://i.pravatar.cc/150?img=${nanoid(4)}`,
-                messages: [{name: "me", text: "one more", id: nanoid(4) }]
-            }
-        },
         user: {
             firstName: 'Виталий',
             lastName: 'Куроедов',
@@ -157,7 +131,7 @@ class App extends Component {
 
     handleSelectChat = (data) => {
         const chatKey = []
-        for (let [key, value] of Object.entries(this.state.chats)) {
+        for (let [key, value] of Object.entries(this.props.chats)) {
             chatKey.push(value)
             if( value.id === data) {
                 this.setState({ numSelectedChat: key, currentActiveChatName: value.name })
@@ -206,7 +180,7 @@ class App extends Component {
                                 />
                             </Switch>
                             <ChatList 
-                                chats={ this.state.chats } 
+                                chats={ this.props.chats } 
                                 selectChat={ this.handleCurrentChatName } 
                                 currentActiveChat={ this.state.currentActiveChat }/>
                             <AlertShow 
