@@ -10,7 +10,7 @@ export const chatFireMiddleware = store => next => action => {
             store.dispatch(chatsFireAction(chatId));
     }
 
-    if (action.type === '@@router/LOCATION_CHANGE' && false !== action.payload.location.pathname.indexOf('chat')){
+    if (action.type === '@@router/LOCATION_CHANGE' && action.payload.location.pathname.indexOf('chat') > 0){
         const chatId = action.payload.location.pathname.split('/').pop();
         store.dispatch(chatsUnfireAction(chatId));
     }
