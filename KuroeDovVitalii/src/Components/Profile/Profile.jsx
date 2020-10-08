@@ -42,10 +42,11 @@ function PaperComponent(props) {
 }
 
 export default function Profile(props) {
+    console.log(props.profile, 'prof')
     const classes = useStyles()
     const [open, setOpen] = React.useState(false)
-    const [firstName, setFirstName] = React.useState(props.user.firstName)
-    const [lastName, setLastName] = React.useState(props.user.lastName)
+    const [firstName, setFirstName] = React.useState(props.profile.firstName)
+    const [lastName, setLastName] = React.useState(props.profile.lastName)
 
     const handleClickOpen = () => {
         setOpen(true)
@@ -82,11 +83,10 @@ export default function Profile(props) {
         //props.handleLogOut()
         handleClose()
     } 
-
     const error = props.error ? 'Data is not set' : 'OK'
   return (
     <div className={classes.regButton}>
-        <Avatar className="avatar" onClick={handleClickOpen} src={props.user.avatar}/>
+        <Avatar className="avatar" onClick={handleClickOpen} src={ props.profile.avatar }/>
         <Dialog
             open={open}
             fullWidth
@@ -96,15 +96,14 @@ export default function Profile(props) {
         >
         <DialogTitle style={{ cursor: 'move' }} id="draggable-dialog-title">
             <div className={classes.profileTitleContainer}>
-                { props.user.firstName }   { props.user.lastName } 
-                <Button variant="contained" color="primary" disabled onClick={handleLogOut}>LogOut</Button>
+                { props.profile.firstName }   { props.profile.lastName } 
             </div>
           
         </DialogTitle>
         <DialogContent>
-            <Avatar className="avatar" className={classes.large} src={props.user.avatar}/>
+            <Avatar className="avatar" className={classes.large} src={props.profile.avatar}/>
             <DialogContentText> 
-                Enter new user data
+                Введите новые данные о пользователе
             </DialogContentText>
             <TextField
                 autoFocus
@@ -112,7 +111,7 @@ export default function Profile(props) {
                 id="name"
                 label="First Name"
                 onChange= {handleFirstNameChange} 
-                value= {firstName} 
+                value= { firstName } 
                 onKeyUp={ (event) => handleKeyUp(event, firstName) }
                 fullWidth
             />

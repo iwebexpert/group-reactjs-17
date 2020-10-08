@@ -34,6 +34,7 @@ export default function AlertShow(props) {
       >
         <DeleteIcon fontSize="inherit" />
     </IconButton> : null
+
   return (
     <div className={ classes.root }>
       <Collapse in={ props.popup.status }>
@@ -49,7 +50,7 @@ export default function AlertShow(props) {
                 color="inherit"
                 size="small"
                 onClick={() => {
-                  props.hanldeCloseAlert({ status: false });
+                  props.hanldeCloseAlert(false);
                 }}
               >
                 <CloseIcon fontSize="inherit" />

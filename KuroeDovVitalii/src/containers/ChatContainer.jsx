@@ -1,11 +1,8 @@
 import React, { Fragment, Component } from 'react'
 import { connect } from 'react-redux'
 import Chat from '../Components/Chat/Chat'
-import { chatsMessageSendAction, chatsMessageDeleteAction,  } from '../actions/chats'
-import { nanoid } from 'nanoid'
+import { chatsMessageSendAction } from '../actions/chats'
 class ChatContainerClass extends Component {
-    
-    
     
     handleMessageSend = (message, id, numSelectedChat) => {
         message.chatId = id
@@ -13,17 +10,7 @@ class ChatContainerClass extends Component {
         this.props.chatsMessageSendAction(message)
     }
 
-    handleDeleteMessage = (value) => {
-        console.log(value)
-    }
-
-    hanldeCloseAlert = (value) => {
-        console.log(value)
-    }
-
     render() {
-        const { chats, messages } = this.props
-       
         return (
             <>
                 <Chat { ...this.props } handleMessageSend={this.handleMessageSend} />
@@ -35,7 +22,6 @@ class ChatContainerClass extends Component {
 const mapDispatchToProps = (dispatch) => {
     return {
         chatsMessageSendAction: (message) => dispatch(chatsMessageSendAction(message)),
-        chatsMessageDeleteAction: (message) => dispatch(chatsMessageDeleteAction(message)),
     }
 }
 

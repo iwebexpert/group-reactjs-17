@@ -10,19 +10,12 @@ class App extends Component {
 
     state = {
         title: 'React GB',
-        user: {
-            firstName: 'Виталий',
-            lastName: 'Куроедов',
-            avatar: `https://i.pravatar.cc/150?img=${nanoid(4)}`,
-            email: 'wilde@bk.ru',
-            age: '31'
-        },
+        
         currentActiveChat: null,
         currentActiveChatName: null,
         numSelectedChat: 1,
         error: null,
         popup: {text: '', status: false},
-
         users: {
             1: { name: 'Михаил', avatar: `https://i.pravatar.cc/150?img=${nanoid(4)}`, id: nanoid(4) },
             2: { name: 'Игорь', avatar: `https://i.pravatar.cc/150?img=${nanoid(4)}`, id: nanoid(4) },
@@ -53,7 +46,7 @@ class App extends Component {
         })
     }
   
-    handleAlert = (value, type, id = nanoid(4)) => {
+    handleAlert = (value, type = 'inform', id = nanoid(4)) => {
         let alertType = type
         let status = true
 
@@ -109,18 +102,12 @@ class App extends Component {
     }
 
     handleDeleteMessage = (value) => {
-        const chat = this.state.numSelectedChat
-        const messages = this.state.chats[chat].messages
-        const filterMessage = messages.filter(item => item.id !== value.id)
-        
+        this.props.handleDelete({
+            messageId: value.id, 
+            isSelect: value.isSelect, 
+            numSelectedChat: this.state.numSelectedChat
+        })
         this.setState({
-            chats: { 
-                ...this.state.chats,
-                [chat] : {
-                    ...this.state.chats[chat],
-                    messages: filterMessage
-                }
-            },
             popup: {
                 ...this.state.popup,
                 isSelect: value.isSelect,
@@ -149,7 +136,7 @@ class App extends Component {
             <BrowserRouter>     
                 <Header 
                     title={ this.state.title } 
-                    user={ this.state.user } 
+                    profile={ this.props.profile } 
                     chatName={ this.state.currentActiveChatName }
                     users={ this.state.users }
                     handleNewChat={ this.handleNewChat }

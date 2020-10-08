@@ -1,6 +1,6 @@
 import update from 'react-addons-update'
 
-import { CHATS_LOAD, CHATS_MESSAGE_SEND, CHATS_MESSAGE_DELETE,  } from '../actions/chats'
+import { CHATS_LOAD, CHATS_MESSAGE_SEND, CHATS_MESSAGE_DELETE } from '../actions/chats'
 
 import { chats } from '../helpers/chatsData'
 
@@ -11,6 +11,7 @@ const initialState = {
 
 export const chatReducer = (state = initialState, action) => {
     switch(action.type) {
+        
         case CHATS_LOAD: 
             return {
                 ...state,
@@ -23,16 +24,17 @@ export const chatReducer = (state = initialState, action) => {
                     [action.payload.numSelectedChat]: {
                         messages: {$push: [
                             { name: action.payload.name, text: action.payload.text, id: action.payload.id }
-                        ]}
+                        ]},
+                        
                     }
-                }
+                },
             })
 
         case CHATS_MESSAGE_DELETE:
-            const { numSelectedChat, id } = action.payload
+            const { numSelectedChat, messageId } = action.payload
             const messages = state.entries[numSelectedChat].messages
-            const filterMessage = messages.filter(item => item.id !== id)
-
+            const filterMessage = messages.filter(item => item.id !== messageId)
+            console.log(action.payload)
             return {
                 ...state,
                 entries: {
