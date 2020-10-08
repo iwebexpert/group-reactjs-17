@@ -21,13 +21,13 @@ const useStyles = makeStyles((theme) => ({
 
 export default function AlertShow(props) {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(props.popoup.status);
+  const [open, setOpen] = React.useState(props.popup.status);
   
   const handleDeleteMessage = () => {
-    props.handleDeleteMessage({ id: props.popoup.id, isSelect: props.popoup.isSelect })
+    props.handleDeleteMessage({ id: props.popup.id, isSelect: props.popup.isSelect })
   }
 
-  const DeleteButton = props.popoup.type === 'message alert' ?
+  const DeleteButton = props.popup.type === 'message alert' ?
     <IconButton
       aria-label="delete"
       color="inherit"
@@ -38,7 +38,7 @@ export default function AlertShow(props) {
     </IconButton> : null
   return (
     <div className={ classes.root }>
-      <Collapse in={ props.popoup.status }>
+      <Collapse in={ props.popup.status }>
         <Alert 
           variant="filled" 
           severity="success"
@@ -51,7 +51,7 @@ export default function AlertShow(props) {
                 color="inherit"
                 size="small"
                 onClick={() => {
-                  props.hanldeCloseAlert(false);
+                  props.hanldeCloseAlert({ status: false });
                 }}
               >
                 <CloseIcon fontSize="inherit" />
@@ -59,7 +59,7 @@ export default function AlertShow(props) {
             </div>
           }
         > 
-          { props.popoup.text }
+          { props.popup.text }
         </Alert>
       </Collapse>
     </div>

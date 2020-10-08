@@ -47,7 +47,7 @@ class App extends Component {
         currentActiveChatName: null,
         numSelectedChat: 1,
         error: null,
-        popoup: {text: '', status: false},
+        popup: {text: '', status: false},
 
         users: {
             1: { name: 'Михаил', avatar: `https://i.pravatar.cc/150?img=${nanoid(4)}`, id: nanoid(4) },
@@ -72,7 +72,7 @@ class App extends Component {
 
     hanldeCloseAlert = (value) => {
         this.setState({
-            popoup: {
+            popup: {
                 text: '',
                 status: value
             }
@@ -95,7 +95,7 @@ class App extends Component {
         }
 
         this.setState({
-            popoup: {
+            popup: {
                 text: value,
                 status: status,
                 type: alertType,
@@ -147,32 +147,14 @@ class App extends Component {
                     messages: filterMessage
                 }
             },
-            popoup: {
-                ...this.state.popoup,
+            popup: {
+                ...this.state.popup,
                 isSelect: value.isSelect,
                 status: value.isSelect
             }
         }, () => this.handleAlert(`Сообщение удалено`, 'inform'))
     }
 
-    handleAddMessage = (content, id) => {
-        
-        if (id !== undefined) {
-            let idChat = this.state.numSelectedChat
-
-            if (this.state.chats[idChat].id === id) {
-                this.setState( {
-                    chats: { ...this.state.chats,
-                        [idChat] : {
-                            ...this.state.chats[idChat],
-                            messages: [...this.state.chats[idChat].messages, content]
-                        }
-                    }
-                })
-            }
-        } 
-    }
-    
     handleSelectChat = (data) => {
         const chatKey = []
         for (let [key, value] of Object.entries(this.state.chats)) {
@@ -206,8 +188,9 @@ class App extends Component {
                                     <ChatContainer 
                                         { ...props }
                                         handleAlert={ this.handleAlert }
-                                        chats={ this.state.chats } 
-                                        addMessage={ this.handleAddMessage } 
+                                        handleDeleteMessage={ this.handleDeleteMessage }
+                                        popup={ this.state.popup } 
+                                        hanldeCloseAlert={ this.hanldeCloseAlert }
                                         numSelectedChat={ this.state.numSelectedChat }
                                         currentActiveChat={ this.state.currentActiveChat } />}
                                 />
@@ -215,8 +198,9 @@ class App extends Component {
                                     <ChatContainer 
                                         { ...props }
                                         handleAlert={ this.handleAlert }
-                                        chats={ this.state.chats } 
-                                        addMessage={ this.handleAddMessage } 
+                                        handleDeleteMessage={ this.handleDeleteMessage }
+                                        popup={ this.state.popup } 
+                                        hanldeCloseAlert={ this.hanldeCloseAlert }
                                         numSelectedChat={ this.state.numSelectedChat }
                                         currentActiveChat={ this.state.currentActiveChat } />}
                                 />
@@ -227,7 +211,7 @@ class App extends Component {
                                 currentActiveChat={ this.state.currentActiveChat }/>
                             <AlertShow 
                                 handleDeleteMessage={ this.handleDeleteMessage }
-                                popoup={ this.state.popoup } 
+                                popup={ this.state.popup } 
                                 hanldeCloseAlert={ this.hanldeCloseAlert } />
                         </Route>
                     </Switch>

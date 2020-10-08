@@ -1,22 +1,39 @@
 import React, { Fragment, Component } from 'react'
 import { connect } from 'react-redux'
-
 import Chat from '../Components/Chat/Chat'
-import { chatsLoadAction, chatsMessageSendAction } from '../actions/chats'
-
+import { chatsLoadAction, chatsMessageSendAction, chatsMessageDeleteAction,  } from '../actions/chats'
+import { nanoid } from 'nanoid'
 class ChatContainerClass extends Component {
     
-    // componentDidMount() {
-    //     console.log(this.props)
-    //     this.props.chatsLoadAction()
-    // }
+    componentDidMount() {
+        const { chats,  } = this.props
+        if (!chats.length ) {
+            this.props.chatsLoadAction()
+        }
+    }
+    
+    handleMessageSend = (message, id, numSelectedChat) => {
+        message.chatId = id
+        message.numSelectedChat = numSelectedChat
+        this.props.chatsMessageSendAction(message)
+    }
+
+    handleDeleteMessage = (value) => {
+        console.log(value)
+    }
+
+    hanldeCloseAlert = (value) => {
+        console.log(value)
+    }
 
     render() {
-        // console.log(this.props, 'props')
-        // const chats 
+        console.log(this.props)
         const { chats, messages } = this.props
+       
         return (
-                <Chat { ...this.props }  />
+            <>
+                <Chat { ...this.props } handleMessageSend={this.handleMessageSend} />
+            </>
         )
     }
 }
@@ -25,12 +42,13 @@ const mapDispatchToProps = (dispatch) => {
     return {
         chatsLoadAction: () => dispatch(chatsLoadAction()),
         chatsMessageSendAction: (message) => dispatch(chatsMessageSendAction(message)),
+        chatsMessageDeleteAction: (message) => dispatch(chatsMessageDeleteAction(message)),
     }
 }
 
 const mapStateToProps = (state, ownProps) => {
-    // const chats = state.chats.entries
-    const { chats, match } = ownProps
+    const chats = state.chats.entries
+    const { match } = ownProps
 
     let messages = null
 
@@ -39,7 +57,8 @@ const mapStateToProps = (state, ownProps) => {
     }
     return {
         chats,
-        messages
+        messages,
+        chatId: match ? match.params.id : null
     }
 }
 

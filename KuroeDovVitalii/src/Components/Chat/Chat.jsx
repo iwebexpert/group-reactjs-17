@@ -6,18 +6,24 @@ import { nanoid } from 'nanoid'
 class Chat extends Component {
     constructor(props) {
         super(props)
-        this.addMessage = props.addMessage.bind(this)
         this.handleAlert = props.handleAlert.bind(this)
+        this.handleMessageSend = props.handleMessageSend.bind(this)
     }
 
     state = {
         input: '',
-        messages: []
     }
     
-    handleSendMessage = (value) => {
+    handleSendMessage = (message) => {
+        const { numSelectedChat } = this.props
         const { id } = this.props.match.params
-        this.setState({ input: '' }, this.addMessage({ name: 'me', text: value, id: nanoid(4) }, id))
+        this.setState({ input: '' }, 
+        this.handleMessageSend(
+            { 
+                name: 'me', 
+                text: message, 
+                id: nanoid(4) 
+            }, id, numSelectedChat))
     }
 
     handleClick = (value) => {
@@ -39,23 +45,32 @@ class Chat extends Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        const { id } = this.props.match.params
+
         const { numSelectedChat } = this.props
+
+        if (!prevProps.chats[numSelectedChat]) {
+            return
+        }
+
+        const { id } = this.props.match.params
         const { name, messages } = this.props.chats[numSelectedChat]
         const lastMessage = messages[messages.length -1]
 
-        if(prevProps.chats[numSelectedChat].messages.length < messages.length && lastMessage.name === 'me'){
+        if (prevProps.chats[numSelectedChat].messages.length < messages.length && lastMessage.name === 'me') {
             setTimeout(() => {
-                this.addMessage({ name: name, text: `Я ${name}, Чо хош!?`, id: nanoid(4) }, id), 2000})
+                this.handleMessageSend({ name: name, text: `Я ${name}, Чо хош!?`, id: nanoid(4) }, id, numSelectedChat), 2000})
         }
     }
 
     render() {
-        console.log(this.props)
-
         const { id }  = this.props.match.params
-        const { numSelectedChat } = this.props
+        const { numSelectedChat, isLoading } = this.props
         let Messages = <Typography>Выберите чат</Typography>
+        
+        if (!this.props.chats[numSelectedChat]) {
+            return <div>Loading...</div>
+        }
+
         const avatar = this.props.chats[numSelectedChat].id
         const currentChat = this.props.chats[numSelectedChat].messages 
 
