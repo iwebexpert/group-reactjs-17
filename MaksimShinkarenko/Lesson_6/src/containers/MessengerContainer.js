@@ -4,7 +4,7 @@ import {nanoid} from "nanoid";
 import {push} from 'connected-react-router';
 
 import {Messenger} from 'components/Messenger';
-import {chatsLoadAction, chatsMessageAction, chatsAddAction} from 'actions/chats';
+import {chatsLoadAction, chatsMessageAction, chatsAddAction, chatsFireAction} from 'actions/chats';
 
 class MessengerContainerClass extends React.Component {
     componentDidMount() {
@@ -15,6 +15,7 @@ class MessengerContainerClass extends React.Component {
 
     handleChatAdd = (chat) => {
         chat.id = this.props.chats.length;
+        chat.fire = false;
         const {chatsAddAction, redirect} = this.props;
         chatsAddAction(chat);
         redirect(chat.id);
@@ -28,7 +29,6 @@ class MessengerContainerClass extends React.Component {
     };
 
     render() {
-
         const {chats, messages} = this.props;
         return (
             <Messenger chats={chats} messages={messages} handleMessageSend={this.handleMessageSend}
@@ -50,7 +50,7 @@ function mapStateToProps(state, ownProps) {
     const chatsArray = [];
     for (let key in chats) {
         if (chats.hasOwnProperty(key)) {
-            chatsArray.push({title: chats[key].title, id: chats[key].id});
+            chatsArray.push({title: chats[key].title, id: chats[key].id, fire: chats[key].fire});
         }
     }
 

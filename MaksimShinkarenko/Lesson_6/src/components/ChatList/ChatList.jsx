@@ -8,10 +8,14 @@ import {AddChatForm} from "components/AddChatForm";
 export class ChatList extends Component {
     render() {
         const {chats, onChatAdd} = this.props;
+        console.log(chats)
 
         const chatsList = chats.map((item) => (
-            <ListItem key={item.id} className='chatListItem'>
-                <Link to={`/chats/${item.id}`}><ListItemText primary={item.title}/></Link>
+            <ListItem key={item.id} className={'chatListItem'}>
+                <Link to={`/chats/${item.id}`}>
+                    <ListItemText primary={item.title}/>
+                </Link>
+                {item.fire && <div className='red'>!</div>}
             </ListItem>
         ));
 

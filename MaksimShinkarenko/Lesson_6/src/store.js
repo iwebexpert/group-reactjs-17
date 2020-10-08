@@ -9,6 +9,7 @@ import {persistStore, persistReducer} from 'redux-persist';
 import {createRootReducer} from 'reducers';
 import {loggerMiddleware} from 'middlewares/loggerMiddleware';
 import {botMiddleware} from 'middlewares/botMiddleware';
+import {chatFireMiddleware} from 'middlewares/chatFireMiddleware';
 
 const composeWithDevToolsUser = composeWithDevTools({
     trace: true,
@@ -27,7 +28,7 @@ export const initStore = () => {
         persistReducer(persistConfig, createRootReducer(history)),
         initialStore,
         composeWithDevToolsUser(
-            applyMiddleware(logger, botMiddleware, routerMiddleware(history))
+            applyMiddleware(logger, botMiddleware, chatFireMiddleware, routerMiddleware(history))
         ));
     const persistor = persistStore(store);
     return {store, persistor};
