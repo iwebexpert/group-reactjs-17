@@ -33,7 +33,6 @@ export const chatsReducer = (state = initialState, action) => {
             });
 
         case CHATS_ADD:
-            console.log(state)
             return update(state, {
                 entries: {
                     $push: [{

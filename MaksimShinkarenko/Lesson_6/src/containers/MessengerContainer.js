@@ -1,9 +1,10 @@
 import React from "react";
 import {connect} from 'react-redux';
+import {nanoid} from "nanoid";
+import {push} from 'connected-react-router';
 
 import {Messenger} from 'components/Messenger';
 import {chatsLoadAction, chatsMessageAction, chatsAddAction} from 'actions/chats';
-import {nanoid} from "nanoid";
 
 class MessengerContainerClass extends React.Component {
     componentDidMount() {
@@ -14,9 +15,9 @@ class MessengerContainerClass extends React.Component {
 
     handleChatAdd = (chat) => {
         chat.id = this.props.chats.length;
-        const {chatsAddAction} = this.props;
-        console.log(this.props)
+        const {chatsAddAction, redirect} = this.props;
         chatsAddAction(chat);
+        redirect(chat.id);
     }
 
     handleMessageSend = (message) => {
@@ -65,7 +66,8 @@ function mapDispatchToProps(dispatch) {
         chatsLoadAction: () => dispatch(chatsLoadAction()),
         chatsMessageAction: (message) => dispatch(chatsMessageAction(message)),
         chatsAddAction: (chat) => dispatch(chatsAddAction(chat)),
-    }
+        redirect: (chatId) => dispatch(push(`/chats/${chatId}`)),
+    };
 }
 
 export const MessengerContainer = connect(mapStateToProps, mapDispatchToProps)(MessengerContainerClass);

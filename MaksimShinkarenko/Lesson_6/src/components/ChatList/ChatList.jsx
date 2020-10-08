@@ -6,29 +6,6 @@ import './ChatList.scss'
 import {AddChatForm} from "components/AddChatForm";
 
 export class ChatList extends Component {
-
-    /*handleChatAdd = (title) => {
-        const {chats} = this.props;
-
-        let chatList = chats.concat([
-            {
-                id: chats.length,
-                title: title,
-                messages: [
-                    {
-                        id: 0,
-                        author: 'WebDev',
-                        text: `Приветствуем в новом чате ${title}`
-                    },
-                ]
-            }
-        ])
-
-        this.props.onChatAdd({
-            chats: chatList
-        })
-    }*/
-
     render() {
         const {chats, onChatAdd} = this.props;
 

@@ -22,7 +22,7 @@ function mapStateToProps(state) {
     const profile = state.profile.entries;
 
     return {
-        profile
+        profile,
     };
 }
 

@@ -1,22 +1,17 @@
 import React from 'react';
 import ReactDom from 'react-dom';
-import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import {Provider} from 'react-redux';
 
-import {routes} from './routes';
 
-import {store} from './store';
-import {Header} from "components/Header";
+
+import {initStore, history} from './store';
 import {Layout} from "components/Layout";
+
+const {store, persistor} = initStore();
 
 ReactDom.render(
     <Provider store={store}>
-        <Layout/>
-        {/*<BrowserRouter>
-            <Switch>
-                {routes.map((route, index) => (<Route key={index} {...route}/>))}
-            </Switch>
-        </BrowserRouter>*/}
+        <Layout history={history} persistor={persistor}/>
     </Provider>,
     document.getElementById('root')
 );

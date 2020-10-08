@@ -9,18 +9,6 @@ import {ChatList} from "components/ChatList";
 
 export class Messenger extends Component {
 
-    /*componentDidUpdate() {
-        if (this.props.match.url.includes('chats')) { //без этой проверки ошибка
-            const {author, id} = this.messages[this.messages.length - 1];
-            if (author !== 'Bot') {
-                setTimeout(() => {
-                    if (id === this.messages[this.messages.length - 1].id)
-                        this.handleMessageSend({text: `Hi, ${author}! Это бот...`, author: 'Bot'});
-                }, 2000);
-            }
-        }
-    }*/
-
     render() {
         const {chats, messages, handleMessageSend, handleChatAdd} = this.props;
 
