@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {MessagesList} from "../MessagesList";
 import {MessageForm} from "../MessageForm";
-import {nanoid} from 'nanoid';
+
 
 import {Container, Grid, Typography} from '@material-ui/core';
 
@@ -27,54 +27,27 @@ export class Messenger extends Component {
         ]
     };
 
-    handleMessageSend = (message) => {
-        const {chats} = this.state;
-        const {match} = this.props;
 
-        const chat = chats[match.params.id];
-        message.id = nanoid();
-        chat.messages = this.messages.concat([message])
-
-        chats[match.params.id] = chat;
-
-        this.setState({
-            chats,
-        });
-    };
-
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        if (this.messages.length) {
-            const {author} = this.messages[this.messages.length - 1];
-            if (author !== 'Бот') {
-                setTimeout(() => {
-                    const {author} = this.messages[this.messages.length - 1];
-                    if (author !== 'Бот') {
-                        this.handleMessageSend({text: `Привет, ${author}! Это Бот!`, author: 'Бот'});
-                    }
-                }, 1000);
-            }
-        }
-    }
-
-    get messages() {
-        const {chats} = this.state;
-        const {match} = this.props;
-
-        let messages = null;
-
-        if (match && chats[match.params.id]) {
-            messages = chats[match.params.id].messages;
-        }
-        return messages;
-    }
+    // componentDidUpdate(prevProps, prevState, snapshot) {
+    //     if (this.messages.length) {
+    //         const {author} = this.messages[this.messages.length - 1];
+    //         if (author !== 'Бот') {
+    //             setTimeout(() => {
+    //                 const {author} = this.messages[this.messages.length - 1];
+    //                 if (author !== 'Бот') {
+    //                     this.handleMessageSend({text: `Привет, ${author}! Это Бот!`, author: 'Бот'});
+    //                 }
+    //             }, 1000);
+    //         }
+    //     }
+    // }
 
     handleMessageAddChat() {
 
     }
 
     render() {
-        const {chats} = this.state;
-        const messages = this.messages;
+        const {chats, messages, handleMessageSend} = this.props;
         const chatList = chats.map((item) => (
             <ListItem button key={item.id}>
                 <Link to={`/chats/${item.id}`}>
@@ -82,8 +55,6 @@ export class Messenger extends Component {
                 </Link>
             </ListItem>
         ))
-
-        console.log(messages);
 
         return (
             <Container className="messenger">
@@ -112,7 +83,7 @@ export class Messenger extends Component {
                           alignItems="center">
                         <div>
                             {messages ? <MessagesList items={messages}/> : <div>Выберите чат слева</div>}
-                            {messages && <MessageForm onSend={this.handleMessageSend}/>}
+                            {messages && <MessageForm onSend={handleMessageSend}/>}
                         </div>
                     </Grid>
                 </Grid>
