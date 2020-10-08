@@ -1,4 +1,4 @@
-export const PROFILE_LOAD = 'CHATS_LOAD';
+export const PROFILE_LOAD = 'PROFILE_LOAD';
 
 export const profileLoadAction = () => ({
     type: PROFILE_LOAD,

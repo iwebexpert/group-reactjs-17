@@ -7,8 +7,9 @@ import {nanoid} from "nanoid";
 
 class MessengerContainerClass extends React.Component {
     componentDidMount() {
-        const {chatsLoadAction} = this.props;
-        chatsLoadAction();
+        const {chatsLoadAction, chats} = this.props;
+        if (!chats.length)
+            chatsLoadAction();
     }
 
     handleChatAdd = (chat) => {
