@@ -41,7 +41,7 @@ export const chatsReducer = (state = initialState, action) => {
         case CHATS_ADD:
             return update(state, {
                 entries: {
-                    chats: {$push: [{
+                   $push: [{
                         id: action.payload.id,
                         title: action.payload.title,
                         messages: [
@@ -51,7 +51,7 @@ export const chatsReducer = (state = initialState, action) => {
                                 text: `Стартовал чат "${action.payload.title}"`
                             },
                         ],
-                    }]}
+                    }]
                 },
             });
 

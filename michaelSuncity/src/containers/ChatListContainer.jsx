@@ -7,7 +7,10 @@ import {chatsLoadAction} from '../actions/chats';
 class ChatListContainerClass extends React.Component {
 
     componentDidMount(){
-        this.props.chatsLoadAction();
+        const {chatsLoadAction, chats} = this.props;
+        if(!chats.length){
+            chatsLoadAction();
+        }
     }
 
     render() {

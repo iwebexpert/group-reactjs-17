@@ -6,6 +6,8 @@ import {Profile} from 'components/Profile';
 import {AddChat} from 'components/AddChat';
 import {MessengerContainer} from 'containers/MessengerContainer';
 import {ProfileContainer} from 'containers/ProfileContainer';
+import {AddChatContainer} from 'containers/AddChatContainer';
+
 
 
 export const routes = [
@@ -32,7 +34,7 @@ export const routes = [
     {
         path: '/addchat',
         exact: true,
-        component: AddChat,
+        component: AddChatContainer,
     },
     {
         path: '*',
