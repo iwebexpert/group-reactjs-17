@@ -8,7 +8,6 @@ import {AddChatForm} from "components/AddChatForm";
 export class ChatList extends Component {
     render() {
         const {chats, onChatAdd} = this.props;
-        console.log(chats)
 
         const chatsList = chats.map((item) => (
             <ListItem key={item.id} className={'chatListItem'}>

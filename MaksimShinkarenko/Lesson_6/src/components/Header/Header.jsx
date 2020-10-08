@@ -3,15 +3,11 @@ import {Switch, Route, Link} from 'react-router-dom';
 import {push} from 'connected-react-router';
 import {List, ListItem, ListItemText} from '@material-ui/core';
 
-import {history, initStore} from '../../store'
-
 import './Header.scss';
-import {chatsAddAction, chatsLoadAction, chatsMessageAction} from "actions/chats";
 import {connect} from "react-redux";
 
 class HeaderClass extends Component {
     pushTo = () => {
-        console.log('ПЕРЕХОД')
         const {redirect} = this.props;
         redirect("/about");
     }
