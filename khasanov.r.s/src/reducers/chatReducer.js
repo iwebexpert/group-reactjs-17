@@ -1,5 +1,5 @@
 import update from 'react-addons-update';
-import {CHATS_LOAD, CHATS_MESSAGE_SEND} from '../actions/chatAction';
+import {CHATS_LOAD, CHATS_MESSAGE_SEND, CHATS_ADD, CHATS_FIRE, CHATS_UN_FIRE} from '../actions/chatAction';
 
 import {chats} from '../helpers/chatData';
 
@@ -16,25 +16,6 @@ export const chatsReducer = (state = initialState, action) => {
                 entries: chats,
             };
         case CHATS_MESSAGE_SEND:
-            // ES6
-            // return {
-            //     ...state,
-            //     entries: {
-            //         ...state.entries,
-            //         [action.payload.chatId]: {
-            //             ...state.entries[action.payload.chatId],
-            //             messages: [
-            //                 ...state.entries[action.payload.chatId].messages,
-            //                 {
-            //                     id: action.payload.id,
-            //                     text: action.payload.text,
-            //                     author: action.payload.author,
-            //                 }
-            //             ],
-            //         },
-            //     },
-            // };
-
             return update(state, {
                 entries: {
                     [action.payload.chatId]: {
@@ -47,7 +28,41 @@ export const chatsReducer = (state = initialState, action) => {
                         },
                     },
                 }
-            })
+            });
+        case CHATS_ADD:
+            const {title, chatId} = action.payload;
+            return update(state,
+                {
+                    entries: {
+                        $merge: {
+                            [chatId]: {
+                                id: chatId,
+                                title,
+                                messages: [],
+                            }
+                        },
+                    },
+                });
+        case CHATS_FIRE:
+            const {fireChatId} = action.payload;
+            return update(state,
+                {
+                    entries: {
+                        [fireChatId]: {
+                            fire: {$set: true}
+                        }
+                    },
+                });
+        case CHATS_UN_FIRE:
+            const {unFireChatId} = action.payload;
+            return update(state,
+                {
+                    entries: {
+                        [unFireChatId]: {
+                            fire: {$set: false}
+                        }
+                    },
+                });
         default:
             return state;
     }

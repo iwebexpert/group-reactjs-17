@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {TextField, Fab} from '@material-ui/core';
+import AddIcon from '@material-ui/icons/Add';
 import {Send} from '@material-ui/icons';
 
 export class ChatForm extends Component {
     state = {
-        name: '',
+        title: '',
     }
 
     static propTypes = {
@@ -14,18 +15,17 @@ export class ChatForm extends Component {
 
     onChangeInputHandler = (event) => {
         const fieldName = event.target.name;
-        this.setState({[fieldName]: event.target.value})
-        console.log(this.state)
+        this.setState({[fieldName]: event.target.value});
     }
 
     submitForm = () => {
-        const {name, author} = this.state;
-        if (!name || !author) {
-            alert('Заполните форму');
+        const {title} = this.state;
+        if (!title) {
+            alert('Укажите название чата');
             return
         }
         this.props.onSend(this.state);
-        this.setState({text: '', author: author})
+        this.setState({title: ''})
     }
 
     onKeyEnter = (event) => {
@@ -39,11 +39,14 @@ export class ChatForm extends Component {
         const {name} = this.state;
         return (
             <div>
-                <TextField id="text" label="Text" variant="outlined" name="text"
+                <TextField id="title" label="Название чата" variant="outlined" name="title"
                            value={name} onChange={this.onChangeInputHandler}
                            placeholder='Добавить чат'
                            onKeyDown={this.onKeyEnter}
                 />
+                <Fab color="primary" aria-label="add" onClick={this.submitForm}>
+                    <AddIcon />
+                </Fab>
             </div>
         );
     }

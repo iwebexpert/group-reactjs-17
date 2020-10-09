@@ -6,7 +6,6 @@ import TextField from "@material-ui/core/TextField";
 export class Profile extends Component {
     render() {
         const {profile} = this.props;
-        console.log('profile', profile);
         return (
             <div>
                 <h1>Profile</h1>

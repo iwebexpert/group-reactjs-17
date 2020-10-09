@@ -15,8 +15,7 @@ export class MessageForm extends Component {
 
     onChangeInputHandler = (event) => {
         const fieldName = event.target.name;
-        this.setState({[fieldName]: event.target.value})
-        console.log(this.state)
+        this.setState({[fieldName]: event.target.value});
     }
 
     submitForm = () => {
