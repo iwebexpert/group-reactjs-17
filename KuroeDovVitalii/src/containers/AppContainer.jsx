@@ -2,7 +2,7 @@ import React, { Fragment, Component } from 'react'
 import { connect } from 'react-redux'
 import App from '../Components/App/App'
 import { chatsLoadAction, chatsMessageDeleteAction } from '../actions/chats'
-import { profileLoadAction } from '../actions/profile'
+import { profileLoadAction, profileChangeNameAction } from '../actions/profile'
 import { nanoid } from 'nanoid'
 
 class AppContainerClass extends Component {
@@ -18,17 +18,19 @@ class AppContainerClass extends Component {
     }
 
     handleDelete = (message) => {
-        console.log(message)
         this.props.chatsMessageDeleteAction(message)
     }
 
+    handleNameChange = (value) => {
+        this.props.profileChangeNameAction(value)
+    }
 
     render() {
         const { chats, messages, profile } = this.props
        
         return (
             <>
-                <App { ...this.props } profile={profile} handleDelete={this.handleDelete} />
+                <App { ...this.props } profile={profile} handleDelete={this.handleDelete} handleNameChange={this.handleNameChange} />
             </>
         )
     }
@@ -40,6 +42,7 @@ const mapDispatchToProps = (dispatch) => {
         chatsLoadAction: () => dispatch(chatsLoadAction()),
         chatsMessageDeleteAction: (message) => dispatch(chatsMessageDeleteAction(message)),
         profileLoadAction: () => dispatch(profileLoadAction()),
+        profileChangeNameAction: (name) => dispatch(profileChangeNameAction(name)),
     }
 }
 

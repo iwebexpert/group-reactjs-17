@@ -96,9 +96,8 @@ class App extends Component {
     }
 
     handleNameChange = (data) => {
-        this.setState({
-            user: { ...this.state.user, firstName: data.firstName, lastName: data.lastName }
-        }, this.handleAlert(`Изменения сохраненны`))
+        this.props.handleNameChange(data)
+        this.handleAlert(`Изменения сохраненны`)
     }
 
     handleDeleteMessage = (value) => {

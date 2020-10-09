@@ -16,7 +16,15 @@ export const profileReducer = (state = initialState, action) => {
                 profile: profile
             }
         case PROFILE_CHANGE_NAME:
+
+            let firstName = action.payload.firstName === undefined ? state.profile.firstName : action.payload.firstName
+            let lastName = action.payload.lastName === undefined ? state.profile.lastName : action.payload.lastName
+            
             return update(state, {
+                profile: { 
+                    firstName: { $set: firstName },
+                    lastName: { $set: lastName }
+                 }
             })
         default: 
             return state
