@@ -30,10 +30,8 @@ export class ChatsNav extends Component {
         }
     }
 
-
-
     render() {
-        const chatList = this.props.chats.map( (item) => (
+                const chatList = this.props.chats.map( (item) => (
             <ListItem button key={item.id}>
                 <ListItemIcon>
                     <InboxIcon color={item.fire ? 'secondary' : 'action'}/>
