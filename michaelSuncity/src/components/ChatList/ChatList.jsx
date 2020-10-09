@@ -20,6 +20,10 @@ export class ChatList extends Component {
         chats,
     }*/
 
+    redirectToProfile = () => {
+        this.props.onSend(`/profile`);
+    }
+
    render(){
 
     const {chats} = this.props;
@@ -49,6 +53,12 @@ export class ChatList extends Component {
                 <Link to="/profile">
                     <ListItemText primary="Profile" />
                 </Link>
+            </ListItem>
+            </div>
+            <div>
+            <ListItem button className="button-menu">
+                <ListItemIcon><AccountBoxIcon /></ListItemIcon>
+                <div onClick={this.redirectToProfile}>Profile redirect</div>
             </ListItem>
             </div>
             <div>

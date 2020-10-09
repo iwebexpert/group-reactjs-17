@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 
 import {ChatList} from '../components/ChatList';
 import {chatsLoadAction} from '../actions/chats';
+import {push} from 'connected-react-router';
 
 class ChatListContainerClass extends React.Component {
 
@@ -13,10 +14,14 @@ class ChatListContainerClass extends React.Component {
         }
     }
 
+    redirectToUrl = (url) => {
+        this.props.redirect(url);
+    }
+
     render() {
     const {chats} = this.props;
         return (
-            <ChatList chats = {chats} />
+            <ChatList chats = {chats} onSend = {this.redirectToUrl} />
         );
     }
 }
@@ -34,6 +39,7 @@ function mapStateToProps(state, ownProps){
 function mapDispatchToProps(dispatch){
     return {
         chatsLoadAction: () => dispatch(chatsLoadAction()),
+        redirect: (url) => dispatch(push(`${url}`)),
     };
 }
 
