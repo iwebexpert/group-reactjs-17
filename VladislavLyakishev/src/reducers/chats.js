@@ -53,6 +53,15 @@ export const chatsReducer = (state = initialState, actions) => {
                     }
                 }
             })
+        case CHATS_STATUS_UNFIRE:
+            const chatIdUnFire = actions.payload
+            return update(state, {
+                entries: {
+                    [chatIdUnFire]: {
+                        fire: {$set: false}
+                    }
+                }
+            })
         default:
             return state
     }

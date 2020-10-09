@@ -28,8 +28,6 @@ export class ChatsNav extends Component {
                 chatName: ''
             })
         }
-
-
     }
 
 

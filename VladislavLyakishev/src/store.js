@@ -2,6 +2,7 @@ import {applyMiddleware, createStore} from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import {createRootReducer} from 'reducers';
 import {botMiddleware} from './middleware/BotMiddleware';
+import {ChatFireMiddleware} from './middleware/ChatFireMiddleware'
 import { createBrowserHistory } from 'history';
 import { routerMiddleware } from 'connected-react-router';
 import storage from 'redux-persist/lib/storage';
@@ -23,6 +24,7 @@ export const initStore = () => {
       applyMiddleware(
         routerMiddleware(history),
         botMiddleware,
+        ChatFireMiddleware,
       )
     ));
   const persisStore = persistStore(store)
