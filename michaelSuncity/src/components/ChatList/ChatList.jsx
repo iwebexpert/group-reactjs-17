@@ -58,7 +58,7 @@ export class ChatList extends Component {
             <div>
             <ListItem button className="button-menu">
                 <ListItemIcon><AccountBoxIcon /></ListItemIcon>
-                <div onClick={this.redirectToProfile}>Profile redirect</div>
+                <div onClick={this.redirectToProfile}><ListItemText primary="Profile redirect" /></div>
             </ListItem>
             </div>
             <div>
