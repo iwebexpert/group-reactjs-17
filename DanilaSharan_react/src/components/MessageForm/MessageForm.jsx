@@ -10,7 +10,6 @@ export class MessageForm extends Component
 {
     state = {
         text: '',
-        author: '',
     };
 
     static propTypes = {
@@ -51,15 +50,19 @@ export class MessageForm extends Component
     render()
     {
         const {text, author} = this.state;
+        const {username}=this.props
 
         return (
             <Grid className="message-form-container" container spacing={2}>
+                <Grid item xs={12} >
+                    <h3>&nbsp; &nbsp;Автор: <strong>{author || username}</strong></h3>
+                </Grid>
                 <Grid item xs={12}>
                     <TextField
                       className="text-field"
                       variant="outlined"
                       name="author"
-                      label="Автор"
+                      label="Измените автора сообщения"
                       onChange={this.onChangeInputHandler}
                       value={author} />
                 </Grid>
