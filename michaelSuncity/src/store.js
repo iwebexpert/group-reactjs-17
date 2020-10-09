@@ -10,6 +10,8 @@ import storage from 'redux-persist/lib/storage';
 import {persistStore, persistReducer} from 'redux-persist';
 import {loggerMiddleware} from './middlewares/loggerMiddleware';
 import {botMiddleware} from './middlewares/botMiddleware';
+import {fireMiddleware} from './middlewares/fireMiddleware';
+
 
 export const history = createBrowserHistory();
 
@@ -30,7 +32,7 @@ export const initStore = () => {
         persistReducer(persistConfig, createRootReducer(history)),
         initialStore,
         composeWithDevTools(
-            applyMiddleware(logger, botMiddleware, routerMiddleware(history)),
+            applyMiddleware(logger, botMiddleware, fireMiddleware, routerMiddleware(history)),
      ));
     const persistor = persistStore(store);
     return {store, persistor};
