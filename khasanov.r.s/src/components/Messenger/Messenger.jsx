@@ -8,7 +8,6 @@ import {Container, Grid, Typography} from '@material-ui/core';
 import './Messenger.scss';
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 
 import {Link} from "react-router-dom";
@@ -20,39 +19,20 @@ import {ChatForm} from "../ChatForm";
 export class Messenger extends Component {
     state = {
         chats,
-        messages: [
-            {text: 'Hi', author: 'WebDev'},
-            {text: 'Hello', author: 'WebDev'},
-            {text: 'Test message', author: 'WebDev'},
-        ]
     };
 
-
-    // componentDidUpdate(prevProps, prevState, snapshot) {
-    //     if (this.messages.length) {
-    //         const {author} = this.messages[this.messages.length - 1];
-    //         if (author !== 'Бот') {
-    //             setTimeout(() => {
-    //                 const {author} = this.messages[this.messages.length - 1];
-    //                 if (author !== 'Бот') {
-    //                     this.handleMessageSend({text: `Привет, ${author}! Это Бот!`, author: 'Бот'});
-    //                 }
-    //             }, 1000);
-    //         }
-    //     }
-    // }
-
-    handleMessageAddChat() {
-
+    goTo (chatId) {
+        this.props.redirect(chatId);
     }
 
     render() {
-        const {chats, messages, handleMessageSend} = this.props;
+        const {chats, messages, handleMessageSend, handleChatAdd} = this.props;
+        console.log('chats', chats);
         const chatList = chats.map((item) => (
             <ListItem button key={item.id}>
-                <Link to={`/chats/${item.id}`}>
+                <div onClick={()=>this.goTo(item.id)} key={`div${item.id}`} className={item.fire ? 'fired' : ''}>
                     <ListItemText primary={item.title}/>
-                </Link>
+                </div>
             </ListItem>
         ))
 
@@ -76,7 +56,7 @@ export class Messenger extends Component {
                         <List component="nav" aria-label="secondary mailbox folders">
                             {chatList}
                         </List>
-                        <ChatForm onSend={this.handleMessageAddChat}/>
+                        <ChatForm onSend={handleChatAdd}/>
                     </Grid>
                     <Grid container direction="column"
                           justify="center"
