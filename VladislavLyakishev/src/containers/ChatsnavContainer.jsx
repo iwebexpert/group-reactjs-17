@@ -6,8 +6,10 @@ import {chatsLoadAction, chatsAddAction} from '../actions/chats';
 
 class ChatsnavContainerClass extends Component {
     componentDidMount() {
-        const {chatsLoadAction} = this.props;
-        chatsLoadAction();
+        const {chatsLoadAction, chats} = this.props;
+        if (!chats.length) {
+            chatsLoadAction();
+        }
     }
 
     addChatHandler = (name) => {

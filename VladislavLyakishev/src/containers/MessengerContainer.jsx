@@ -6,8 +6,10 @@ import {chatsLoadAction, chatsMessageSendAction} from '../actions/chats';
 
 class MessengerContainerClass extends Component {
     componentDidMount() {
-        const {chatsLoadAction} = this.props;
-        chatsLoadAction();
+        const {chatsLoadAction, chats} = this.props;
+        if (!chats.length) {
+            chatsLoadAction();
+        }
     }
 
     handleMessageSend = (message) => {

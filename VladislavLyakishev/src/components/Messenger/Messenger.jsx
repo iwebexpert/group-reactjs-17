@@ -28,7 +28,6 @@ export class Messenger extends Component {
 
   render() {
     const messageData = this.props.messages;
-    console.log(messageData)
     const {handleMessageSend} = this.props;
     return (
       <div className="messenger">
