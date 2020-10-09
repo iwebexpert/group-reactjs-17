@@ -1,6 +1,6 @@
 import update from 'react-addons-update'
 import { nanoid } from 'nanoid'
-import { CHATS_LOAD, CHATS_MESSAGE_SEND, CHATS_MESSAGE_DELETE, CHATS_ADD } from '../actions/chats'
+import { CHATS_LOAD, CHATS_MESSAGE_SEND, CHATS_MESSAGE_DELETE, CHATS_ADD, CHAT_DELETE } from '../actions/chats'
 
 import { chats } from '../helpers/chatsData'
 
@@ -56,6 +56,13 @@ export const chatReducer = (state = initialState, action) => {
                     }
                 }}
             })
+       
+        case CHAT_DELETE: 
+
+            return update(state, {
+                entries: {$splice: null}
+            })
+
         default: 
             return state
     } 

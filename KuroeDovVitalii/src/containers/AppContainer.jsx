@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import App from '../Components/App/App'
 import { chatsLoadAction, chatsAddAction, chatsMessageDeleteInformAction } from '../actions/chats'
 import { profileLoadAction, profileChangeNameAction, usersLoadAction } from '../actions/profile'
-import { nanoid } from 'nanoid'
+import { push } from 'connected-react-router'
 
 class AppContainerClass extends Component {
 
@@ -20,8 +20,12 @@ class AppContainerClass extends Component {
         this.props.chatsMessageDeleteInformAction(message)
     }
     handleNewChat = (data) => {
-        const { newChatId, chatsAddAction } = this.props
+        
+        const { newChatId, chatsAddAction, redirect, chats} = this.props
         chatsAddAction(newChatId, data)
+        // const chatId = chats[newChatId].id
+        console.log(chats)
+        // redirect(chatId)
     }
 
     handleNameChange = (value) => {
@@ -44,17 +48,6 @@ class AppContainerClass extends Component {
     }
 }
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        chatsLoadAction: () => dispatch(chatsLoadAction()),
-        chatsMessageDeleteInformAction: (message) => dispatch(chatsMessageDeleteInformAction(message)),
-        profileLoadAction: () => dispatch(profileLoadAction()),
-        usersLoadAction: () => dispatch(usersLoadAction()),
-        profileChangeNameAction: (name) => dispatch(profileChangeNameAction(name)),
-        chatsAddAction: (newChatId, data) => dispatch(chatsAddAction(newChatId, data)),
-    }
-}
-
 const mapStateToProps = (state, ownProps) => {
     const chats = state.chats.entries
     const { profile, users } = state.profile
@@ -67,6 +60,18 @@ const mapStateToProps = (state, ownProps) => {
         newChatId,
         users,
         chatId: match ? match.params.id : null
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        chatsLoadAction: () => dispatch(chatsLoadAction()),
+        chatsMessageDeleteInformAction: (message) => dispatch(chatsMessageDeleteInformAction(message)),
+        profileLoadAction: () => dispatch(profileLoadAction()),
+        usersLoadAction: () => dispatch(usersLoadAction()),
+        profileChangeNameAction: (name) => dispatch(profileChangeNameAction(name)),
+        chatsAddAction: (newChatId, data) => dispatch(chatsAddAction(newChatId, data)),
+        redirect: (chatId) => dispatch(push(`/${chatId}`)),
     }
 }
 

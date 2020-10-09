@@ -1,10 +1,11 @@
 import { combineReducers } from 'redux'
-
+import { connectRouter } from 'connected-react-router'
 import { chatReducer } from './chats'
 import { profileReducer } from './profile'
 
-export const rootReducer = combineReducers({
+export const createRootReducer = (history) => combineReducers({
     chats: chatReducer,
-    profile: profileReducer
+    profile: profileReducer,
+    router: connectRouter(history)
 })
 

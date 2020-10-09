@@ -4,6 +4,9 @@ export const CHATS_MESSAGE_DELETE = 'CHATS_MESSAGE_DELETE'
 export const PROFILE_LOAD = 'PROFILE_LOAD'
 export const CHATS_MESSAGE_DELETE_INFORM = 'CHATS_MESSAGE_DELETE_INFORM'
 export const CHATS_ADD = 'CHATS_ADD'
+export const CHAT_DELETE = 'CHAT_DELETE'
+export const CHATS_DELETE_INFORM = 'CHATS_DELETE_INFORM'
+
 
 export const profileLoadAction = () => ({
     type: PROFILE_LOAD,
@@ -31,4 +34,15 @@ export const chatsMessageDeleteInformAction = (message) => ({
 export const chatsAddAction = (chatId, data) => ({
     type: CHATS_ADD,
     payload: { chatId, data },
+})
+
+
+export const chatDeleteAction = (chatId) => ({
+    type: CHAT_DELETE,
+    payload: chatId,
+})
+
+export const chatDeleteInformAction = (chatId) => ({
+    type: CHATS_DELETE_INFORM,
+    payload: chatId,
 })

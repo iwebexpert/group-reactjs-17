@@ -1,7 +1,9 @@
 import React, { Component, Fragment } from 'react'
 import { nanoid } from 'nanoid'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import { ConnectedRouter } from 'connected-react-router'
 import '../../layout/css/style.css'
+import { history } from '../../store'
 import ChatList from '../ChatList/ChatList'
 import Header from '../Header/Header'
 import { ChatContainer } from '../../containers/ChatContainer'
@@ -102,7 +104,7 @@ class App extends Component {
 
     render(){
         return(
-            <BrowserRouter>     
+            <ConnectedRouter history={ history }>     
                 <Header 
                     title={ this.state.title } 
                     profile={ this.props.profile } 
@@ -146,7 +148,7 @@ class App extends Component {
                         </Route>
                     </Switch>
                 </main>
-            </BrowserRouter>
+            </ConnectedRouter>
         )
     }
 }
