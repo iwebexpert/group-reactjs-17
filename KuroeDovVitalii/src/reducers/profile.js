@@ -1,20 +1,24 @@
 import update from 'react-addons-update'
 
 import { profile } from '../helpers/profileData'
+import { users } from '../helpers/usersData'
 
-import { PROFILE_LOAD, PROFILE_CHANGE_NAME } from '../actions/profile'
+import { PROFILE_LOAD, PROFILE_CHANGE_NAME, USERS_LOAD } from '../actions/profile'
 
 const initialState = {
-    profile: []
+    profile: [],
+    users: []
 }
 
 export const profileReducer = (state = initialState, action) => {
     switch(action.type) {
+
+        case USERS_LOAD: 
+            return { ...state, users }
+
         case PROFILE_LOAD:
-            return {
-                ...state,
-                profile: profile
-            }
+            return { ...state, profile }
+            
         case PROFILE_CHANGE_NAME:
 
             let firstName = action.payload.firstName === undefined ? state.profile.firstName : action.payload.firstName

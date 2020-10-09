@@ -3,6 +3,7 @@ export const CHATS_MESSAGE_SEND = 'CHATS_MESSAGE_SEND'
 export const CHATS_MESSAGE_DELETE = 'CHATS_MESSAGE_DELETE'
 export const PROFILE_LOAD = 'PROFILE_LOAD'
 export const CHATS_MESSAGE_DELETE_INFORM = 'CHATS_MESSAGE_DELETE_INFORM'
+export const CHATS_ADD = 'CHATS_ADD'
 
 export const profileLoadAction = () => ({
     type: PROFILE_LOAD,
@@ -27,3 +28,7 @@ export const chatsMessageDeleteInformAction = (message) => ({
     payload: message
 })
 
+export const chatsAddAction = (chatId, data) => ({
+    type: CHATS_ADD,
+    payload: { chatId, data },
+})

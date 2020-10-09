@@ -1,6 +1,6 @@
 import update from 'react-addons-update'
-
-import { CHATS_LOAD, CHATS_MESSAGE_SEND, CHATS_MESSAGE_DELETE } from '../actions/chats'
+import { nanoid } from 'nanoid'
+import { CHATS_LOAD, CHATS_MESSAGE_SEND, CHATS_MESSAGE_DELETE, CHATS_ADD } from '../actions/chats'
 
 import { chats } from '../helpers/chatsData'
 
@@ -31,8 +31,6 @@ export const chatReducer = (state = initialState, action) => {
             })
 
         case CHATS_MESSAGE_DELETE:
-            console.log(state, action.payload)
-            
             const { numSelectedChat, messageId } = action.payload
             const messages = state.entries[numSelectedChat].messages
             const filterMessage = messages.filter(item => item.id !== messageId)
@@ -46,7 +44,18 @@ export const chatReducer = (state = initialState, action) => {
                     }
                 }
             }
-
+        
+        case CHATS_ADD: 
+            return update(state, {
+                entries: {$merge: {
+                    [action.payload.chatId]: {
+                        id: nanoid(4),
+                        name: action.payload.data.name,
+                        avatar: `https://i.pravatar.cc/150?img=${nanoid(4)}`,
+                        messages: []
+                    }
+                }}
+            })
         default: 
             return state
     } 

@@ -16,6 +16,5 @@ export const botMiddleWare = store => next => action => {
             }, 1000)
         }
     }
-    console.log(action, action.type)
     return next(action)
 }
