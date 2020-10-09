@@ -5,27 +5,6 @@ import './Messenger.scss'
 
 export class Messenger extends Component {
 
-  componentDidUpdate() {
-    // const botAnswer = {
-    //   message: this.messages[this.messages.length - 1].author + ' Спасибо за ваше сообщение, но в чате никого нет, кроме меня...',
-    //   author: 'BOT',
-    //   id: nanoid()
-    // };
-    // const {author, id} = this.messages[this.messages.length - 1]
-    // if (this.messages) {
-    //   if (author !== 'BOT') {
-    //     setTimeout( () => {
-    //       if (id === this.messages[this.messages.length - 1].id) {
-    //         this.handleMessageSend(botAnswer)
-    //       }
-    //     }, 2000)
-    //   }
-    // }
-  }
-
-  componentWillUnmount() {
-  }
-
   render() {
     const messageData = this.props.messages;
     const {handleMessageSend} = this.props;
