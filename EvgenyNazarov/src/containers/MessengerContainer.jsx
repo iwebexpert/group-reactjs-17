@@ -1,13 +1,16 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {nanoid} from 'nanoid';
+import {push} from 'connected-react-router';
 
 import {Messenger} from '../components/Messenger';
-import {chatsLoadAction, chatsMessageSendAction} from '../actions/chats';
+import {chatsLoadAction, chatsMessageSendAction, chatsAddAction} from '../actions/chats';
 
 class MessengerContainerClass extends React.Component {
     componentDidMount(){
-        this.props.chatsLoadAction();
+        if(!this.props.chats.length){
+            this.props.chatsLoadAction();
+        }
     }
 
     handleMessageSend = (message) => {
@@ -16,11 +19,25 @@ class MessengerContainerClass extends React.Component {
         this.props.chatsMessageSendAction(message);
     };
 
+    handleChatAdd = () => {
+        const {lastId, chatsAddAction, redirect} = this.props;
+
+        const title = prompt('Введите название чата', 'Новый чат');
+        chatsAddAction(lastId, title);
+        redirect(lastId);
+    };
+
     render(){
         // console.log(this.props);
         const {chats, messages} = this.props;
+
         return (
-            <Messenger chats={chats} messages={messages} handleMessageSend={this.handleMessageSend} />
+            <Messenger
+                chats={chats}
+                messages={messages}
+                handleMessageSend={this.handleMessageSend}
+                handleChatAdd={this.handleChatAdd}
+            />
         );
     }
 }
@@ -43,11 +60,13 @@ function mapStateToProps(state, ownProps){
             chatsArray.push({title: chats[key].title, id: chats[key].id});
         }
     }
+    const lastId = Object.keys(chats).length;
 
     return {
         chats: chatsArray,
         messages,
         chatId: match ? match.params.id : null,
+        lastId,
     };
 }
 
@@ -55,6 +74,8 @@ function mapDispatchToProps(dispatch){
     return {
         chatsLoadAction: () => dispatch(chatsLoadAction()),
         chatsMessageSendAction: (message) => dispatch(chatsMessageSendAction(message)),
+        chatsAddAction: (newChatId, title) => dispatch(chatsAddAction(newChatId, title)),
+        redirect: (chatId) => dispatch(push(`/chats/${chatId}`)),
     };
 }
 

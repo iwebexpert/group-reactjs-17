@@ -1,6 +1,6 @@
 import update from 'react-addons-update';
 
-import {CHATS_LOAD, CHATS_MESSAGE_SEND} from '../actions/chats';
+import {CHATS_LOAD, CHATS_MESSAGE_SEND, CHATS_ADD} from '../actions/chats';
 
 import {chats} from '../helpers/chatsData';
 
@@ -18,21 +18,6 @@ export const chatsReducer = (state = initialState, action) => {
             };
 
         case CHATS_MESSAGE_SEND:
-            //ES6
-            // return {
-            //     ...state,
-            //     entries: {
-            //         ...state.entries,
-            //         [action.payload.chatId]: {
-            //             ...state.entries[action.payload.chatId],
-            //             messages: [
-            //                 ...state.entries[action.payload.chatId].messages,
-            //                 {id: action.payload.id, text: action.payload.text, author: action.payload.author},
-            //             ]
-            //         },
-            //     },
-            // };
-
             return update(state, {
                 entries: {
                     [action.payload.chatId]: {
@@ -41,6 +26,17 @@ export const chatsReducer = (state = initialState, action) => {
                 },
             });
 
+        case CHATS_ADD:
+            const {title, chatId} = action.payload;
+            return update(state, {
+                entries: {$merge: {
+                        [chatId]: {
+                            id: chatId,
+                            title,
+                            messages: [],
+                        },
+                    }},
+            });
         default:
             return state;
     }

@@ -9,25 +9,16 @@ import './Messenger.css';
 
 export class Messenger extends Component
 {
-    // componentDidUpdate(){
-    //     if(this.messages.length){
-    //         const {author} = this.messages[this.messages.length - 1];
-    //         if (author !== 'Bot'){
-    //             setTimeout(() => {
-    //                 this.handleMessageSend({text: `Hi, ${author}! Это бот...`, author: 'Bot'});
-    //             }, 2000);
-    //         }
-    //     }
-    // }
     render()
     {
-        const {chats, messages, handleMessageSend} = this.props;
+        const {chats, messages, handleMessageSend, handleChatAdd} = this.props;
 
         return (
             <>
             <Grid container wrap="nowrap"  className={"mainContent"}>
+                <button onClick={handleChatAdd}>Добавить чат</button>
                 <Grid item xs={12} sm={3} className={"chatList"}>
-                    <ChatList/>
+                    <ChatList chats={chats}/>
                 </Grid>
                 <Grid item xs={12} sm={9} className="messenger">
                     <div className="messages-list">
