@@ -6,7 +6,10 @@ import {profilesLoadAction} from '../actions/profiles';
 
 class ProfileContainerClass extends React.Component {
     componentDidMount(){
-        this.props.profilesLoadAction();
+        const {profilesLoadAction, profiles} = this.props;
+        if(!profiles.length){
+            profilesLoadAction();
+        }
     }
 
     render(){

@@ -8,7 +8,10 @@ import {chatsLoadAction, chatsMessageSendAction} from '../actions/chats';
 class MessengerContainerClass extends React.Component {
 
     componentDidMount(){
-        this.props.chatsLoadAction();
+        const {chatsLoadAction, chats} = this.props;
+        if(!chats.length){
+            chatsLoadAction();
+        }    
     }
 
     handleMessageSend = (message) => {
@@ -54,7 +57,6 @@ function mapDispatchToProps(dispatch){
     return {
         chatsLoadAction: () => dispatch(chatsLoadAction()),
         chatsMessageSendAction: (message) => dispatch(chatsMessageSendAction(message)),
-        chatsAddAction: (chat) => dispatch(chatsAddAction(chat)),
     };
 }
 

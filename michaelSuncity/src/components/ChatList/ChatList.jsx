@@ -10,7 +10,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import {Switch, Route, Link} from 'react-router-dom';
-
+import NewReleasesIcon from '@material-ui/icons/NewReleases';
 import './ChatList.scss';
 
 import {chats} from '../../helpers/chatsData';
@@ -19,6 +19,10 @@ export class ChatList extends Component {
     /* state = {
         chats,
     }*/
+
+    redirectToProfile = () => {
+        this.props.onSend(`/profile`);
+    }
 
    render(){
 
@@ -29,6 +33,9 @@ export class ChatList extends Component {
             <Link to={`/chats/${item.id}`}>
                 <ListItemText primary={item.title} />
             </Link>
+            <div className={`${item.fire==true ? 'newMessage' : 'hidden'}`}>
+                <NewReleasesIcon/>
+            </div>
         </ListItem>
         ));
 
@@ -49,6 +56,12 @@ export class ChatList extends Component {
                 <Link to="/profile">
                     <ListItemText primary="Profile" />
                 </Link>
+            </ListItem>
+            </div>
+            <div>
+            <ListItem button className="button-menu">
+                <ListItemIcon><AccountBoxIcon /></ListItemIcon>
+                <div onClick={this.redirectToProfile}><ListItemText primary="Profile redirect" /></div>
             </ListItem>
             </div>
             <div>
