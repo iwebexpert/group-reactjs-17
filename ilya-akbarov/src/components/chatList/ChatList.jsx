@@ -1,21 +1,38 @@
 import React, {Component} from 'react'
-import {List, ListItem, ListItemText, Button, Typography} from '@material-ui/core'
+import {List, ListItem, ListItemText, Typography, Button} from '@material-ui/core'
 import {nanoid} from 'nanoid'
-import {chats} from '../../helpers/chatsData'
-import {Link} from 'react-router-dom'
 
 class ChatList extends Component {
   
   render() {
-    const {chats} = this.props
+    const {
+      chats,
+      handleAddChat,
+      handleChatOpen
+    } = this.props
+    
     return (
       <List>
+        <ListItem button onClick={handleAddChat}>
+          <ListItemText>
+            <Typography
+              variant="h5"
+              align="center"
+              noWrap
+            >
+              Add chat
+            </Typography>
+          </ListItemText>
+        </ListItem>
         {chats.map((chat) => (
           <ListItem
             button
             key={nanoid()}
-            component={Link}
-            to={`/chats/${chat.id}`}
+            component={Button}
+            onClick={() => handleChatOpen(chat)}
+            style={{
+              backgroundColor: chat.unread ? 'yellow' : ''
+            }}
           >
             <ListItemText>
               <Typography
