@@ -11,7 +11,7 @@ export default class Message extends Component {
     }
 
     handleDelete = () => {
-        this.setState({isSelectMessage: !this.state.isSelectMessage})
+        this.setState({ isSelectMessage: !this.state.isSelectMessage })
 
         this.props.handleAlert(
             `выбрано сообщение ${this.props.message.name} : ${this.props.message.text}`, 

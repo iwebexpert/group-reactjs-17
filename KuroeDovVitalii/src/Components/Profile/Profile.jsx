@@ -42,10 +42,11 @@ function PaperComponent(props) {
 }
 
 export default function Profile(props) {
+
     const classes = useStyles()
     const [open, setOpen] = React.useState(false)
-    const [firstName, setFirstName] = React.useState(props.user.firstName)
-    const [lastName, setLastName] = React.useState(props.user.lastName)
+    const [firstName, setFirstName] = React.useState(props.profile.firstName)
+    const [lastName, setLastName] = React.useState(props.profile.lastName)
 
     const handleClickOpen = () => {
         setOpen(true)
@@ -72,71 +73,65 @@ export default function Profile(props) {
         }
     }
     const handleConfirm = () => {
-        const data = {firstName, lastName}
+        const data = { firstName, lastName }
 
         props.handleNameChange(data)
         handleClose()
     } 
 
-    const handleLogOut = () => {
-        //props.handleLogOut()
-        handleClose()
-    } 
-
     const error = props.error ? 'Data is not set' : 'OK'
-  return (
-    <div className={classes.regButton}>
-        <Avatar className="avatar" onClick={handleClickOpen} src={props.user.avatar}/>
-        <Dialog
-            open={open}
-            fullWidth
-            onClose={handleClose}
-            PaperComponent={PaperComponent}
-            aria-labelledby="draggable-dialog-title"
-        >
-        <DialogTitle style={{ cursor: 'move' }} id="draggable-dialog-title">
-            <div className={classes.profileTitleContainer}>
-                { props.user.firstName }   { props.user.lastName } 
-                <Button variant="contained" color="primary" disabled onClick={handleLogOut}>LogOut</Button>
-            </div>
-          
-        </DialogTitle>
-        <DialogContent>
-            <Avatar className="avatar" className={classes.large} src={props.user.avatar}/>
-            <DialogContentText> 
-                Enter new user data
-            </DialogContentText>
-            <TextField
-                autoFocus
-                margin="dense"
-                id="name"
-                label="First Name"
-                onChange= {handleFirstNameChange} 
-                value= {firstName} 
-                onKeyUp={ (event) => handleKeyUp(event, firstName) }
+    return (
+        <div className={classes.regButton}>
+            <Avatar className="avatar" onClick={handleClickOpen} src={ props.profile.avatar }/>
+            <Dialog
+                open={open}
                 fullWidth
-            />
-            <TextField
-                autoFocus
-                margin="dense"
-                id="name"
-                label="Last Name"
-                onChange= {handleLastNameChange} 
-                value= {lastName} 
-                onKeyUp={ (event) => handleKeyUp(event, lastName) }
-                fullWidth
-            />
+                onClose={handleClose}
+                PaperComponent={PaperComponent}
+                aria-labelledby="draggable-dialog-title"
+            >
+                <DialogTitle style={{ cursor: 'move' }} id="draggable-dialog-title">
+                    <div className={classes.profileTitleContainer}>
+                        { props.profile.firstName }   { props.profile.lastName } 
+                    </div>
+                    
+                </DialogTitle>
+                <DialogContent>
+                    <Avatar className="avatar" className={classes.large} src={props.profile.avatar}/>
+                    <DialogContentText> 
+                        Введите новые данные о пользователе
+                    </DialogContentText>
+                    <TextField
+                        autoFocus
+                        margin="dense"
+                        id="name"
+                        label="First Name"
+                        onChange= {handleFirstNameChange} 
+                        value= { firstName } 
+                        onKeyUp={ (event) => handleKeyUp(event, firstName) }
+                        fullWidth
+                    />
+                    <TextField
+                        autoFocus
+                        margin="dense"
+                        id="name"
+                        label="Last Name"
+                        onChange= {handleLastNameChange} 
+                        value= {lastName} 
+                        onKeyUp={ (event) => handleKeyUp(event, lastName) }
+                        fullWidth
+                    />
 
-        </DialogContent>
-        <DialogActions>
-            <Button autoFocus onClick={handleClose} color="primary">
-                Отмена
-            </Button>
-            <Button onClick={handleConfirm} color="primary">
-                Потдвердить
-            </Button>
-        </DialogActions>
-      </Dialog>
+                </DialogContent>
+                <DialogActions>
+                    <Button autoFocus onClick={handleClose} color="primary">
+                        Отмена
+                    </Button>
+                    <Button onClick={handleConfirm} color="primary">
+                        Потдвердить
+                    </Button>
+                </DialogActions>
+            </Dialog>
     </div>
-  )
+    )
 }
