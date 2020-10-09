@@ -28,10 +28,11 @@ export const chatsReducer = (state = initialState, actions) => {
                 }
             });
         case CHATS_ADD:
+            const {name, chatId} = actions.payload
             return update(state, {
                 entries: {$push: [{
-                    id: state.entries.length,
-                    title: actions.payload,
+                    id: chatId,
+                    title: name,
                     messages: [
                         {
                             id: 0,

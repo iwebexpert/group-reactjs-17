@@ -11,7 +11,7 @@ export const chatsMessageSendAction = (message) => ({
     payload: message,
 });
 
-export const chatsAddAction = (name) => ({
+export const chatsAddAction = (name, chatId) => ({
     type: CHATS_ADD,
-    payload: name,
+    payload: {name, chatId},
 });

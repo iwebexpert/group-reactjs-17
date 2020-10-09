@@ -5,7 +5,8 @@ import MenuIcon from '@material-ui/icons/Menu'
 import {BrowserRouter, Switch, Route, Link} from 'react-router-dom'
 import {ChatsnavContainer} from './containers/ChatsnavContainer'
 import {Provider} from 'react-redux'
-import {store} from './store'
+import {store, history} from './store'
+import {ConnectedRouter} from 'connected-react-router'
 
 import {routes} from './routes'
 
@@ -15,7 +16,7 @@ import './index.scss'
 ReactDom.render(
         <Provider store={store}>
             <Container>
-                <BrowserRouter>
+                <ConnectedRouter history={history}>
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
                             <AppBar position="static">
@@ -49,7 +50,7 @@ ReactDom.render(
                             </Grid>
                         </Grid>
                     </Grid>
-                </BrowserRouter>
+                </ConnectedRouter>
             </Container>
         </Provider>
     ,
