@@ -1,4 +1,4 @@
-import {CHATS_MESSAGE_SEND, chatsMessageSendAction} from '../actions/chats'
+import {CHATS_MESSAGE_SEND, chatsMessageSendAction, chatsToggleFire} from '../actions/chats'
 import {nanoid} from "nanoid"
 
 export const botMiddleware = store => next => action => {
@@ -12,8 +12,13 @@ export const botMiddleware = store => next => action => {
             author: 'BOT',
             message: `Уважаемый ${author}, с Вами разгговаривает бот`,
         }))
-      }, 1000)
+      }, 3000)
     }
+    // Замена Fire на true
+    const currentLocation = store.getState().router.location.pathname
+    if (currentLocation !== `/chats/${chatId}`) {
+        store.dispatch(chatsToggleFire(chatId))
+     }
   }
   return next(action)
 }

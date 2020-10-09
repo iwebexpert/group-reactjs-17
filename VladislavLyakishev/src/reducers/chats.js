@@ -1,4 +1,4 @@
-import {CHATS_LOAD, CHATS_MESSAGE_SEND, CHATS_ADD} from '../actions/chats'
+import {CHATS_LOAD, CHATS_MESSAGE_SEND, CHATS_ADD, CHATS_STATUS_FIRE, CHATS_STATUS_UNFIRE} from '../actions/chats'
 import {chats} from '../helpers/chatsData'
 import update from 'react-addons-update'
 
@@ -32,6 +32,7 @@ export const chatsReducer = (state = initialState, actions) => {
             return update(state, {
                 entries: {$push: [{
                     id: chatId,
+                    fire: false,
                     title: name,
                     messages: [
                         {
@@ -41,6 +42,15 @@ export const chatsReducer = (state = initialState, actions) => {
                         },
                     ]
                     }]
+                }
+            })
+        case CHATS_STATUS_FIRE:
+            const chatIdFire = actions.payload
+            return update(state, {
+                entries: {
+                    [chatIdFire]: {
+                        fire: {$set: true}
+                    }
                 }
             })
         default:
