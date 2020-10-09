@@ -48,8 +48,6 @@ export default function Profile(props) {
     const [firstName, setFirstName] = React.useState(props.profile.firstName)
     const [lastName, setLastName] = React.useState(props.profile.lastName)
 
-    console.log(firstName, lastName, props)
-
     const handleClickOpen = () => {
         setOpen(true)
     }

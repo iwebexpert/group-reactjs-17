@@ -44,24 +44,6 @@ class Chat extends Component {
         this.setState({ input: event.target.value })
     }
 
-    componentDidUpdate(prevProps, prevState) {
-
-        const { numSelectedChat } = this.props
-
-        if (!prevProps.chats[numSelectedChat]) {
-            return
-        }
-
-        const { id } = this.props.match.params
-        const { name, messages } = this.props.chats[numSelectedChat]
-        const lastMessage = messages[messages.length -1]
-
-        if (prevProps.chats[numSelectedChat].messages.length < messages.length && lastMessage.name === 'me') {
-            setTimeout(() => {
-                this.handleMessageSend({ name: name, text: `Я ${name}, Чо хош!?`, id: nanoid(4) }, id, numSelectedChat), 2000})
-        }
-    }
-
     render() {
         const { id }  = this.props.match.params
         const { numSelectedChat, isLoading } = this.props
