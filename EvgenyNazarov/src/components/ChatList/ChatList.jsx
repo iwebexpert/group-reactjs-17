@@ -4,17 +4,11 @@ import {Link} from 'react-router-dom';
 import {List, ListItem, ListItemText, ListItemIcon} from '@material-ui/core';
 import DraftsIcon from '@material-ui/icons/Drafts';
 
-import {chats} from '../../helpers/chatsData';
-
 export class ChatList extends Component
 {
-    state = {
-        chats,
-    };
-
     render()
     {
-        const {chats} = this.state;
+        const {chats} = this.props;
 
         const chatsList = chats.map((item) => (
             <ListItem key={item.id}>

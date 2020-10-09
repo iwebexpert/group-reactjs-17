@@ -6,7 +6,9 @@ import {Avatar, Grid, Paper, Typography} from "@material-ui/core";
 
 class ProfileContainerClass extends React.Component {
     componentDidMount(){
-        this.props.profilesLoadAction();
+        if(!this.props.profiles.length){
+            this.props.profilesLoadAction();
+        }
     }
 
     render() {
