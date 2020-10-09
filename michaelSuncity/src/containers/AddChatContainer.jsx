@@ -4,6 +4,7 @@ import {nanoid} from 'nanoid';
 
 import {AddChat} from '../components/AddChat';
 import {chatsLoadAction, chatsAddAction} from '../actions/chats';
+import {push} from 'connected-react-router';
 
 class AddChatContainerClass extends React.Component {
 
@@ -17,6 +18,7 @@ class AddChatContainerClass extends React.Component {
     handleAddChat = (chat) => {
         chat.id = this.props.chats.length;
         this.props.chatsAddAction(chat);
+        this.props.redirect(chat.id);
     }
 
    
@@ -42,6 +44,7 @@ function mapDispatchToProps(dispatch){
     return {
         chatsLoadAction: () => dispatch(chatsLoadAction()),
         chatsAddAction: (chat) => dispatch(chatsAddAction(chat)),
+        redirect: (chatId) => dispatch(push(`/chats/${chatId}`)),
     };
 }
 
