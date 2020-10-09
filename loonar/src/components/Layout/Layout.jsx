@@ -12,7 +12,6 @@ export class Layout extends Component
     render()
     {
         return (
-            <BrowserRouter>
                 <Grid container>
                     <Grid item xs={12}>
                         <Header/>
@@ -33,7 +32,7 @@ export class Layout extends Component
                         <Messenger/>
                     </Grid> */}
                 </Grid>
-            </BrowserRouter>
+
             );
     }
 }
