@@ -1,6 +1,32 @@
-import {createStore} from  'redux'
+import {applyMiddleware, createStore} from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import {rootReducer} from 'reducers'
+import {createRootReducer} from 'reducers';
+import {botMiddleware} from './middleware/BotMiddleware';
+import {ChatFireMiddleware} from './middleware/ChatFireMiddleware'
+import { createBrowserHistory } from 'history';
+import { routerMiddleware } from 'connected-react-router';
+import storage from 'redux-persist/lib/storage';
+import {persistStore, persistReducer} from 'redux-persist';
 
+export const history = createBrowserHistory();
 
-export const store = createStore(rootReducer, composeWithDevTools())
+const persistConfig = {
+  key: 'app',
+  storage,
+};
+
+export const initStore = () => {
+  const initialStore = {}
+  const store = createStore(
+    persistReducer(persistConfig, createRootReducer(history)),
+    initialStore,
+    composeWithDevTools(
+      applyMiddleware(
+        routerMiddleware(history),
+        botMiddleware,
+        ChatFireMiddleware,
+      )
+    ));
+  const persisStore = persistStore(store)
+  return {store, persisStore}
+}

@@ -17,6 +17,7 @@ module.exports = {
       actions: path.join(__dirname, 'src', 'actions'),
       containers: path.join(__dirname, 'src', 'containers'),
       reducers: path.join(__dirname, 'src', 'reducers'),
+      middleware: path.join(__dirname, 'src', 'middleware'),
     }
   },
 

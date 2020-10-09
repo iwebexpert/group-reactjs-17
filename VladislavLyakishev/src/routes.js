@@ -20,7 +20,7 @@ export const routes = [
         component: Profile
     },
     {
-        path: '/chats/:id',
+        path: '/chats/:id([0-9]+)',
         exact: true,
         component: MessengerContainer
     },

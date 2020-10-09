@@ -28,17 +28,13 @@ export class ChatsNav extends Component {
                 chatName: ''
             })
         }
-
-
     }
 
-
-
     render() {
-        const chatList = this.props.chats.map( (item) => (
+                const chatList = this.props.chats.map( (item) => (
             <ListItem button key={item.id}>
                 <ListItemIcon>
-                    <InboxIcon />
+                    <InboxIcon color={item.fire ? 'secondary' : 'action'}/>
                 </ListItemIcon>
                 <ListItemText>
                     <Link to={`/chats/${item.id}`}>{item.title}</Link>
