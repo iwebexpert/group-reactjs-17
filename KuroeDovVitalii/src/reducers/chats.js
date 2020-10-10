@@ -33,6 +33,7 @@ export const chatReducer = (state = initialState, action) => {
         case CHATS_MESSAGE_DELETE:
             const { numSelectedChat, messageId } = action.payload
             const messages = state.entries[numSelectedChat].messages
+            const message = messages.filter(item => item.id === messageId)
             const filterMessage = messages.filter(item => item.id !== messageId)
             return {
                 ...state,
@@ -42,7 +43,7 @@ export const chatReducer = (state = initialState, action) => {
                         ...state.entries[numSelectedChat],
                         messages: filterMessage
                     }
-                }
+                },
             }
         
         case CHATS_ADD: 

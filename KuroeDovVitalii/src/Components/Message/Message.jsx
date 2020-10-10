@@ -12,18 +12,19 @@ export default class Message extends Component {
 
     handleDelete = () => {
         this.setState({ isSelectMessage: !this.state.isSelectMessage })
-
+        let isSelectMessage = !this.state.isSelectMessage
         this.props.handleAlert(
-            `выбрано сообщение ${this.props.message.name} : ${this.props.message.text}`, 
-            'message alert',
-            { id: this.props.message.id, isSelect: false, status: !this.state.isSelectMessage }
-        )
+            `выбрано сообщение ${this.props.message.name} : ${this.props.message.text}`,
+            'inform', 
+            isSelectMessage,
+            this.props.message.id
+         )
     }
     
     static propTypes = {
         message: PropTypes.shape({
             text: PropTypes.string.isRequired,
-            name: PropTypes.string.isRequired
+            name: PropTypes.string.isRequired,
         })
     }
  

@@ -17,53 +17,20 @@ class App extends Component {
         currentActiveChatName: null,
         numSelectedChat: 1,
         error: null,
-        popup: {text: '', status: false},
     }
 
     timeoutID = null
 
     hanldeCloseAlert = (value) => {
-        this.setState({
-            popup: {
-                text: '',
-                status: value
-            }
-        })
+        this.props.handleCloseAlert(value)
     }
-  
-    handleAlert = (value, type = 'inform', id = nanoid(4)) => {
-        let alertType = type
-        let status = true
 
-        switch (type) {
-            case 'message alert':
-                alertType = type
-                status = id.status
-                break;
-        
-            default: 'inform'
-                alertType = type
-                break;
-        }
-
-        this.setState({
-            popup: {
-                text: value,
-                status: status,
-                type: alertType,
-                id: id.id,
-                isSelect: id.isSelect,
-            }
-        }, () => alertType === 'inform' ? setTimeout( () => this.hanldeCloseAlert(false), 4000 ) : null )// закрытие по таймеру
+    handleAlert = (value, type = 'inform', isSelect = false, messageId) => {
+        this.props.handleShowAlert({ value, type, isSelect, messageId })
     }
 
     handleNewChat = (data) => {
         this.props.handleNewChat(data)
-        if (data) {
-            this.handleAlert(`добавлен новый чат с "${data.name}"`)
-        } else {
-            this.setState({ error: 'Такой чат уже существует' })
-        }
     }
 
     handleNameChange = (data) => {
@@ -78,13 +45,6 @@ class App extends Component {
             isSelect: value.isSelect, 
             numSelectedChat: this.state.numSelectedChat
         })
-        this.setState({
-            popup: {
-                ...this.state.popup,
-                isSelect: value.isSelect,
-                status: value.isSelect
-            }
-        }, () => this.handleAlert(`Сообщение удалено`, 'inform'))
     }
 
     handleSelectChat = (data) => {
@@ -120,8 +80,7 @@ class App extends Component {
                                     <ChatContainer 
                                         { ...props }
                                         handleAlert={ this.handleAlert }
-                                        handleDeleteMessage={ this.handleDeleteMessage }
-                                        popup={ this.state.popup } 
+                                        popup={ this.props.popup } 
                                         hanldeCloseAlert={ this.hanldeCloseAlert }
                                         numSelectedChat={ this.state.numSelectedChat }
                                         currentActiveChat={ this.state.currentActiveChat } />}
@@ -130,8 +89,7 @@ class App extends Component {
                                     <ChatContainer 
                                         { ...props }
                                         handleAlert={ this.handleAlert }
-                                        handleDeleteMessage={ this.handleDeleteMessage }
-                                        popup={ this.state.popup } 
+                                        popup={ this.props.popup } 
                                         hanldeCloseAlert={ this.hanldeCloseAlert }
                                         numSelectedChat={ this.state.numSelectedChat }
                                         currentActiveChat={ this.state.currentActiveChat } />}
@@ -143,7 +101,7 @@ class App extends Component {
                                 currentActiveChat={ this.state.currentActiveChat }/>
                             <AlertShow 
                                 handleDeleteMessage={ this.handleDeleteMessage }
-                                popup={ this.state.popup } 
+                                popup={ this.props.popup } 
                                 hanldeCloseAlert={ this.hanldeCloseAlert } />
                         </Route>
                     </Switch>

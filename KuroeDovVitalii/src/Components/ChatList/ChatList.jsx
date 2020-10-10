@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 
-import { List } from '@material-ui/core'
+import { List, Typography } from '@material-ui/core'
 import ChatListItem from '../ChatListItem/ChatListItem'
 class ChatList extends Component {
 
@@ -13,6 +13,7 @@ class ChatList extends Component {
 
         return(
             <aside className="chat-list">
+                <Typography>Список чатов</Typography>
                 <List dense className="">
                     { chatsElemet.map((item) => 
                         <ChatListItem 
