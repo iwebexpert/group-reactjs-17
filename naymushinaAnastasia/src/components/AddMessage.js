@@ -15,8 +15,9 @@ export default class AddMessage extends Component {
     }
 
     handleSubmit(e) {
-        this.props.onSubmit();
         e.preventDefault();
+        this.props.onSubmit();
+
     }
 
 

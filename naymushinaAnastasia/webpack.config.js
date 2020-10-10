@@ -42,12 +42,13 @@ module.exports = {
             template: path.resolve(__dirname, 'public', 'index.html')
         })
     ],
+    devtool: 'eval-source-map',
     devServer:{
         port: 3000,
         hot:true,
         open:false,
         historyApiFallback: {
-            index: 'index.html'
+            historyApiFallback: true,
         }
 
     }

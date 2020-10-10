@@ -24,23 +24,7 @@ export default class Layout extends Component {
         return (
 
             <div className="h-90">
-                <Header/>
-                <div className="d-flex w-100 justify-content-between h-100">
-                    <div className="w-25 border bg-light">
-                        <ChatList chats={this.state.chats}/>
-                    </div>
 
-                    <div className="w-75 border">
-                        <Switch>
-                            <Route exact path={path}>
-                                <h3>Please select a chat</h3>
-                            </Route>
-                            <Route path={`${path}/:topicId`}>
-                                <Messenger />
-                            </Route>
-                        </Switch>
-                    </div>
-                </div>
             </div>
         )
     }
