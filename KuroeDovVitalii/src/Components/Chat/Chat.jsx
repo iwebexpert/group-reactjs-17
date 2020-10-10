@@ -23,7 +23,7 @@ class Chat extends Component {
                 name: 'me', 
                 text: message, 
                 id: nanoid(4) 
-            }, id, numSelectedChat))
+            }, id, id))
     }
 
     handleClick = (value) => {
@@ -46,28 +46,29 @@ class Chat extends Component {
 
     render() {
         const { id }  = this.props.match.params
-        const { numSelectedChat, isLoading } = this.props
-        let Messages = <Typography>Выберите чат</Typography>
+        const { chatId, isLoading } = this.props
+        let messages = <Typography>Выберите чат</Typography>
         
-        if (!this.props.chats[numSelectedChat]) {
+        if (!this.props.chats) {
             return <div>Loading...</div>
         }
 
-        const avatar = this.props.chats[numSelectedChat].id
-        const currentChat = this.props.chats[numSelectedChat].messages 
-
-        if (id !== undefined && this.props.chats) {
-            Messages = currentChat.map( (item) => 
+        if (id !== undefined && this.props.chats && this.props.chatId) {
+            const avatar = this.props.chats[chatId].id
+            const currentChat = this.props.chats[chatId].messages 
+            messages = currentChat.map( (item) => 
                 <Message 
                     key={ item.id } 
                     avatar={ avatar } 
                     handleAlert={ this.handleAlert } 
                     message={ item } />)
+        } else {
+            <Typography>Выберите чат</Typography>
         }
         return(
             <section className="chat">
                 <div className="message-list">
-                    { Messages }
+                    { messages }
                 </div>
                 <div className="chat-footer">
                     <TextField 

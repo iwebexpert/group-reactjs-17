@@ -13,7 +13,7 @@ class ChatContainerClass extends Component {
     render() {
         return (
             <>
-                <Chat { ...this.props } handleMessageSend={this.handleMessageSend} />
+                <Chat { ...this.props } handleMessageSend={ this.handleMessageSend } />
             </>
         )
     }

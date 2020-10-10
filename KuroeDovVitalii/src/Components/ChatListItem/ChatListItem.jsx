@@ -6,7 +6,7 @@ import DeleteIcon from '@material-ui/icons/Delete'
 export default class ChatListItem extends Component {
 
     handleSelectChat = () => {
-        this.props.selectChat(this.props.id)
+        this.props.handleSelectChat({ chatId: this.props.id, chatName: this.props.name })
     }
 
     render() {
@@ -15,7 +15,7 @@ export default class ChatListItem extends Component {
                 aria-label="delete"
                 color="primary"
                 size="small"
-                onClick= {() => console.log(this.props)}
+                onClick= { this.props.handleChatDelete }
                 >
                     <DeleteIcon fontSize="inherit" />
             </IconButton> : null

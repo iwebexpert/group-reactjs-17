@@ -4,7 +4,7 @@ import Profile from '../Profile/Profile'
 import NewChat from '../NewChat/NewChat'
 export default class Header extends Component {
     render() {
-        const Title = this.props.chatName !== null ? this.props.chatName : this.props.title
+        const title = this.props.chatName !== null ? `Чат с ${this.props.chatName}` : this.props.title
         if (!this.props.profile ) {
             return <div>Loading...</div>
         }
@@ -13,7 +13,7 @@ export default class Header extends Component {
                 <Toolbar variant="dense">
                     <Profile profile={ this.props.profile } handleNameChange={ this.props.handleNameChange }/>
                     <Typography variant="h6" >
-                        { Title }
+                        { title }
                     </Typography>
                     <ButtonGroup className="button-group" variant="contained">
                         <NewChat profile={ this.props.profile } users={ this.props.users } handleNewChat={ this.props.handleNewChat }/>

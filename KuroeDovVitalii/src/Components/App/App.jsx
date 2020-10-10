@@ -4,18 +4,18 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import { ConnectedRouter } from 'connected-react-router'
 import '../../layout/css/style.css'
 import { history } from '../../store'
-import ChatList from '../ChatList/ChatList'
+
 import Header from '../Header/Header'
-import { ChatContainer } from '../../containers/ChatContainer'
+import { ChatContainer } from 'containers/ChatContainer'
+import { ChatListContainer } from 'containers/ChatListContainer'
+
 import AlertShow from '../AlertShow/AlertShow'
 class App extends Component {
 
     state = {
         title: 'React GB',
-        
         currentActiveChat: null,
         currentActiveChatName: null,
-        numSelectedChat: 1,
         error: null,
     }
 
@@ -43,7 +43,7 @@ class App extends Component {
         handleDelete({
             messageId: value.id, 
             isSelect: value.isSelect, 
-            numSelectedChat: this.state.numSelectedChat
+            id: this.props.selected
         })
     }
 
@@ -68,7 +68,7 @@ class App extends Component {
                 <Header 
                     title={ this.state.title } 
                     profile={ this.props.profile } 
-                    chatName={ this.state.currentActiveChatName }
+                    chatName={ this.props.currentChatName }
                     users={ this.props.users }
                     handleNewChat={ this.handleNewChat }
                     handleNameChange={ this.handleNameChange }/>
@@ -82,7 +82,7 @@ class App extends Component {
                                         handleAlert={ this.handleAlert }
                                         popup={ this.props.popup } 
                                         hanldeCloseAlert={ this.hanldeCloseAlert }
-                                        numSelectedChat={ this.state.numSelectedChat }
+                                        numSelectedChat={ this.props.numSelectedChat }
                                         currentActiveChat={ this.state.currentActiveChat } />}
                                 />
                                 <Route path='/:id' exact render={ (props) => 
@@ -91,12 +91,11 @@ class App extends Component {
                                         handleAlert={ this.handleAlert }
                                         popup={ this.props.popup } 
                                         hanldeCloseAlert={ this.hanldeCloseAlert }
-                                        numSelectedChat={ this.state.numSelectedChat }
+                                        numSelectedChat={ this.props.numSelectedChat }
                                         currentActiveChat={ this.state.currentActiveChat } />}
                                 />
                             </Switch>
-                            <ChatList 
-                                chats={ this.props.chats } 
+                            <ChatListContainer 
                                 selectChat={ this.handleCurrentChatName } 
                                 currentActiveChat={ this.state.currentActiveChat }/>
                             <AlertShow 

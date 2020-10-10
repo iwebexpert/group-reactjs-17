@@ -7,11 +7,6 @@ import { profileLoadAction, profileChangeNameAction, usersLoadAction } from '../
 import { alertLoadAction, alertSendAction, alertCloseInformAction, alertSendInformAction } from 'actions/alerts'
 import { push } from 'connected-react-router'
 
-
-
-
-
-
 class AppContainerClass extends Component {
 
     componentDidMount() {
@@ -62,7 +57,7 @@ class AppContainerClass extends Component {
     }
 
     render() {
-        const { chats, profile, users, popup } = this.props
+        const { profile, users, popup, selected } = this.props
        
         return (
             <>
@@ -81,8 +76,8 @@ class AppContainerClass extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-    // console.log(state)
     const chats = state.chats.entries
+    const { selected, currentChatName } = state.chats
     const { popup } = state.alert
     const { profile, users } = state.profile
     const { match } = ownProps
@@ -92,7 +87,9 @@ const mapStateToProps = (state, ownProps) => {
         chats,
         popup,
         profile,
+        currentChatName,
         newChatId,
+        selected,
         users,
         chatId: match ? match.params.id : null
     }
@@ -108,7 +105,6 @@ const mapDispatchToProps = (dispatch) => {
         chatsAddAction: (newChatId, data) => dispatch(chatsAddAction(newChatId, data)),
         chatsAddInformAction: (newChatId, data) => dispatch(chatsAddInformAction(newChatId, data)),
         alertLoadAction: () => dispatch(alertLoadAction()),
-        // alertSendAction: (message) => dispatch(alertSendAction(message)),
         alertCloseInformAction: (value) => dispatch(alertCloseInformAction(value)),
         alertSendInformAction:(data) => dispatch(alertSendInformAction(data)),
 

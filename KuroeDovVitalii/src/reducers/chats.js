@@ -1,6 +1,6 @@
 import update from 'react-addons-update'
 import { nanoid } from 'nanoid'
-import { CHATS_LOAD, CHATS_MESSAGE_SEND, CHATS_MESSAGE_DELETE, CHATS_ADD, CHAT_DELETE } from '../actions/chats'
+import { CHATS_LOAD, CHATS_MESSAGE_SEND, CHATS_MESSAGE_DELETE, CHATS_ADD, CHAT_DELETE, CHAT_SELECT } from '../actions/chats'
 
 import { chats } from '../helpers/chatsData'
 
@@ -16,7 +16,10 @@ export const chatReducer = (state = initialState, action) => {
             return {
                 ...state,
                 entries: chats,
+                selected: null,
+                currentChatName: null
             }
+
         case CHATS_MESSAGE_SEND:
 
             return update(state, {
@@ -31,26 +34,28 @@ export const chatReducer = (state = initialState, action) => {
             })
 
         case CHATS_MESSAGE_DELETE:
-            const { numSelectedChat, messageId } = action.payload
-            const messages = state.entries[numSelectedChat].messages
+            console.log(action.payload)
+            const { id, messageId } = action.payload
+            const messages = state.entries[id].messages
             const message = messages.filter(item => item.id === messageId)
             const filterMessage = messages.filter(item => item.id !== messageId)
             return {
                 ...state,
                 entries: {
                     ...state.entries,
-                    [numSelectedChat] : {
-                        ...state.entries[numSelectedChat],
+                    [id] : {
+                        ...state.entries[id],
                         messages: filterMessage
                     }
                 },
             }
         
         case CHATS_ADD: 
+            let newChatId = nanoid(4)
             return update(state, {
-                entries: {$merge: {
-                    [action.payload.chatId]: {
-                        id: nanoid(4),
+                entries: { $merge: {
+                    [newChatId]: {
+                        id: newChatId,
                         name: action.payload.data.name,
                         avatar: `https://i.pravatar.cc/150?img=${nanoid(4)}`,
                         messages: []
@@ -62,6 +67,12 @@ export const chatReducer = (state = initialState, action) => {
 
             return update(state, {
                 entries: {$splice: null}
+            })
+        
+        case CHAT_SELECT: 
+            console.log(action.payload)
+            return update(state, { $merge: 
+                { selected: action.payload.chatId, currentChatName: action.payload.chatName }
             })
 
         default: 
