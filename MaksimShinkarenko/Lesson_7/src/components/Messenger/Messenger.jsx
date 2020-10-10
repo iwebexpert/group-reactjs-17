@@ -10,12 +10,17 @@ import {ChatList} from "components/ChatList";
 export class Messenger extends Component {
 
     render() {
-        const {chats, messages, handleMessageSend, handleChatAdd} = this.props;
+        const {chats, messages, handleMessageSend, handleChatAdd, isLoading, isError, handleChatsReload} = this.props;
+
+        const errorDiv = <div className="error">Ошибка загрузки чатов...
+            <button onClick={handleChatsReload}>Обновить</button>
+        </div>;
 
         return (
             <Grid container item spacing={2} className="container-chat">
                 <Grid item xs={2}>
-                    <ChatList chats={chats} onChatAdd={handleChatAdd}/>
+                    {isLoading ? <div className="loading">Чаты загружаются</div> : isError ? errorDiv :
+                        <ChatList chats={chats} onChatAdd={handleChatAdd}/>}
                 </Grid>
                 <Grid item xs={10}>
                     <div className="messenger">

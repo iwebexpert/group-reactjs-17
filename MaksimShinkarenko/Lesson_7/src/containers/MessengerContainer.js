@@ -28,11 +28,21 @@ class MessengerContainerClass extends React.Component {
         chatsMessageAction(message);
     };
 
+    handleChatsReload = () => {
+        this.props.chatsLoadAction();
+    };
+
     render() {
-        const {chats, messages} = this.props;
+        const {chats, messages, isLoading, isError} = this.props;
         return (
-            <Messenger chats={chats} messages={messages} handleMessageSend={this.handleMessageSend}
-                       handleChatAdd={this.handleChatAdd}/>
+            <Messenger chats={chats}
+                       messages={messages}
+                       isLoading={isLoading}
+                       isError={isError}
+                       handleMessageSend={this.handleMessageSend}
+                       handleChatAdd={this.handleChatAdd}
+                       handleChatsReload={this.handleChatsReload}
+            />
         );
     }
 }
@@ -58,6 +68,8 @@ function mapStateToProps(state, ownProps) {
         chats: chatsArray,
         messages,
         chatId: match ? match.params.id : null,
+        isLoading: state.chats.loading,
+        isError: state.chats.error,
     };
 }
 

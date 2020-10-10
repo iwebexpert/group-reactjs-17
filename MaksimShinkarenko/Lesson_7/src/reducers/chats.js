@@ -1,20 +1,42 @@
 import update from 'react-addons-update';
 
-import {CHATS_MESSAGE_SEND, CHATS_LOAD, CHATS_ADD, CHATS_UNFIRE, CHATS_FIRE} from 'actions/chats';
-
-import {chats} from '../helpers/chatsData';
+import {
+    CHATS_MESSAGE_SEND,
+    CHATS_LOAD_FAILURE,
+    CHATS_LOAD_SUCCESS,
+    CHATS_LOAD_REQUEST,
+    CHATS_ADD,
+    CHATS_UNFIRE,
+    CHATS_FIRE
+} from 'actions/chats';
 
 const initialState = {
     loading: false,
+    error: false,
     entries: [],
 }
 
 export const chatsReducer = (state = initialState, action) => {
     switch (action.type) {
-        case CHATS_LOAD:
+        case CHATS_LOAD_REQUEST:
             return {
                 ...state,
-                entries: chats,
+                loading: true,
+                error: false,
+            };
+
+        case CHATS_LOAD_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                entries: action.payload,
+            };
+
+        case CHATS_LOAD_FAILURE:
+            return {
+                ...state,
+                loading: false,
+                error: true,
             };
 
         case CHATS_MESSAGE_SEND:
