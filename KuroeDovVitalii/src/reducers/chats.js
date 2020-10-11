@@ -3,6 +3,7 @@ import { nanoid } from 'nanoid'
 import { CHATS_LOAD, CHATS_MESSAGE_SEND, CHATS_MESSAGE_DELETE, CHATS_ADD, CHAT_DELETE, CHAT_SELECT } from '../actions/chats'
 import { AvatarGenerator } from 'random-avatar-generator'
 const generator = new AvatarGenerator()
+import { citates } from '../helpers/citates'
 
 import { chats } from '../helpers/chatsData'
 
@@ -59,7 +60,11 @@ export const chatReducer = (state = initialState, action) => {
                         id: action.payload.id,
                         name: action.payload.name,
                         avatar: generator.generateRandomAvatar(),
-                        messages: []
+                        messages: [{
+                            name: 'БОТ', 
+                            text: citates[Math.floor(Math.random() * 10) + 1].text, 
+                            id: nanoid(4) }
+                        ]
                     }
                 }},
             })

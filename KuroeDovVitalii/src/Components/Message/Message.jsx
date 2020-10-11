@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Chip, Avatar } from '@material-ui/core'
+import { Chip, Avatar, Paper, Typography } from '@material-ui/core'
 import DoneIcon from '@material-ui/icons/Done'
 import classNames from 'classnames'
 
@@ -35,6 +35,7 @@ export default class Message extends Component {
             'message' : this.props.message.name !== 'me'
         }) 
         return(
+
             <div className="message-block"> 
                 <Chip 
                     deleteIcon={<DoneIcon />} 
@@ -42,13 +43,14 @@ export default class Message extends Component {
                     className={ classes }
                     clicable="true"
                     onDelete={ this.handleDelete } 
-                    label={ this.props.message.text }
+                    label={ <Typography variant="caption" noWrap={true}>{this.props.message.text}</Typography> }
                     avatar={ 
                         <Avatar src={ this.props.message.name === 'me' ? masterAvatar : avatar }> 
                             { this.props.message.name }
                         </Avatar> } 
                     />
             </div>
+
         )
     }
 }
