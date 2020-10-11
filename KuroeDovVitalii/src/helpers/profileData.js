@@ -1,9 +1,10 @@
-import { nanoid } from 'nanoid'
+import { AvatarGenerator } from 'random-avatar-generator'
+const generator = new AvatarGenerator()
 
 export const profile = {
     firstName: 'Виталий',
     lastName: 'Куроедов',
-    avatar: `https://i.pravatar.cc/150?img=${nanoid(4)}`,
+    avatar: generator.generateRandomAvatar(),
     email: 'wilde@bk.ru',
     age: '31'
 }

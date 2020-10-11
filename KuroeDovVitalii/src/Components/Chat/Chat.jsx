@@ -46,20 +46,21 @@ class Chat extends Component {
 
     render() {
         const { id }  = this.props.match.params
-        const { chatId, isLoading } = this.props
+        const { chatId, isLoading, chats } = this.props
         let messages = <Typography>Выберите чат</Typography>
         
         if (!this.props.chats) {
             return <div>Loading...</div>
         }
 
-        if (id !== undefined && this.props.chats && this.props.chatId) {
-            const avatar = this.props.chats[chatId].id
-            const currentChat = this.props.chats[chatId].messages 
+        if (id !== undefined && chats && chatId && chats[chatId]) {
+            const avatar = chats[chatId].avatar
+            const currentChat = chats[chatId].messages 
             messages = currentChat.map( (item) => 
                 <Message 
                     key={ item.id } 
                     avatar={ avatar } 
+                    masterAvatar={ this.props.profile.avatar }
                     handleAlert={ this.handleAlert } 
                     message={ item } />)
         } else {

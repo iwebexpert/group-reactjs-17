@@ -8,8 +8,7 @@ import { chatDeleteInformAction, selectChatInformAction, selectChatAction } from
 class ChatListContainerClass extends Component {
 
     handleChatDelete = (chatId) => {
-        console.log(chatId, 'handleChatDelete')
-        // this.props.chatDeleteInformAction(chatId)
+        this.props.chatDeleteInformAction(chatId)
     } 
 
     handleSelectChat = (data) => {

@@ -17,7 +17,7 @@ export const chatReducer = (state = initialState, action) => {
                 ...state,
                 entries: chats,
                 selected: null,
-                currentChatName: null
+                currentChatName: null,
             }
 
         case CHATS_MESSAGE_SEND:
@@ -51,26 +51,27 @@ export const chatReducer = (state = initialState, action) => {
             }
         
         case CHATS_ADD: 
-            let newChatId = nanoid(4)
             return update(state, {
                 entries: { $merge: {
-                    [newChatId]: {
-                        id: newChatId,
-                        name: action.payload.data.name,
+                    [action.payload.id]: {
+                        id: action.payload.id,
+                        name: action.payload.name,
                         avatar: `https://i.pravatar.cc/150?img=${nanoid(4)}`,
                         messages: []
                     }
-                }}
+                }},
             })
        
         case CHAT_DELETE: 
-
-            return update(state, {
-                entries: {$splice: null}
+            console.log(action.payload, 'CHAT_DELETE')
+            const { entries } = state;
+            const { [action.payload]: _, ...newEntries } = entries;
+            
+            return update(state, {$set:
+                { entries: newEntries }
             })
         
         case CHAT_SELECT: 
-            console.log(action.payload)
             return update(state, { $merge: 
                 { selected: action.payload.chatId, currentChatName: action.payload.chatName }
             })

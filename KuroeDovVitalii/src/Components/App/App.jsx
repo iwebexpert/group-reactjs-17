@@ -47,24 +47,9 @@ class App extends Component {
         })
     }
 
-    handleSelectChat = (data) => {
-        const chatKey = []
-        for (let [key, value] of Object.entries(this.props.chats)) {
-            chatKey.push(value)
-            if( value.id === data) {
-                this.setState({ numSelectedChat: key, currentActiveChatName: value.name })
-            }
-        }
-    }
-    
-    handleCurrentChatName = (data) => {
-        this.setState({ currentActiveChat: data })
-        this.handleSelectChat(data)
-    }
-
     render(){
         return(
-            <ConnectedRouter history={ history }>     
+            <Fragment>
                 <Header 
                     title={ this.state.title } 
                     profile={ this.props.profile } 
@@ -80,24 +65,16 @@ class App extends Component {
                                     <ChatContainer 
                                         { ...props }
                                         handleAlert={ this.handleAlert }
-                                        popup={ this.props.popup } 
-                                        hanldeCloseAlert={ this.hanldeCloseAlert }
-                                        numSelectedChat={ this.props.numSelectedChat }
-                                        currentActiveChat={ this.state.currentActiveChat } />}
+                                        hanldeCloseAlert={ this.hanldeCloseAlert } />}
                                 />
                                 <Route path='/:id' exact render={ (props) => 
                                     <ChatContainer 
                                         { ...props }
                                         handleAlert={ this.handleAlert }
-                                        popup={ this.props.popup } 
-                                        hanldeCloseAlert={ this.hanldeCloseAlert }
-                                        numSelectedChat={ this.props.numSelectedChat }
-                                        currentActiveChat={ this.state.currentActiveChat } />}
+                                        hanldeCloseAlert={ this.hanldeCloseAlert } />}
                                 />
                             </Switch>
-                            <ChatListContainer 
-                                selectChat={ this.handleCurrentChatName } 
-                                currentActiveChat={ this.state.currentActiveChat }/>
+                            <ChatListContainer />
                             <AlertShow 
                                 handleDeleteMessage={ this.handleDeleteMessage }
                                 popup={ this.props.popup } 
@@ -105,7 +82,7 @@ class App extends Component {
                         </Route>
                     </Switch>
                 </main>
-            </ConnectedRouter>
+            </Fragment>
         )
     }
 }

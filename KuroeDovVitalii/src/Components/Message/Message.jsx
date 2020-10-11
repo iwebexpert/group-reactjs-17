@@ -29,6 +29,7 @@ export default class Message extends Component {
     }
  
     render() {
+        const { avatar, masterAvatar } = this.props
         const classes = classNames('messages', {
             'me' : this.props.message.name === 'me',
             'message' : this.props.message.name !== 'me'
@@ -42,7 +43,11 @@ export default class Message extends Component {
                     clicable="true"
                     onDelete={ this.handleDelete } 
                     label={ this.props.message.text }
-                    avatar={ <Avatar> { this.props.message.name }</Avatar> } />
+                    avatar={ 
+                        <Avatar src={ this.props.message.name === 'me' ? masterAvatar : avatar }> 
+                            { this.props.message.name }
+                        </Avatar> } 
+                    />
             </div>
         )
     }

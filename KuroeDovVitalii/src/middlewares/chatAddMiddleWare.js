@@ -3,7 +3,7 @@ import { alertSendInformAction } from 'actions/alerts'
 
 export const chatAddMiddleWare = store => next => action => {
     if (action.type === CHATS_ADD_INFORM) {
-        const newChatName = action.payload.data.name
+        const newChatName = action.payload.name
         let counter = 0
         const chats = store.getState()
         

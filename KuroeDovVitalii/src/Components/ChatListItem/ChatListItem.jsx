@@ -9,13 +9,17 @@ export default class ChatListItem extends Component {
         this.props.handleSelectChat({ chatId: this.props.id, chatName: this.props.name })
     }
 
+    handleChatDelete = () => {
+        this.props.handleChatDelete(this.props.id)
+    }
+
     render() {
         const DeleteButton = this.props.selected === this.props.id ?
             <IconButton
                 aria-label="delete"
                 color="primary"
                 size="small"
-                onClick= { this.props.handleChatDelete }
+                onClick= { this.handleChatDelete }
                 >
                     <DeleteIcon fontSize="inherit" />
             </IconButton> : null

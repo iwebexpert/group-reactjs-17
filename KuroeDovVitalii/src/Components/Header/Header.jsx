@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { AppBar, Toolbar, IconButton, Typography, Button, ButtonGroup } from '@material-ui/core' 
 import Profile from '../Profile/Profile'
 import NewChat from '../NewChat/NewChat'
+
 export default class Header extends Component {
     render() {
         const title = this.props.chatName !== null ? `Чат с ${this.props.chatName}` : this.props.title
