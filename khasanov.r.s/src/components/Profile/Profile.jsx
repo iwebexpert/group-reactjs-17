@@ -4,24 +4,61 @@ import {Button} from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 
 export class Profile extends Component {
+    state = {
+        name: '',
+        firstName: '',
+        lastName: '',
+        secondName: '',
+    }
+
+    componentDidMount() {
+        this.setState(this.props.profile);
+    }
+
+    onChangeInputHandler = (event) => {
+        const fieldName = event.target.name;
+        this.setState({[fieldName]: event.target.value});
+    }
+
+    saveProfile = () => {
+        this.props.handleUpdateProfile(this.state)
+    }
+
     render() {
-        const {profile} = this.props;
+        const {isLoading, isError, handleProfileReload} = this.props;
+        const {name, firstName, lastName, secondName} = this.state;
+
+        if (isLoading) {
+            return (<div>Loading...</div>);
+        }
+        if (isError) {
+            return (<div>Error. Попробуйте позднее. <button onClick={handleProfileReload}>Обновить</button></div>);
+        }
         return (
             <div>
                 <h1>Profile</h1>
-                <Link to="/"><Button variant="contained" color="primary">На главную</Button> </Link>
+                <Link to="/">
+                    <Button variant="contained" color="primary">На главную</Button>
+                </Link>
 
                 <div>
-                    <TextField id="standard-basic" label="nic" value={profile.name}/>
+                    <TextField name="name" label="nic" value={name}
+                               onChange={this.onChangeInputHandler}/>
                 </div>
                 <div>
-                    <TextField id="filled-basic" label="FirstName" value={profile.firstName}/>
+                    <TextField name="firstName" label="FirstName" value={firstName}
+                               onChange={this.onChangeInputHandler}/>
                 </div>
                 <div>
-                    <TextField id="outlined-basic" label="LastName" value={profile.lastName}/>
+                    <TextField name="lastName" label="LastName" value={lastName}
+                               onChange={this.onChangeInputHandler}/>
                 </div>
                 <div>
-                    <TextField id="tt" label="SecondName" value={profile.secondName}/>
+                    <TextField name="secondName" label="SecondName" value={secondName}
+                               onChange={this.onChangeInputHandler}/>
+                </div>
+                <div>
+                    <Button variant="contained" color="secondary" onClick={this.saveProfile}>Сохранить</Button>
                 </div>
             </div>
         )

@@ -14,7 +14,7 @@ export const botMiddleware = store => next => action => {
 
                 const chatMessages = state.chats.entries[chatId].messages;
 
-                if (!chatMessages.length || !chatMessages[[chatMessages.length - 1]]){
+                if (!chatMessages.length || !chatMessages[[chatMessages.length - 1]]) {
                     return;
                 }
                 const {author} = chatMessages[chatMessages.length - 1];
@@ -36,12 +36,8 @@ export const botMiddleware = store => next => action => {
                 if (locationPath !== `/chats/${chatId}`) {
                     store.dispatch(chatsFireAction(chatId));
                 }
-
-
-
             }, 4000);
         }
     }
-    console.log('новый бот', action);
     return next(action);
 };
