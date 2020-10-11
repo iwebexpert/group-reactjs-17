@@ -2,6 +2,7 @@ import React from "react";
 import {connect} from 'react-redux';
 import {Profile} from 'components/Profile';
 import {profileLoadAction} from 'actions/profile';
+import {Messenger} from "components/Messenger";
 
 class ProfileContainerClass extends React.Component {
     componentDidMount() {
@@ -11,9 +12,11 @@ class ProfileContainerClass extends React.Component {
     }
 
     render() {
-        const {profile} = this.props;
+        const {profile, isError, isLoading} = this.props;
         return (
-            <Profile profile={profile}/>
+            <Profile profile={profile}
+                     isLoading={isLoading}
+                     isError={isError}/>
         );
     }
 }
@@ -23,6 +26,8 @@ function mapStateToProps(state) {
 
     return {
         profile,
+        isLoading: state.profile.loading,
+        isError: state.profile.error,
     };
 }
 

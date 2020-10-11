@@ -59,5 +59,9 @@
       "text": "Hi!",
       "chatId": 0
     }
-  ]
+  ],
+  "profile": {
+    "id": 0,
+    "name": "Makc"
+  }
 }

@@ -4,7 +4,7 @@ import {nanoid} from "nanoid";
 import {push} from 'connected-react-router';
 
 import {Messenger} from 'components/Messenger';
-import {chatsLoadAction, chatsMessageAction, chatsAddAction, chatsFireAction} from 'actions/chats';
+import {chatsLoadAction, chatsMessageAction, chatsAddAction} from 'actions/chats';
 
 class MessengerContainerClass extends React.Component {
     componentDidMount() {

@@ -16,10 +16,6 @@ export class Layout extends Component {
         chats,
     };
 
-    onChatAdd = data => {
-        this.setState({chats: data.chats})
-    };
-
     render() {
         return (
             <PersistGate persistor={this.props.persistor}>
