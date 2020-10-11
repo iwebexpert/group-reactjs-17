@@ -28,8 +28,6 @@ export const alertReducer = (state = initialState, action) => {
             })
         
         case ALERT_CLOSE:
-            // console.log(action, 'reducers alertClose action log')
-
             return update(state, {
                 popup: {
                     $merge: {

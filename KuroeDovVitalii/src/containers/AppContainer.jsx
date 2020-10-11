@@ -37,7 +37,7 @@ class AppContainerClass extends Component {
     handleNewChat = (data) => {
         const { chatsAddInformAction } = this.props
         chatsAddInformAction(data)
-        this.handleChatRedirect(data.id)
+        // this.handleChatRedirect(data.id)
     }
 
     handleChatRedirect = (newChatId) => {
@@ -77,7 +77,7 @@ class AppContainerClass extends Component {
 
 const mapStateToProps = (state, ownProps) => {
     const chats = state.chats.entries
-    const { selected, currentChatName } = state.chats
+    const { selected, currentChatName, loading } = state.chats
     const { popup } = state.alert
     const { profile, users } = state.profile
     const { chatId } = state 
@@ -90,7 +90,8 @@ const mapStateToProps = (state, ownProps) => {
         currentChatName,
         selected,
         users,
-        chatId
+        chatId,
+        loading
         // chatId: match ? match.params.id : null
     }
 }

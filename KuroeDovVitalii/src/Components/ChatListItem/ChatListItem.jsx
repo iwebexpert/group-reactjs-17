@@ -17,7 +17,7 @@ export default class ChatListItem extends Component {
         const DeleteButton = this.props.selected === this.props.id ?
             <IconButton
                 aria-label="delete"
-                color="primary"
+                className="MuiListItem-root.Mui-selected"
                 size="small"
                 onClick= { this.handleChatDelete }
                 >

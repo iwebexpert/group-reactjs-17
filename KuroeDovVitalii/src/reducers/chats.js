@@ -1,6 +1,8 @@
 import update from 'react-addons-update'
 import { nanoid } from 'nanoid'
 import { CHATS_LOAD, CHATS_MESSAGE_SEND, CHATS_MESSAGE_DELETE, CHATS_ADD, CHAT_DELETE, CHAT_SELECT } from '../actions/chats'
+import { AvatarGenerator } from 'random-avatar-generator'
+const generator = new AvatarGenerator()
 
 import { chats } from '../helpers/chatsData'
 
@@ -56,7 +58,7 @@ export const chatReducer = (state = initialState, action) => {
                     [action.payload.id]: {
                         id: action.payload.id,
                         name: action.payload.name,
-                        avatar: `https://i.pravatar.cc/150?img=${nanoid(4)}`,
+                        avatar: generator.generateRandomAvatar(),
                         messages: []
                     }
                 }},

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 
-import { List, Typography } from '@material-ui/core'
+import { List, Typography, Paper, Container } from '@material-ui/core'
 import ChatListItem from '../ChatListItem/ChatListItem'
 class ChatList extends Component {
 
@@ -13,8 +13,12 @@ class ChatList extends Component {
 
         return(
             <aside className="chat-list">
-                <Typography>Список чатов</Typography>
-                <List dense className="">
+               <Paper elevation={5}>
+                    <List dense className="" subheader={
+                    <Paper elevation={5}> 
+                        <Typography align="center" paragraph={true} className="chatList-header__text">Список чатов</Typography>
+                    </Paper>}
+                    >
                     { chatsElemet.map((id) => 
                         <ChatListItem 
                             key={ id } 
@@ -27,6 +31,7 @@ class ChatList extends Component {
                             selected={ this.props.selected } />
                     )}
                 </List>
+                </Paper>
             </aside>
         )
     }

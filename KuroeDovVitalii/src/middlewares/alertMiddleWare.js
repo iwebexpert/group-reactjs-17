@@ -7,7 +7,7 @@ export const alertMiddleWare = store => next => action => {
         const { value, type, isSelect, messageId } = action.payload
         let alertType = type
         let status = true
-
+        
         switch (type) {
             case 'error':
                 alertType = 'error'
