@@ -18,58 +18,60 @@ export default class Messenger extends Component {
         this.onChangeNewMessage = this.onChangeNewMessage.bind(this);
     }
 
-    /*componentDidUpdate(prevProps, prevState) {
-        let msgBefore = [...prevState.messages];
-        let msgAfter = [...this.state.messages];
+    robotAnswer() {
+        const {chats} = this.state;
+        const currentChat = this.currentChat;
 
-        if (msgAfter.length > 0 &&
-            msgBefore.length < msgAfter.length &&
-            msgAfter.pop().user !== "bot") {
-            setTimeout(() =>
-                    this.setState({
-                        messages: [
-                            ...this.state.messages,
-                            {text: 'Не приставай ко мне, я робот!', user: 'bot'}
-                        ]
-                    }),
-                500);
+        currentChat.messages = [...this.currentChat.messages, {
+            id: nanoid(),
+            author: "bot",
+            text: "Не приставай ко мне, я робот!"
 
-        }
+        }];
+        chats[currentChat.id] = currentChat;
 
-    }*/
+        this.setState({
+            chats: chats,
+        });
+
+
+    }
 
 
     onSubmitNewMessage() {
         const {chats} = this.state;
         const currentChat = this.currentChat;
 
-        currentChat.messages = [{
-            id: nanoid(),
-            author: "me",
-            text: this.state.newMessage
+        currentChat.messages = [
+             ...this.currentChat.messages,
+            {
+                id: nanoid(),
+                author: "me",
+                text: this.state.newMessage
 
-        }, ...this.currentChat.messages];
+            }];
 
-        chats[currentChat.id]= currentChat;
+        chats[currentChat.id] = currentChat;
 
 
         this.setState({
             chats: chats,
             newMessage: ""
         });
+
+        setTimeout(() => this.robotAnswer(), 1000)
     }
 
-    addChat(chatTitle){
+    addChat(chatTitle) {
         const {chats} = this.state;
-        const id = chats[chats.length - 1].id +1;
+        const id = chats[chats.length - 1].id + 1;
         const updatedChats = chats.concat({
             id: id,
             title: chatTitle,
-            messages: [
-            ],
+            messages: [],
         });
         this.setState({
-            chats:updatedChats
+            chats: updatedChats
         });
     }
 
@@ -105,7 +107,7 @@ export default class Messenger extends Component {
             <div className="d-flex w-100 justify-content-between h-100">
                 <div className="w-25 border bg-light">
                     <ChatList chats={this.state.chats}/>
-                    <AddNewChat submit={(chatTitle)=>this.addChat(chatTitle)}/>
+                    <AddNewChat submit={(chatTitle) => this.addChat(chatTitle)}/>
                 </div>
                 <div className="w-75 border">
 
