@@ -4,7 +4,7 @@ import {nanoid} from 'nanoid';
 import {push} from 'connected-react-router';
 
 import {Messenger} from '../components/Messenger';
-import {chatsLoadAction, chatsMessageSendAction, chatsAddAction} from '../actions/chats';
+import {chatsLoadAction, chatsMessageSendAction, chatsAddAction, chatsFireAction} from '../actions/chats';
 
 class MessengerContainerClass extends React.Component {
     componentDidMount(){
@@ -23,20 +23,27 @@ class MessengerContainerClass extends React.Component {
         const {lastId, chatsAddAction, redirect} = this.props;
 
         const title = prompt('Введите название чата', 'Новый чат');
-        chatsAddAction(lastId, title);
+        chatsAddAction(lastId, title,);
         redirect(lastId);
+    };
+
+    handleChatsReload = () => {
+        this.props.chatsLoadAction();
     };
 
     render(){
         // console.log(this.props);
-        const {chats, messages} = this.props;
+        const {chats, messages, isLoading, isError} = this.props;
 
         return (
             <Messenger
                 chats={chats}
                 messages={messages}
+                isLoading={isLoading}
+                isError={isError}
                 handleMessageSend={this.handleMessageSend}
                 handleChatAdd={this.handleChatAdd}
+                handleChatsReload={this. handleChatsReload}
             />
         );
     }
@@ -57,7 +64,7 @@ function mapStateToProps(state, ownProps){
     const chatsArray = [];
     for(let key in chats){
         if(chats.hasOwnProperty(key)){
-            chatsArray.push({title: chats[key].title, id: chats[key].id});
+            chatsArray.push({title: chats[key].title, id: chats[key].id, fire: chats[key].fire});
         }
     }
     const lastId = Object.keys(chats).length;
@@ -67,6 +74,8 @@ function mapStateToProps(state, ownProps){
         messages,
         chatId: match ? match.params.id : null,
         lastId,
+        isLoading: state.chats.loading,
+        isError: state.chats.error,
     };
 }
 

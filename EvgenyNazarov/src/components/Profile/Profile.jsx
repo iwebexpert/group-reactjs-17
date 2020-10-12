@@ -1,18 +1,23 @@
 import React, {Component} from 'react';
 import {Paper, Grid, Avatar, Typography} from '@material-ui/core';
 import './Profile.css';
-import {profile} from "../../helpers/profilesData";
+
 
 export class Profile extends Component {
-    state = {
-        profile,
-    };
 
     render() {
 
-        const {profile} = this.state;
+        const {profiles, isLoading, isError, handleProfilesReload} = this.props;
 
-        const ProfileList = profile.map((item) => (
+        if(isLoading){
+            return (<div>Loading...</div>);
+        }
+
+        if(isError){
+            return (<div>Error... Попробуйте получить чаты позднее. <button onClick={handleProfilesReload}>Обновить чаты</button></div>);
+        }
+
+        const ProfileList = profiles.map((item) => (
             <Paper key={item.id} className="message-paper">
                 <Grid container wrap="nowrap" spacing={2}>
                     <Grid item>

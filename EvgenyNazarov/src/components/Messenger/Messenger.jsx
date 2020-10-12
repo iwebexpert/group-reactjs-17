@@ -11,7 +11,15 @@ export class Messenger extends Component
 {
     render()
     {
-        const {chats, messages, handleMessageSend, handleChatAdd} = this.props;
+        const {chats, messages, handleMessageSend, handleChatAdd, isLoading, isError, handleChatsReload} = this.props;
+
+        if(isLoading){
+            return (<div>Loading...</div>);
+        }
+
+        if(isError){
+            return (<div>Error... Попробуйте получить чаты позднее. <button onClick={handleChatsReload}>Обновить чаты</button></div>);
+        }
 
         return (
             <>

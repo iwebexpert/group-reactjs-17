@@ -1,0 +1,50 @@
+{
+  "chats": [
+    {
+      "id": 0,
+      "title": "Тестовый чат"
+    },
+    {
+      "id": 1,
+      "title": "Рабочий чат"
+    },
+    {
+      "id": 2,
+      "title": "Друзья"
+    }
+  ],
+  "messages": [
+    {
+      "id": 0,
+      "author": "God",
+      "text": "Let there be light!",
+      "chatId": 0
+    },
+    {
+      "id": 1,
+      "author": "Galileo",
+      "text": "Eppur si muove!",
+      "chatId": 1
+    },
+    {
+      "id": 2,
+      "author": "Che Guevara",
+      "text": "No pasaran!",
+      "chatId": 2
+    },
+    {
+      "id": 3,
+      "author": "Che Guevara",
+      "text": "Usted ha venido a matarme. … ¡Póngase sereno y apunte bien! ¡Va a matar a un hombre!",
+      "chatId": 2
+    }
+  ],
+  "profile": [
+    {
+      "id": 0,
+      "title": "Тестовый пользователь",
+      "name": "User",
+      "email": "user@mail.ru"
+    }
+  ]
+}
