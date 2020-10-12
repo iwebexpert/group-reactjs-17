@@ -29,7 +29,7 @@ export const chatReducer = (state = initialState, action) => {
                 entries: {
                     [action.payload.numSelectedChat]: {
                         $merge: { fire: action.payload.fire ? action.payload.fire : false },
-                        messages: {$push: [
+                        messages: { $push: [
                             { name: action.payload.name, text: action.payload.text, id: action.payload.id }
                         ]},
                         
@@ -61,9 +61,9 @@ export const chatReducer = (state = initialState, action) => {
                         id: action.payload.id,
                         name: action.payload.name,
                         fire : true,
-                        avatar: generator.generateRandomAvatar(),
+                        avatar: action.payload.avatar,
                         messages: [{
-                            name: 'БОТ', 
+                            name: action.payload.name, 
                             text: citates[Math.floor(Math.random() * 10) + 1].text, 
                             id: nanoid(4) }
                         ]

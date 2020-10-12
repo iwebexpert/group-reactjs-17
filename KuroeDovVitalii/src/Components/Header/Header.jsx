@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { AppBar, Toolbar, IconButton, Typography, Button, ButtonGroup } from '@material-ui/core' 
-import Profile from '../Profile/Profile'
-import NewChat from '../NewChat/NewChat'
+import Profile from 'components/Profile/Profile'
+import NewChat from 'components/NewChat/NewChat'
 
 export default class Header extends Component {
     render() {

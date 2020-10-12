@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import { List, Typography, Paper } from '@material-ui/core'
-import ChatListItem from '../ChatListItem/ChatListItem'
+import ChatListItem from 'components/ChatListItem/ChatListItem'
 
 class ChatList extends Component {
     render() {
         const chats = this.props.chats
-
         const chatsElemet = []
+
         for (let [key, value] of Object.entries(chats)) {
             chatsElemet.push(key)
         }

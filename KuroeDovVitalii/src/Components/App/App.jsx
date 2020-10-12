@@ -1,9 +1,6 @@
 import React, { Component, Fragment } from 'react'
-import { nanoid } from 'nanoid'
-import { BrowserRouter, Switch, Route } from 'react-router-dom'
-import { ConnectedRouter } from 'connected-react-router'
+import { Switch, Route } from 'react-router-dom'
 import '../../layout/css/style.css'
-import { history } from '../../store'
 
 import Header from '../Header/Header'
 import { ChatContainer } from 'containers/ChatContainer'
@@ -59,28 +56,24 @@ class App extends Component {
                     handleNameChange={ this.handleNameChange }/>
                 <main>
                     <Switch>
-                        <Route path='/' >
-                            <Switch>
-                                <Route path='/' exact render={ (props) => 
-                                    <ChatContainer 
-                                        { ...props }
-                                        handleAlert={ this.handleAlert }
-                                        hanldeCloseAlert={ this.hanldeCloseAlert } />}
-                                />
-                                <Route path='/:id' exact render={ (props) => 
-                                    <ChatContainer 
-                                        { ...props }
-                                        handleAlert={ this.handleAlert }
-                                        hanldeCloseAlert={ this.hanldeCloseAlert } />}
-                                />
-                            </Switch>
-                            <ChatListContainer />
-                            <AlertShow 
-                                handleDeleteMessage={ this.handleDeleteMessage }
-                                popup={ this.props.popup } 
-                                hanldeCloseAlert={ this.hanldeCloseAlert } />
-                        </Route>
+                        <Route path='/' exact render={ (props) => 
+                            <ChatContainer 
+                                { ...props }
+                                handleAlert={ this.handleAlert }
+                                hanldeCloseAlert={ this.hanldeCloseAlert } />}
+                        />
+                        <Route path='/:id' exact render={ (props) => 
+                            <ChatContainer 
+                                { ...props }
+                                handleAlert={ this.handleAlert }
+                                hanldeCloseAlert={ this.hanldeCloseAlert } />}
+                        />
                     </Switch>
+                    <ChatListContainer />
+                    <AlertShow 
+                        handleDeleteMessage={ this.handleDeleteMessage }
+                        popup={ this.props.popup } 
+                        hanldeCloseAlert={ this.hanldeCloseAlert } />
                 </main>
             </Fragment>
         )

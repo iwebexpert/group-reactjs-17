@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import Message from '../Message/Message'
+import Message from 'components/Message/Message'
 import { IconButton, TextField, Typography, Paper, Divider } from '@material-ui/core' 
 import SendIcon  from '@material-ui/icons/SendRounded'
 import { nanoid } from 'nanoid'
+
 class Chat extends Component {
     constructor(props) {
         super(props)

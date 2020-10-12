@@ -1,7 +1,7 @@
 import React, { Fragment, Component } from 'react'
 import { connect } from 'react-redux'
-import Chat from '../Components/Chat/Chat'
-import { chatsMessageSendAction } from '../actions/chats'
+import Chat from 'components/Chat/Chat'
+import { chatsMessageSendAction } from 'actions/chats'
 
 class ChatContainerClass extends Component {
     

@@ -1,9 +1,8 @@
 import React, { Fragment, Component } from 'react'
 import { connect } from 'react-redux'
-import ChatList from '../Components/ChatList/ChatList'
+import ChatList from 'components/ChatList/ChatList'
 
-import { chatDeleteInformAction, selectChatInformAction, selectChatAction } from '../actions/chats'
-
+import { chatDeleteInformAction, selectChatInformAction, selectChatAction } from 'actions/chats'
 
 class ChatListContainerClass extends Component {
 

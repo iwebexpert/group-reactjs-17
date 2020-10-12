@@ -3,11 +3,10 @@ import { connect } from 'react-redux'
 import { ConnectedRouter, push } from 'connected-react-router'
 import { history } from '../store'
 
-import App from '../Components/App/App'
-import { chatsLoadAction, chatsMessageDeleteInformAction, chatsAddInformAction } from '../actions/chats'
-import { profileLoadAction, profileChangeNameAction, usersLoadAction } from '../actions/profile'
-import { alertLoadAction, alertSendAction, alertCloseInformAction, alertSendInformAction } from 'actions/alerts'
-
+import App from 'components/App/App'
+import { chatsLoadAction, chatsMessageDeleteInformAction, chatsAddInformAction } from 'actions/chats'
+import { profileLoadAction, profileChangeNameAction, usersLoadAction } from 'actions/profile'
+import { alertLoadAction, alertCloseInformAction, alertSendInformAction } from 'actions/alerts'
 
 class AppContainerClass extends Component {
 
@@ -45,7 +44,6 @@ class AppContainerClass extends Component {
     }
 
     handleChatRedirect = (newChatId) => {
-        console.log(newChatId, this.props)
         const { chats, redirect } = this.props
         let chatId  = chats[newChatId].id
         redirect(chatId)
