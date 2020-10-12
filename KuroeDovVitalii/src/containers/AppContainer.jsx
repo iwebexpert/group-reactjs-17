@@ -8,6 +8,7 @@ import { chatsLoadAction, chatsMessageDeleteInformAction, chatsAddInformAction }
 import { profileLoadAction, profileChangeNameAction, usersLoadAction } from '../actions/profile'
 import { alertLoadAction, alertSendAction, alertCloseInformAction, alertSendInformAction } from 'actions/alerts'
 
+
 class AppContainerClass extends Component {
 
     componentDidMount() {
@@ -21,9 +22,12 @@ class AppContainerClass extends Component {
             profileLoadAction, 
             usersLoadAction 
         } = this.props
-
-        if (!chats.length || !profile.length || !users.length || !popup.length ) {
+        
+        if (!chats.length) {
             chatsLoadAction()
+        }
+
+        if (!profile.length || !users.length || !popup.length ) {
             profileLoadAction()
             usersLoadAction()
             alertLoadAction()
@@ -70,7 +74,6 @@ class AppContainerClass extends Component {
                     handleNameChange={ this.handleNameChange }
                     handleNewChat={ this.handleNewChat } />
             </ConnectedRouter>
-
         )
     }
 }

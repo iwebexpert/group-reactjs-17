@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Message from '../Message/Message'
-import { IconButton, TextField, Typography, Paper, Container } from '@material-ui/core' 
+import { IconButton, TextField, Typography, Paper, Container, Divider } from '@material-ui/core' 
 import SendIcon  from '@material-ui/icons/SendRounded'
 import { nanoid } from 'nanoid'
 class Chat extends Component {
@@ -72,6 +72,7 @@ class Chat extends Component {
                         { messages }
                     </div>
                     <Paper elevation={3}>
+                        <Divider />
                         <div className="chat-footer">
                             <TextField 
                                 disabled={ id === undefined ? true : false }
