@@ -22,7 +22,7 @@ class AppContainerClass extends Component {
             usersLoadAction 
         } = this.props
         
-        if (!chats.length) {
+        if (!Object.keys(chats).length) {
             chatsLoadAction()
         }
 
@@ -40,13 +40,13 @@ class AppContainerClass extends Component {
     handleNewChat = (data) => {
         const { chatsAddInformAction } = this.props
         chatsAddInformAction(data)
-        // this.handleChatRedirect(data.id)
+        this.handleChatRedirect(data.id)
     }
 
     handleChatRedirect = (newChatId) => {
         const { chats, redirect } = this.props
-        let chatId  = chats[newChatId].id
-        redirect(chatId)
+        // let chatId  = chats[newChatId].id
+        redirect(newChatId)
     }
 
     handleShowAlert = (value, type = 'inform', isSelect = false, messageId) => {

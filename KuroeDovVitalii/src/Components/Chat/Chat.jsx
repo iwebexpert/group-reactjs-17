@@ -3,6 +3,7 @@ import Message from 'components/Message/Message'
 import { IconButton, TextField, Typography, Paper, Divider } from '@material-ui/core' 
 import SendIcon  from '@material-ui/icons/SendRounded'
 import { nanoid } from 'nanoid'
+import ScrollableFeed from 'react-scrollable-feed'
 
 class Chat extends Component {
     constructor(props) {
@@ -10,6 +11,7 @@ class Chat extends Component {
         this.handleAlert = props.handleAlert.bind(this)
         this.handleMessageSend = props.handleMessageSend.bind(this)
     }
+
 
     state = {
         input: '',
@@ -47,6 +49,7 @@ class Chat extends Component {
     render() {
         const { id }  = this.props.match.params
         const { chatId, isLoading, chats } = this.props
+        const { firstName } = this.props.profile
         let messages = <Typography className="chat__text" >Выберите чат</Typography>
         
         if (!this.props.chats) {
@@ -60,9 +63,11 @@ class Chat extends Component {
                 <Message 
                     key={ item.id } 
                     avatar={ avatar } 
+                    user={ firstName }
                     masterAvatar={ this.props.profile.avatar }
                     handleAlert={ this.handleAlert } 
                     message={ item } />)
+            
         } else {
             <Typography>Выберите чат</Typography>
         }
@@ -70,7 +75,9 @@ class Chat extends Component {
             <section className="chat">
                 <Paper elevation={5}>
                     <div className="message-list">
-                        { messages }
+                        <ScrollableFeed>
+                            { messages }
+                        </ScrollableFeed>
                     </div>
                     <Paper elevation={3}>
                         <Divider />

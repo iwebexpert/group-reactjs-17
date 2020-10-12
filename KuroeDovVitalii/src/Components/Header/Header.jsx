@@ -10,7 +10,7 @@ export default class Header extends Component {
             return <div>Loading...</div>
         }
         return(
-            <AppBar position="static">
+            <AppBar position="static" elevation={10}>
                 <Toolbar variant="dense">
                     <Profile profile={ this.props.profile } handleNameChange={ this.props.handleNameChange }/>
                     <Typography variant="h6" >

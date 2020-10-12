@@ -69,6 +69,7 @@ export const chatReducer = (state = initialState, action) => {
                         ]
                     }
                 }},
+                $merge: { selected: action.payload.id, currentChatName: action.payload.name, chatId: action.payload.id },
             })
        
         case CHAT_DELETE: 

@@ -54,7 +54,8 @@ main{
     flex-direction: column;
     margin: 0 0 1rem 0;
     height: 75vh;
-    overflow-y: scroll;
+    /* overflow-y: scroll; */
+    justify-content: end;
 }
 .chat-footer{
     display: flex;

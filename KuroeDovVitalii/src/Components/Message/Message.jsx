@@ -49,7 +49,7 @@ export default class Message extends Component {
                     onDelete={ this.handleDelete } 
                     label={ 
                         <Typography variant="caption" className="chip-label">
-                            { this.props.message.name } : { this.props.message.text }
+                            { this.props.message.name === 'me' ? this.props.user : this.props.message.name } : { this.props.message.text }
                         </Typography> }
                     avatar={ 
                         <Avatar src={ this.props.message.name === 'me' ? masterAvatar : avatar }> 

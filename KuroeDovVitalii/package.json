@@ -39,6 +39,7 @@
     "react-draggable": "^4.4.3",
     "react-redux": "^7.2.1",
     "react-router-dom": "^5.2.0",
+    "react-scrollable-feed": "^1.2.0",
     "redux": "^4.0.5",
     "redux-actions": "^2.6.5",
     "redux-devtools-extension": "^2.13.8",
