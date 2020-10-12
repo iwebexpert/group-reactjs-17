@@ -26,13 +26,15 @@ class MessengerContainerClass extends Component {
 
 
     render() {
-        const {messages, isError, isLoading} = this.props;
+        const {messages, isError, isLoading, profile} = this.props;
+        console.log('Props container', profile)
 
         return (
             <Messenger messages={messages}
                        handleMessageSend={this.handleMessageSend}
                        isError={isError}
                        isLoading={isLoading}
+                       profile={profile}
             />
         );
     }
