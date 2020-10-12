@@ -47,7 +47,7 @@ export default function Profile(props) {
     const [open, setOpen] = React.useState(false)
     const [firstName, setFirstName] = React.useState(props.profile.firstName)
     const [lastName, setLastName] = React.useState(props.profile.lastName)
-
+   
     const handleClickOpen = () => {
         setOpen(true)
     }
@@ -100,6 +100,12 @@ export default function Profile(props) {
                     <Avatar className="avatar" className={classes.large} src={props.profile.avatar}/>
                     <DialogContentText> 
                         Введите новые данные о пользователе
+                    </DialogContentText>
+                    <DialogContentText> 
+                        Возраст : {props.profile.age}
+                    </DialogContentText>
+                    <DialogContentText> 
+                        Почтовый адрес : {props.profile.email}
                     </DialogContentText>
                     <TextField
                         autoFocus

@@ -3,12 +3,16 @@ import ReactDOM from 'react-dom'
 import App from './Components/App/App'
 import { AppContainer } from './containers/AppContainer'
 import { Provider } from 'react-redux'
+import { PersistGate } from 'redux-persist/integration/react'
+import { initStore } from './store'
 
-import { store } from './store'
+const { store, persistor } = initStore()
 
 ReactDOM.render(
     <Provider store={ store } >
-        <AppContainer />
+        <PersistGate persistor={ persistor }>
+            <AppContainer />
+        </PersistGate>
     </Provider>,
     document.getElementById('root')
 )

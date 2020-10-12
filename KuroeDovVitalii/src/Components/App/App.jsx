@@ -1,69 +1,33 @@
 import React, { Component, Fragment } from 'react'
-import { nanoid } from 'nanoid'
-import { BrowserRouter, Switch, Route } from 'react-router-dom'
-import { ConnectedRouter } from 'connected-react-router'
+import { Switch, Route } from 'react-router-dom'
 import '../../layout/css/style.css'
-import { history } from '../../store'
-import ChatList from '../ChatList/ChatList'
+
 import Header from '../Header/Header'
-import { ChatContainer } from '../../containers/ChatContainer'
+import { ChatContainer } from 'containers/ChatContainer'
+import { ChatListContainer } from 'containers/ChatListContainer'
+
 import AlertShow from '../AlertShow/AlertShow'
 class App extends Component {
 
     state = {
         title: 'React GB',
-        
         currentActiveChat: null,
         currentActiveChatName: null,
-        numSelectedChat: 1,
         error: null,
-        popup: {text: '', status: false},
     }
 
     timeoutID = null
 
     hanldeCloseAlert = (value) => {
-        this.setState({
-            popup: {
-                text: '',
-                status: value
-            }
-        })
+        this.props.handleCloseAlert(value)
     }
-  
-    handleAlert = (value, type = 'inform', id = nanoid(4)) => {
-        let alertType = type
-        let status = true
 
-        switch (type) {
-            case 'message alert':
-                alertType = type
-                status = id.status
-                break;
-        
-            default: 'inform'
-                alertType = type
-                break;
-        }
-
-        this.setState({
-            popup: {
-                text: value,
-                status: status,
-                type: alertType,
-                id: id.id,
-                isSelect: id.isSelect,
-            }
-        }, () => alertType === 'inform' ? setTimeout( () => this.hanldeCloseAlert(false), 4000 ) : null )// закрытие по таймеру
+    handleAlert = (value, type = 'inform', isSelect = false, messageId) => {
+        this.props.handleShowAlert({ value, type, isSelect, messageId })
     }
 
     handleNewChat = (data) => {
         this.props.handleNewChat(data)
-        if (data) {
-            this.handleAlert(`добавлен новый чат с "${data.name}"`)
-        } else {
-            this.setState({ error: 'Такой чат уже существует' })
-        }
     }
 
     handleNameChange = (data) => {
@@ -76,79 +40,42 @@ class App extends Component {
         handleDelete({
             messageId: value.id, 
             isSelect: value.isSelect, 
-            numSelectedChat: this.state.numSelectedChat
+            id: this.props.selected
         })
-        this.setState({
-            popup: {
-                ...this.state.popup,
-                isSelect: value.isSelect,
-                status: value.isSelect
-            }
-        }, () => this.handleAlert(`Сообщение удалено`, 'inform'))
-    }
-
-    handleSelectChat = (data) => {
-        const chatKey = []
-        for (let [key, value] of Object.entries(this.props.chats)) {
-            chatKey.push(value)
-            if( value.id === data) {
-                this.setState({ numSelectedChat: key, currentActiveChatName: value.name })
-            }
-        }
-    }
-    
-    handleCurrentChatName = (data) => {
-        this.setState({ currentActiveChat: data })
-        this.handleSelectChat(data)
     }
 
     render(){
         return(
-            <ConnectedRouter history={ history }>     
+            <Fragment>
                 <Header 
                     title={ this.state.title } 
                     profile={ this.props.profile } 
-                    chatName={ this.state.currentActiveChatName }
+                    chatName={ this.props.currentChatName }
                     users={ this.props.users }
                     handleNewChat={ this.handleNewChat }
                     handleNameChange={ this.handleNameChange }/>
                 <main>
                     <Switch>
-                        <Route path='/' >
-                            <Switch>
-                                <Route path='/' exact render={ (props) => 
-                                    <ChatContainer 
-                                        { ...props }
-                                        handleAlert={ this.handleAlert }
-                                        handleDeleteMessage={ this.handleDeleteMessage }
-                                        popup={ this.state.popup } 
-                                        hanldeCloseAlert={ this.hanldeCloseAlert }
-                                        numSelectedChat={ this.state.numSelectedChat }
-                                        currentActiveChat={ this.state.currentActiveChat } />}
-                                />
-                                <Route path='/:id' exact render={ (props) => 
-                                    <ChatContainer 
-                                        { ...props }
-                                        handleAlert={ this.handleAlert }
-                                        handleDeleteMessage={ this.handleDeleteMessage }
-                                        popup={ this.state.popup } 
-                                        hanldeCloseAlert={ this.hanldeCloseAlert }
-                                        numSelectedChat={ this.state.numSelectedChat }
-                                        currentActiveChat={ this.state.currentActiveChat } />}
-                                />
-                            </Switch>
-                            <ChatList 
-                                chats={ this.props.chats } 
-                                selectChat={ this.handleCurrentChatName } 
-                                currentActiveChat={ this.state.currentActiveChat }/>
-                            <AlertShow 
-                                handleDeleteMessage={ this.handleDeleteMessage }
-                                popup={ this.state.popup } 
-                                hanldeCloseAlert={ this.hanldeCloseAlert } />
-                        </Route>
+                        <Route path='/' exact render={ (props) => 
+                            <ChatContainer 
+                                { ...props }
+                                handleAlert={ this.handleAlert }
+                                hanldeCloseAlert={ this.hanldeCloseAlert } />}
+                        />
+                        <Route path='/:id' exact render={ (props) => 
+                            <ChatContainer 
+                                { ...props }
+                                handleAlert={ this.handleAlert }
+                                hanldeCloseAlert={ this.hanldeCloseAlert } />}
+                        />
                     </Switch>
+                    <ChatListContainer />
+                    <AlertShow 
+                        handleDeleteMessage={ this.handleDeleteMessage }
+                        popup={ this.props.popup } 
+                        hanldeCloseAlert={ this.hanldeCloseAlert } />
                 </main>
-            </ConnectedRouter>
+            </Fragment>
         )
     }
 }

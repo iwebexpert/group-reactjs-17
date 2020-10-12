@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
-import Message from '../Message/Message'
-import { IconButton, TextField, Typography } from '@material-ui/core' 
+import Message from 'components/Message/Message'
+import { IconButton, TextField, Typography, Paper, Divider } from '@material-ui/core' 
 import SendIcon  from '@material-ui/icons/SendRounded'
 import { nanoid } from 'nanoid'
+import ScrollableFeed from 'react-scrollable-feed'
+
 class Chat extends Component {
     constructor(props) {
         super(props)
@@ -10,12 +12,12 @@ class Chat extends Component {
         this.handleMessageSend = props.handleMessageSend.bind(this)
     }
 
+
     state = {
         input: '',
     }
     
     handleSendMessage = (message) => {
-        const { numSelectedChat } = this.props
         const { id } = this.props.match.params
         this.setState({ input: '' }, 
         this.handleMessageSend(
@@ -23,7 +25,7 @@ class Chat extends Component {
                 name: 'me', 
                 text: message, 
                 id: nanoid(4) 
-            }, id, numSelectedChat))
+            }, id, id))
     }
 
     handleClick = (value) => {
@@ -46,48 +48,61 @@ class Chat extends Component {
 
     render() {
         const { id }  = this.props.match.params
-        const { numSelectedChat, isLoading } = this.props
-        let Messages = <Typography>Выберите чат</Typography>
+        const { chatId, isLoading, chats } = this.props
+        const { firstName } = this.props.profile
+        let messages = <Typography className="chat__text" >Выберите чат</Typography>
         
-        if (!this.props.chats[numSelectedChat]) {
+        if (!this.props.chats) {
             return <div>Loading...</div>
         }
 
-        const avatar = this.props.chats[numSelectedChat].id
-        const currentChat = this.props.chats[numSelectedChat].messages 
-
-        if (id !== undefined && this.props.chats) {
-            Messages = currentChat.map( (item) => 
+        if (id !== undefined && chats && chatId && chats[chatId]) {
+            const avatar = chats[chatId].avatar
+            const currentChat = chats[chatId].messages 
+            messages = currentChat.map( (item) => 
                 <Message 
                     key={ item.id } 
                     avatar={ avatar } 
+                    user={ firstName }
+                    masterAvatar={ this.props.profile.avatar }
                     handleAlert={ this.handleAlert } 
                     message={ item } />)
+            
+        } else {
+            <Typography>Выберите чат</Typography>
         }
         return(
             <section className="chat">
-                <div className="message-list">
-                    { Messages }
-                </div>
-                <div className="chat-footer">
-                    <TextField 
-                        disabled={ id === undefined ? true : false }
-                        autoFocus
-                        fullWidth
-                        size="small"
-                        label="введи текст"
-                        variant="outlined"
-                        value={ this.state.input } 
-                        onChange={ this.handleChange } 
-                        onKeyUp={ (event) => this.handleKeyUp(event, this.state.input) }/>
+                <Paper elevation={5}>
+                    <div className="message-list">
+                        <ScrollableFeed>
+                            { messages }
+                        </ScrollableFeed>
+                    </div>
+                    <Paper elevation={3}>
+                        <Divider />
+                        <div className="chat-footer">
+                            <TextField 
+                                disabled={ id === undefined ? true : false }
+                                autoFocus
+                                fullWidth
+                                size="small"
+                                label="введи текст"
+                                variant="outlined"
+                                value={ this.state.input } 
+                                onChange={ this.handleChange } 
+                                onKeyUp={ (event) => this.handleKeyUp(event, this.state.input) }/>
 
-                    <IconButton
-                        disabled={ id === undefined ? true : false }
-                        color="primary" 
-                        onClick={ () => this.handleClick(this.state.input) }>
-                            <SendIcon/>
-                    </IconButton>
-                </div>
+                            <IconButton
+                                disabled={ id === undefined ? true : false }
+                                color="primary" 
+                                onClick={ () => this.handleClick(this.state.input) }>
+                                    <SendIcon/>
+                            </IconButton>
+                        </div>
+                    </Paper>
+                </Paper>
+
             </section>
         )
     }

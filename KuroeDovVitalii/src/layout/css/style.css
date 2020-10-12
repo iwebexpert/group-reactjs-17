@@ -1,5 +1,6 @@
 body {
     margin: 0 auto;
+    background-color: beige;
 }
 
 main{
@@ -24,7 +25,7 @@ main{
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
-    padding: 1rem 0 1rem 2rem;
+    padding: 1rem;
 }
 .link{
     text-decoration: none;
@@ -38,7 +39,8 @@ main{
 .chat-list{
     width: 30%;
     overflow-y: scroll;
-    height: 90vh;
+    height: 89vh;
+    padding: 1rem 1rem 0 0;
 }
 
 .container{
@@ -52,12 +54,15 @@ main{
     flex-direction: column;
     margin: 0 0 1rem 0;
     height: 75vh;
-    overflow-y: scroll;
+    /* overflow-y: scroll; */
+    justify-content: end;
 }
 .chat-footer{
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 0 1rem;
+    box-sizing: border-box;
 
 }
 
@@ -66,14 +71,31 @@ main{
     padding: .5rem .7rem;
 }
 
-.message{
-    padding: 1rem 1.5rem;
-    border-radius: 25px;
-    display: flex;
-    background-color: orange;
-    color: #fff;
+.chip-label{
+    white-space: normal!important;
 }
 
-.me{
+.message{
+    height: auto!important;
+    min-height: 32px;
+
+}
+.bot__message{
+    
+}
+
+.me__message{
     margin: 0 0 0 auto;
+    
+}
+
+.chat__text{
+    position: absolute;
+    align-self: center;
+    top: 15rem;
+}
+
+.chatList-header__text{
+    padding: 1rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 }

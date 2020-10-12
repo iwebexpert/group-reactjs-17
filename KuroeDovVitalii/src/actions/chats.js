@@ -2,10 +2,15 @@ export const CHATS_LOAD = 'CHATS_LOAD'
 export const CHATS_MESSAGE_SEND = 'CHATS_MESSAGE_SEND'
 export const CHATS_MESSAGE_DELETE = 'CHATS_MESSAGE_DELETE'
 export const PROFILE_LOAD = 'PROFILE_LOAD'
-export const CHATS_MESSAGE_DELETE_INFORM = 'CHATS_MESSAGE_DELETE_INFORM'
 export const CHATS_ADD = 'CHATS_ADD'
 export const CHAT_DELETE = 'CHAT_DELETE'
-export const CHATS_DELETE_INFORM = 'CHATS_DELETE_INFORM'
+export const CHAT_SELECT = 'CHAT_SELECT'
+export const CHAT_MESSAGE_ALERT = 'CHAT_MESSAGE_ALERT'
+export const CHAT_DELETE_INFORM = 'CHAT_DELETE_INFORM'
+export const CHATS_ADD_INFORM = 'CHATS_ADD_INFORM'
+export const CHATS_MESSAGE_DELETE_INFORM = 'CHATS_MESSAGE_DELETE_INFORM'
+export const CHAT_SELECT_INFORM = 'CHAT_SELECT_INFORM'
+
 
 
 export const profileLoadAction = () => ({
@@ -31,9 +36,14 @@ export const chatsMessageDeleteInformAction = (message) => ({
     payload: message
 })
 
-export const chatsAddAction = (chatId, data) => ({
+export const chatsAddAction = (data) => ({
     type: CHATS_ADD,
-    payload: { chatId, data },
+    payload: data,
+})
+
+export const chatsAddInformAction = (data) => ({
+    type: CHATS_ADD_INFORM,
+    payload: data,
 })
 
 
@@ -43,6 +53,16 @@ export const chatDeleteAction = (chatId) => ({
 })
 
 export const chatDeleteInformAction = (chatId) => ({
-    type: CHATS_DELETE_INFORM,
+    type: CHAT_DELETE_INFORM,
     payload: chatId,
+})
+
+export const selectChatAction = (chatId) => ({
+    type: CHAT_SELECT,
+    payload: chatId
+})
+
+export const selectChatInformAction = (chatId) => ({
+    type: CHAT_SELECT_INFORM,
+    payload: chatId
 })

@@ -1,31 +1,60 @@
 import React, { Fragment, Component } from 'react'
 import { connect } from 'react-redux'
-import App from '../Components/App/App'
-import { chatsLoadAction, chatsAddAction, chatsMessageDeleteInformAction } from '../actions/chats'
-import { profileLoadAction, profileChangeNameAction, usersLoadAction } from '../actions/profile'
-import { push } from 'connected-react-router'
+import { ConnectedRouter, push } from 'connected-react-router'
+import { history } from '../store'
+
+import App from 'components/App/App'
+import { chatsLoadAction, chatsMessageDeleteInformAction, chatsAddInformAction } from 'actions/chats'
+import { profileLoadAction, profileChangeNameAction, usersLoadAction } from 'actions/profile'
+import { alertLoadAction, alertCloseInformAction, alertSendInformAction } from 'actions/alerts'
 
 class AppContainerClass extends Component {
 
     componentDidMount() {
-        const { chats, profile , users, chatsLoadAction, profileLoadAction, usersLoadAction } = this.props
-        if (!chats.length || !profile.length || !users.length ) {
+        const { 
+            chats, 
+            profile, 
+            users, 
+            popup, 
+            alertLoadAction, 
+            chatsLoadAction, 
+            profileLoadAction, 
+            usersLoadAction 
+        } = this.props
+        
+        if (!Object.keys(chats).length) {
             chatsLoadAction()
+        }
+
+        if (!profile.length || !users.length || !popup.length ) {
             profileLoadAction()
             usersLoadAction()
+            alertLoadAction()
         }
     }
 
-    handleDelete = (message) => {
-        this.props.chatsMessageDeleteInformAction(message)
+    handleDelete = (data) => {
+        this.props.chatsMessageDeleteInformAction(data)
     }
+
     handleNewChat = (data) => {
-        
-        const { newChatId, chatsAddAction, redirect, chats} = this.props
-        chatsAddAction(newChatId, data)
-        // const chatId = chats[newChatId].id
-        console.log(chats)
-        // redirect(chatId)
+        const { chatsAddInformAction } = this.props
+        chatsAddInformAction(data)
+        this.handleChatRedirect(data.id)
+    }
+
+    handleChatRedirect = (newChatId) => {
+        const { chats, redirect } = this.props
+        // let chatId  = chats[newChatId].id
+        redirect(newChatId)
+    }
+
+    handleShowAlert = (value, type = 'inform', isSelect = false, messageId) => {
+        this.props.alertSendInformAction(value, type, isSelect, messageId)
+    }
+
+    handleCloseAlert = (value) => {
+        this.props.alertCloseInformAction(value)
     }
 
     handleNameChange = (value) => {
@@ -33,33 +62,38 @@ class AppContainerClass extends Component {
     }
 
     render() {
-        const { chats, profile, users } = this.props
-       
         return (
-            <>
-                <App { ...this.props } 
-                    profile={ profile }
-                    users={ users } 
+            <ConnectedRouter history={ history }>     
+                <App 
+                    { ...this.props } 
+                    handleCloseAlert={ this.handleCloseAlert }
+                    handleShowAlert={ this.handleShowAlert }
                     handleDelete={ this.handleDelete } 
                     handleNameChange={ this.handleNameChange }
                     handleNewChat={ this.handleNewChat } />
-            </>
+            </ConnectedRouter>
         )
     }
 }
 
 const mapStateToProps = (state, ownProps) => {
     const chats = state.chats.entries
+    const { selected, currentChatName, loading } = state.chats
+    const { popup } = state.alert
     const { profile, users } = state.profile
+    const { chatId } = state 
     const { match } = ownProps
-    const newChatId = Object.keys(chats).length+1
 
     return {
         chats,
+        popup,
         profile,
-        newChatId,
+        currentChatName,
+        selected,
         users,
-        chatId: match ? match.params.id : null
+        chatId,
+        loading
+        // chatId: match ? match.params.id : null
     }
 }
 
@@ -70,7 +104,10 @@ const mapDispatchToProps = (dispatch) => {
         profileLoadAction: () => dispatch(profileLoadAction()),
         usersLoadAction: () => dispatch(usersLoadAction()),
         profileChangeNameAction: (name) => dispatch(profileChangeNameAction(name)),
-        chatsAddAction: (newChatId, data) => dispatch(chatsAddAction(newChatId, data)),
+        chatsAddInformAction: (data) => dispatch(chatsAddInformAction(data)),
+        alertLoadAction: () => dispatch(alertLoadAction()),
+        alertCloseInformAction: (value) => dispatch(alertCloseInformAction(value)),
+        alertSendInformAction:(data) => dispatch(alertSendInformAction(data)),
         redirect: (chatId) => dispatch(push(`/${chatId}`)),
     }
 }

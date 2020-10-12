@@ -1,7 +1,8 @@
 import React, { Fragment, Component } from 'react'
 import { connect } from 'react-redux'
-import Chat from '../Components/Chat/Chat'
-import { chatsMessageSendAction } from '../actions/chats'
+import Chat from 'components/Chat/Chat'
+import { chatsMessageSendAction } from 'actions/chats'
+
 class ChatContainerClass extends Component {
     
     handleMessageSend = (message, id, numSelectedChat) => {
@@ -13,7 +14,7 @@ class ChatContainerClass extends Component {
     render() {
         return (
             <>
-                <Chat { ...this.props } handleMessageSend={this.handleMessageSend} />
+                <Chat { ...this.props } handleMessageSend={ this.handleMessageSend } />
             </>
         )
     }
@@ -26,11 +27,14 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 const mapStateToProps = (state, ownProps) => {
+    console.log(state)
     const chats = state.chats.entries
     const { match } = ownProps
+    const { profile } = state.profile
 
     return {
         chats,
+        profile,
         chatId: match ? match.params.id : null
     }
 }

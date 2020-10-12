@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Alert from '@material-ui/lab/Alert';
-import { IconButton, Collapse, Button} from '@material-ui/core';
+import { IconButton, Collapse, Button } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete'
 import CloseIcon from '@material-ui/icons/Close';
 
@@ -25,7 +25,7 @@ export default function AlertShow(props) {
     props.handleDeleteMessage({ id: props.popup.id, isSelect: props.popup.isSelect })
   }
 
-  const DeleteButton = props.popup.type === 'message alert' ?
+  const DeleteButton = props.popup.isSelect ?
     <IconButton
       aria-label="delete"
       color="inherit"
@@ -40,7 +40,7 @@ export default function AlertShow(props) {
       <Collapse in={ props.popup.status }>
         <Alert 
           variant="filled" 
-          severity="success"
+          severity={ props.popup.type === "error" ? "error" : "success" }
           action={
             <div>
               { DeleteButton }

@@ -1,54 +1,54 @@
 import React from 'react'
 import Draggable from 'react-draggable'
 import { makeStyles } from '@material-ui/core/styles'
+import { AvatarGenerator } from 'random-avatar-generator'
+const generator = new AvatarGenerator()
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, 
     Paper, InputLabel, FormControl, MenuItem, Select, Slide,
     Avatar } from '@material-ui/core'
 
 const useStyles = makeStyles((theme) => ({
     root: {
-      display: 'flex',
-      '& > *': {
-        margin: theme.spacing(1),
-      },
+        display: 'flex',
+        '& > *': {
+            margin: theme.spacing(1),
+        },
     },
-    profileTitleContainer:{
+    profileTitleContainer: {
         display: 'flex',
         justifyContent: 'space-between',
         width: '100%',
         boxSizing: 'border-box'
     },
     small: {
-      width: theme.spacing(3),
-      height: theme.spacing(3),
+        width: theme.spacing(3),
+        height: theme.spacing(3),
     },
     regButton: {
         margin: '0 1rem 0 0',
     },
     large: {
-      width: theme.spacing(17),
-      height: theme.spacing(17),
-      margin:'0 auto'
+        width: theme.spacing(17),
+        height: theme.spacing(17),
+        margin:'0 auto'
     },
   }))
-  
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />
 })
 
 function PaperComponent(props) {
-  return (
-    <Draggable handle="#draggable-dialog-title" cancel={'[class*="MuiDialogContent-root"]'}>
-      <Paper {...props} />
-    </Draggable>
-  );
+    return (
+        <Draggable handle="#draggable-dialog-title" cancel={'[class*="MuiDialogContent-root"]'}>
+            <Paper {...props} />
+        </Draggable>
+    );
 }
 
 export default function NewChat(props) {
     const classes = useStyles()
     const [open, setOpen] = React.useState(false)
-    // const [avatar, setAvatar] = React.useState(selectedUser.avatar)
     const [selectedUser, setSelectedUser] = React.useState({
         id: '',
         avatar: '',
@@ -97,13 +97,13 @@ export default function NewChat(props) {
         setSelectedUser({
             id: searchUser.id,
             name: searchUser.name,
-            avatar: searchUser.avatar === '' ? `https://i.pravatar.cc/150?img=${selectedUser.id}` : searchUser.avatar
+            avatar: searchUser.avatar === '' ? generator.generateRandomAvatar() : searchUser.avatar
         })
     }
     
   return (
     <div>
-        <Button variant="outlined" onClick={ handleClickOpen } >Новый чат</Button>
+        <Button variant="outlined" onClick={ handleClickOpen } >Новый чат </Button>
         <Dialog
             open={ open }
             fullWidth
@@ -114,7 +114,7 @@ export default function NewChat(props) {
         >
         <DialogTitle style={{ cursor: 'move' }} id="draggable-dialog-title">
             <div className={ classes.profileTitleContainer }>
-                Новый чат 
+                Новый чат { selectedUser.name ? `с ${selectedUser.name}` : null }
             </div>
           
         </DialogTitle>
