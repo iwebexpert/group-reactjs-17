@@ -60,6 +60,7 @@ export class MessengerField extends Component {
               name='author'
               onChange={this.inputFieldHandler}
               value={profile.name}
+              disabled
           />
           <TextField
               className="messenger-form_message"

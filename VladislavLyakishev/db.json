@@ -46,6 +46,6 @@
     }
   ],
   "profile": {
-    "name": "Profile name"
+    "name": "Имя получено с сервера"
   }
 }
