@@ -5,12 +5,9 @@ import {
 } from '../actions/profile'
 
 const initialState = {
-    profile: {
         name: '',
         loading: false,
         error: false
-     }
-
 }
 
 export const profileReducer = (state = initialState, actions) => {

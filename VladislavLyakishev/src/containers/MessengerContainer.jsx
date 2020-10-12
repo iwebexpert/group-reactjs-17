@@ -11,8 +11,10 @@ class MessengerContainerClass extends Component {
         if (!chats.length) {
             chatsLoadAction();
         }
+        if (!profile.name.trim()) {
+            profileLoadAction();
+        }
 
-        profileLoadAction();
 
     }
 
