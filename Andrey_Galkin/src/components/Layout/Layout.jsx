@@ -1,20 +1,17 @@
 import React from 'react';
-
-import {Messenger} from "../Messenger";
 import {Header} from "../Header";
-import {ChatList} from "../ChatList";
-import Grid from "@material-ui/core/Grid";
+import {Switch, Route} from 'react-router-dom';
 
 import './Layout.scss';
+import {routes} from "../../routes";
 
 export const Layout = () => {
   return (
     <div className="layout-container">
       <Header />
-      <Grid container spacing={1}>
-        <ChatList />
-        <Messenger />
-      </Grid>
+      <Switch>
+        {routes.map((route, index) => (<Route key={index} {...route} />))}
+      </Switch>
     </div>
   );
 };
