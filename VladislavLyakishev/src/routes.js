@@ -1,6 +1,6 @@
 import {About} from './pages/About';
 import {Error} from './pages/Error';
-import {Profile} from './pages/Profile';
+import {ProfileContainer} from './containers/ProfileContainer';
 import {MessengerContainer} from './containers/MessengerContainer'
 
 export const routes = [
@@ -17,7 +17,7 @@ export const routes = [
     {
         path: '/profile',
         exact: true,
-        component: Profile
+        component: ProfileContainer
     },
     {
         path: '/chats/:id([0-9]+)',

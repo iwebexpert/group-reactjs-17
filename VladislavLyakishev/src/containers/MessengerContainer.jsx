@@ -3,13 +3,17 @@ import {connect} from 'react-redux';
 import {nanoid} from "nanoid";
 import {Messenger} from '../components/Messenger';
 import {chatsLoadAction, chatsMessageSendAction} from '../actions/chats';
+import {profileLoadAction} from '../actions/profile'
 
 class MessengerContainerClass extends Component {
     componentDidMount() {
-        const {chatsLoadAction, chats} = this.props;
+        const {chatsLoadAction, chats, profileLoadAction, profile} = this.props;
         if (!chats.length) {
             chatsLoadAction();
         }
+
+        profileLoadAction();
+
     }
 
     handleMessageSend = (message) => {
@@ -45,13 +49,15 @@ function mapStateToProps(state, ownProps) {
         chatId: match ? match.params.id : null,
         chats,
         isLoading: state.chats.loading,
-        isError: state.chats.error
+        isError: state.chats.error,
+        profile: state.profile
     }
 }
 
 function mapDispatchToProps(dispatch) {
     return {
         chatsLoadAction: () => dispatch(chatsLoadAction()),
+        profileLoadAction: () => dispatch(profileLoadAction()),
         chatsMessageSendAction: (message) => dispatch(chatsMessageSendAction(message)),
     }
 }

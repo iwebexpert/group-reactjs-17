@@ -10,7 +10,6 @@ export class Messenger extends Component {
     const {handleMessageSend, isLoading, isError} = this.props;
 
     if (isLoading) {
-      console.log(isLoading)
       return (
         <div>Loading...</div>
       )

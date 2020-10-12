@@ -44,5 +44,8 @@
       "author": "Friends author",
       "chatId": 2
     }
-  ]
+  ],
+  "profile": {
+    "name": "Profile name"
+  }
 }
