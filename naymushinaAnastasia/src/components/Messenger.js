@@ -5,6 +5,7 @@ import ChatList from "./ChatList";
 import {routes} from "../routes";
 import {chats} from '../helpers/chatsData';
 import {nanoid} from 'nanoid';
+import AddNewChat from "./AddNewChat";
 
 export default class Messenger extends Component {
     constructor(props) {
@@ -58,6 +59,20 @@ export default class Messenger extends Component {
         });
     }
 
+    addChat(chatTitle){
+        const {chats} = this.state;
+        const id = chats[chats.length - 1].id +1;
+        const updatedChats = chats.concat({
+            id: id,
+            title: chatTitle,
+            messages: [
+            ],
+        });
+        this.setState({
+            chats:updatedChats
+        });
+    }
+
     onChangeNewMessage(newMessage) {
         this.setState({
             newMessage: newMessage
@@ -89,7 +104,8 @@ export default class Messenger extends Component {
         return (
             <div className="d-flex w-100 justify-content-between h-100">
                 <div className="w-25 border bg-light">
-                    <ChatList chats={chats}/>
+                    <ChatList chats={this.state.chats}/>
+                    <AddNewChat submit={(chatTitle)=>this.addChat(chatTitle)}/>
                 </div>
                 <div className="w-75 border">
 
