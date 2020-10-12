@@ -70,16 +70,22 @@ main{
     padding: .5rem .7rem;
 }
 
-.message{
-    padding: 1rem 1.5rem;
-    border-radius: 25px;
-    display: flex;
-    background-color: orange;
-    color: #fff;
+.chip-label{
+    white-space: normal!important;
 }
 
-.me{
+.message{
+    height: auto!important;
+    min-height: 32px;
+
+}
+.bot__message{
+    
+}
+
+.me__message{
     margin: 0 0 0 auto;
+    
 }
 
 .chat__text{

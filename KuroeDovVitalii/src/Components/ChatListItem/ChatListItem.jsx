@@ -27,13 +27,11 @@ export default class ChatListItem extends Component {
         return(
             <Link className="link" to={ `/${this.props.id}` } replace>
                 <ListItem button onClick={ this.handleSelectChat } selected={ this.props.selected === this.props.id }>
-                    
-                        <ListItemIcon>
+                    <ListItemIcon>
                         <Badge color="primary" badgeContent={this.props.messages.length} >
                             <Avatar src={ this.props.avatar }></Avatar>
                          </Badge>
-
-                        </ListItemIcon>
+                    </ListItemIcon>
                     <ListItemText primary={ this.props.name } />
                     { DeleteButton }
                 </ListItem>  

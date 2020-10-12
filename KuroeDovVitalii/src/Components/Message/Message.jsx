@@ -1,13 +1,18 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Chip, Avatar, Paper, Typography } from '@material-ui/core'
+import { Chip, Avatar, Paper, Typography, Container, IconButton } from '@material-ui/core'
 import DoneIcon from '@material-ui/icons/Done'
+import DeleteIcon from '@material-ui/icons/Delete'
 import classNames from 'classnames'
 
 export default class Message extends Component {
 
     state = {
         isSelectMessage: false,
+    }
+
+    handleSelect = () => {
+        this.setState( {isSelectMessage: !this.state.isSelectMessage} )
     }
 
     handleDelete = () => {
@@ -30,27 +35,30 @@ export default class Message extends Component {
  
     render() {
         const { avatar, masterAvatar } = this.props
-        const classes = classNames('messages', {
-            'me' : this.props.message.name === 'me',
-            'message' : this.props.message.name !== 'me'
+        const classes = classNames('message', {
+            'me__message' : this.props.message.name === 'me',
+            'bot__message' : this.props.message.name !== 'me'
         }) 
+
         return(
 
             <div className="message-block"> 
                 <Chip 
-                    deleteIcon={<DoneIcon />} 
+                    deleteIcon={ <DeleteIcon /> } 
                     color={ this.props.message.name === 'me' ? 'primary' : 'secondary' }
                     className={ classes }
-                    clicable="true"
+                    clicable={ true }
                     onDelete={ this.handleDelete } 
-                    label={ <Typography variant="caption" noWrap={true}>{this.props.message.text}</Typography> }
+                    label={ 
+                        <Typography variant="caption" className="chip-label">
+                            {this.props.message.text}
+                        </Typography> }
                     avatar={ 
                         <Avatar src={ this.props.message.name === 'me' ? masterAvatar : avatar }> 
                             { this.props.message.name }
                         </Avatar> } 
                     />
             </div>
-
         )
     }
 }
