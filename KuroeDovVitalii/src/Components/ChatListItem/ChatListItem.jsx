@@ -1,6 +1,6 @@
 import React , { Component, Fragment } from 'react'
 import { Link } from 'react-router-dom'
-import { ListItemIcon, ListItemText, ListItem, Avatar, IconButton  } from '@material-ui/core'
+import { ListItemIcon, ListItemText, ListItem, Avatar, IconButton, Badge  } from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
 
 export default class ChatListItem extends Component {
@@ -27,9 +27,13 @@ export default class ChatListItem extends Component {
         return(
             <Link className="link" to={ `/${this.props.id}` } replace>
                 <ListItem button onClick={ this.handleSelectChat } selected={ this.props.selected === this.props.id }>
-                    <ListItemIcon>
-                        <Avatar src={ this.props.avatar }></Avatar>
-                    </ListItemIcon>
+                    
+                        <ListItemIcon>
+                        <Badge color="primary" badgeContent={this.props.messages.length} >
+                            <Avatar src={ this.props.avatar }></Avatar>
+                         </Badge>
+
+                        </ListItemIcon>
                     <ListItemText primary={ this.props.name } />
                     { DeleteButton }
                 </ListItem>  
