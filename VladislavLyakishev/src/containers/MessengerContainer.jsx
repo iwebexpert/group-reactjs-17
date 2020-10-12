@@ -20,9 +20,14 @@ class MessengerContainerClass extends Component {
 
 
     render() {
-        const {messages} = this.props;
+        const {messages, isError, isLoading} = this.props;
+
         return (
-            <Messenger messages={messages} handleMessageSend={this.handleMessageSend}/>
+            <Messenger messages={messages}
+                       handleMessageSend={this.handleMessageSend}
+                       isError={isError}
+                       isLoading={isLoading}
+            />
         );
     }
 }
@@ -39,6 +44,8 @@ function mapStateToProps(state, ownProps) {
         messages,
         chatId: match ? match.params.id : null,
         chats,
+        isLoading: state.chats.loading,
+        isError: state.chats.error
     }
 }
 

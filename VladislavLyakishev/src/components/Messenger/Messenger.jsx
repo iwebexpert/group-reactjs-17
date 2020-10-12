@@ -7,7 +7,21 @@ export class Messenger extends Component {
 
   render() {
     const messageData = this.props.messages;
-    const {handleMessageSend} = this.props;
+    const {handleMessageSend, isLoading, isError} = this.props;
+
+    if (isLoading) {
+      console.log(isLoading)
+      return (
+        <div>Loading...</div>
+      )
+    }
+
+    if (isError) {
+      return (
+        <div>Ошибка загрузки данных</div>
+      )
+    }
+
     return (
       <div className="messenger">
         <div className='messenger-list'>
