@@ -58,3 +58,7 @@
     text-align: center;
     line-height: 30px   ;
 }
+
+.list-item-padding {
+    margin-left: 10px !important;
+}
