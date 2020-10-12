@@ -4,10 +4,9 @@ import App from './Components/App/App'
 import { AppContainer } from './containers/AppContainer'
 import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
-// initStore
-import { initStore } from './store'
+import { initStore, history } from './store'
 
-const {store, persistor } = initStore()
+const { store, persistor } = initStore()
 
 ReactDOM.render(
     <Provider store={ store } >

@@ -28,7 +28,7 @@ export default class ChatListItem extends Component {
             <Link className="link" to={ `/${this.props.id}` } replace>
                 <ListItem button onClick={ this.handleSelectChat } selected={ this.props.selected === this.props.id }>
                     <ListItemIcon>
-                        <Badge color="primary" badgeContent={this.props.messages.length} >
+                        <Badge color={this.props.fire ? "secondary" : "primary"} badgeContent={this.props.messages.length} >
                             <Avatar src={ this.props.avatar }></Avatar>
                          </Badge>
                     </ListItemIcon>

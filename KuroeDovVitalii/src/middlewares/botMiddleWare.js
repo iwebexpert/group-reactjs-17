@@ -16,9 +16,10 @@ export const botMiddleWare = store => next => action => {
                     text: citates[Math.floor(Math.random() * 10) + 1].text, 
                     id: nanoid(4) , 
                     chatId: chatId,
-                    numSelectedChat: numSelectedChat 
+                    numSelectedChat: numSelectedChat,
+                    fire: true
                 }))
-            }, 1000)
+            }, 2000)
         }
     }
     return next(action)

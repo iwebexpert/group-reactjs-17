@@ -1,6 +1,6 @@
 import update from 'react-addons-update'
 import { nanoid } from 'nanoid'
-import { CHATS_LOAD, CHATS_MESSAGE_SEND, CHATS_MESSAGE_DELETE, CHATS_ADD, CHAT_DELETE, CHAT_SELECT } from '../actions/chats'
+import { CHATS_LOAD, CHATS_MESSAGE_SEND, CHATS_MESSAGE_DELETE, CHATS_ADD, CHAT_DELETE, CHAT_SELECT, CHAT_MESSAGE_ALERT } from '../actions/chats'
 import { AvatarGenerator } from 'random-avatar-generator'
 const generator = new AvatarGenerator()
 import { citates } from '../helpers/citates'
@@ -28,6 +28,7 @@ export const chatReducer = (state = initialState, action) => {
             return update(state, {
                 entries: {
                     [action.payload.numSelectedChat]: {
+                        $merge: { fire: action.payload.fire ? action.payload.fire : false },
                         messages: {$push: [
                             { name: action.payload.name, text: action.payload.text, id: action.payload.id }
                         ]},
@@ -59,6 +60,7 @@ export const chatReducer = (state = initialState, action) => {
                     [action.payload.id]: {
                         id: action.payload.id,
                         name: action.payload.name,
+                        fire : true,
                         avatar: generator.generateRandomAvatar(),
                         messages: [{
                             name: 'БОТ', 
@@ -79,10 +81,16 @@ export const chatReducer = (state = initialState, action) => {
             })
         
         case CHAT_SELECT: 
-            return update(state, { $merge: 
-                { selected: action.payload.chatId, currentChatName: action.payload.chatName }
+        console.log(state)
+            return update(state, { 
+                entries: {
+                    [action.payload.chatId] : { 
+                        $merge: { fire: false }
+                    }
+                },
+                $merge: { selected: action.payload.chatId, currentChatName: action.payload.chatName, }
             })
-
+        
         default: 
             return state
     } 
