@@ -13,6 +13,15 @@ export class MessageForm extends Component {
         onSend: PropTypes.func.isRequired
     };
 
+    componentDidMount() {
+        if (!this.state.author && this.props.profile && this.props.profile.name) {
+            this.setState({
+                text: '',
+                author: this.props.profile.name
+            });
+        }
+    }
+
     onChangeInputHandler = (event) => {
         const fieldName = event.target.name;
         this.setState({[fieldName]: event.target.value});

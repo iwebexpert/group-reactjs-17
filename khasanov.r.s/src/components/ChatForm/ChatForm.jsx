@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {TextField, Fab} from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
-import {Send} from '@material-ui/icons';
 
 export class ChatForm extends Component {
     state = {
@@ -43,9 +42,10 @@ export class ChatForm extends Component {
                            value={name} onChange={this.onChangeInputHandler}
                            placeholder='Добавить чат'
                            onKeyDown={this.onKeyEnter}
+                           size="small"
                 />
                 <Fab color="primary" aria-label="add" onClick={this.submitForm}>
-                    <AddIcon />
+                    <AddIcon/>
                 </Fab>
             </div>
         );

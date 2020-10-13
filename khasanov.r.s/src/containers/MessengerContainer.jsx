@@ -14,7 +14,7 @@ class MessengerContainerClass extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (this.props.chatId && this.props.chats[this.props.chatId].fire) {
+        if (this.props.chatId && this.props.chats[this.props.chatId] && this.props.chats[this.props.chatId].fire) {
             this.props.chatsUnFireAction(this.props.chatId);
         }
     }
@@ -32,16 +32,23 @@ class MessengerContainerClass extends React.Component {
         this.props.redirect(lastId);
     };
 
+    handleChatReload = () => {
+        this.props.chatsLoadAction();
+    }
+
     render() {
-        console.log('test', this.props);
-        const {chats, messages} = this.props;
+        const {chats, messages, isLoading, isError, profile} = this.props;
         return (
             <Messenger
+                profile={profile}
                 chats={chats}
                 messages={messages}
                 handleMessageSend={this.handleMessageSend}
                 handleChatAdd={this.handleChatAdd}
                 redirect={this.props.redirect}
+                isLoading={isLoading}
+                isError={isError}
+                handleChatReload={this.handleChatReload}
             />
         );
 
@@ -50,7 +57,6 @@ class MessengerContainerClass extends React.Component {
 
 
 function mapStateToProps(state, ownProps) {
-    console.log('mapStateToProps', state, ownProps);
     const chats = state.chats.entries;
     const {match} = ownProps;
 
@@ -76,8 +82,11 @@ function mapStateToProps(state, ownProps) {
     return {
         chats: chatsArray,
         messages,
+        profile: state.profile.data,
         chatId: match ? match.params.id : null,
         lastId,
+        isLoading: state.chats.loading,
+        isError: state.chats.error,
     }
 }
 
