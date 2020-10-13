@@ -1,12 +1,14 @@
 import React, {Component} from 'react';
 import {Paper, Grid, Avatar, Typography} from '@material-ui/core';
+import {ProfileForm} from '../ProfileForm';
+
 import './Profile.scss';
 
 export class Profile extends Component
 {
    
     render(){
-        const {profiles, isLoading, isError, handleProfileReload} = this.props;
+        const {profiles, isLoading, isError, handleProfileReload, handleProfileUpdate} = this.props;
 
         if(isLoading){
             return(
@@ -43,7 +45,9 @@ export class Profile extends Component
                         <button onClick={handleProfileReload}>Обновить</button>
                     </div>
                  </div> 
-                 : profileList}        
+                 : profileList}
+                <h1>Update profile</h1>
+                <ProfileForm onSend = {handleProfileUpdate} />
             </div>
         )
     }
