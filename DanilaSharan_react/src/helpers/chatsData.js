@@ -9,6 +9,7 @@ export const chats = [
                 text: 'Hi!'
             },
         ],
+        unread: false,
     },
     {
         id: 1,
@@ -20,6 +21,7 @@ export const chats = [
                 text: 'React.js!'
             },
         ],
+        unread: false,
     },
     {
         id: 2,
@@ -36,5 +38,6 @@ export const chats = [
                 text: 'Что нового?'
             },
         ],
+        unread: false,
     },
 ];

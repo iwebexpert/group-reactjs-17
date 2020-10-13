@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {nanoid} from 'nanoid';
 
 
 import {MessageList} from '../MessageList';
@@ -16,27 +17,19 @@ import {ArrowBackIos} from "@material-ui/icons";
 
 export class Messenger extends Component
 {
-    // componentDidUpdate() {
-    //     if(this.messages.length) {
-    //         const {author, id} = this.messages[this.messages.length - 1];
-    //         if (author !== 'Bot'){
-    //             setTimeout(() => {
-    //                 if (id === this.messages[this.messages.length - 1].id)
-    //                     this.handleMessageSend({text: `Hi, ${author}! Это бот...`, author: 'Bot'});
-    //             }, 2000);
-    //         }
-    //     }
-    //
-    //     let body = document.querySelector('.messages-list').lastChild;
-    //     body.scrollIntoView();
-    // }
-
     render()
     {
-        const {chats, messages, username, handleMessageSend} = this.props;
+        const {chats, messages, username, handleMessageSend, handleChatAdd,  handleChatOpen} = this.props;
 
         const chatsList = chats.map((item) => (
-            <ListItem key={item.id} button>
+            <ListItem
+              key={nanoid()}
+              button
+              onClick={() => handleChatOpen(item)}
+              style={{
+                backgroundColor: item.unread ? '#3b2666' : ''
+              }}
+            >
                 <ListItemAvatar>
                     <Avatar>
                         <PersonIcon />
@@ -48,7 +41,7 @@ export class Messenger extends Component
 
         return (
             <Grid container spacing={1}>
-                <ChatList chatsList={chatsList}/>
+                <ChatList chatsList={chatsList} handleChatAdd={handleChatAdd} className='list-item-padding' />
                 <Grid item xs={9} className="messenger">
                     <div className="main-container-msg">
                         <div className="content-wrapper">

@@ -1,15 +1,23 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {nanoid} from 'nanoid';
+import {push} from 'connected-react-router';
 
 import {Messenger} from '../components/Messenger';
-import {chatsLoadAction, chatsMessageSendAction} from '../actions/chats';
+import {
+  chatsLoadAction,
+  chatsMessageSendAction,
+  chatsAddAction,
+  chatUnfireAction
+} from '../actions/chats';
 import { profileLoadAction } from '../actions/profile'
 
 
 class MessengerContainerClass extends React.Component {
   componentDidMount() {
-    this.props.chatsLoadAction();
+    if(!this.props.chats.length){
+      this.props.chatsLoadAction();
+    }
   }
 
   handleMessageSend = (message) => {
@@ -21,10 +29,31 @@ class MessengerContainerClass extends React.Component {
     body.scrollIntoView();
   };
 
+  handleChatOpen = (chat) => {
+    if (chat.unread) {
+      this.props.chatUnfireAction(chat.id)
+    }
+    this.props.redirect(chat.id)
+  }
+
+  handleChatAdd = () => {
+    const {lastId, chatsAddAction, redirect} = this.props;
+    const title = prompt ('Enter chat title', 'New Chat');
+    chatsAddAction(lastId, title);
+    redirect(lastId);
+  };
+
   render(){
     const {chats, messages, username} = this.props;
     return (
-      <Messenger username={username} chats={chats} messages={messages} handleMessageSend={this.handleMessageSend} />
+      <Messenger
+        username={username}
+        chats={chats}
+        messages={messages}
+        handleMessageSend={this.handleMessageSend}
+        handleChatAdd={this.handleChatAdd}
+        handleChatOpen={this.handleChatOpen}
+      />
     );
   }
 }
@@ -43,23 +72,33 @@ function mapStateToProps(state, ownProps) {
   let chatsArray = [];
   for(let key in chats){
     if(chats.hasOwnProperty(key)){
-      chatsArray.push({ title: chats[key].title, id: chats[key].id })
+      chatsArray.push({
+        title: chats[key].title,
+        id: chats[key].id,
+        unread: chats[key].unread
+      })
     }
   }
+
+  const lastId = Object.keys(chats).length;
 
   return {
     chats: chatsArray,
     messages,
     username: profile.name,
     chatId: match ? match.params.id : null,
+    lastId,
   };
 }
 
 function mapDispatchToProps(dispatch){
   return {
     chatsLoadAction: () => dispatch(chatsLoadAction()),
+    chatsAddAction: (newChatId, title) => dispatch(chatsAddAction(newChatId, title)),
     chatsMessageSendAction: (message) => dispatch(chatsMessageSendAction(message)),
     profileLoadAction: () => dispatch(profileLoadAction()),
+    redirect: (chatId) => dispatch(push(`/chats/${chatId}`)),
+    chatUnfireAction: (chatId) => dispatch(chatUnfireAction(chatId)),
   };
 }
 
