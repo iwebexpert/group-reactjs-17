@@ -1,49 +1,78 @@
 import React, {Component} from 'react';
 import MessageComponent from "./MessageComponent";
 import AddMessage from "./AddMessage";
+import ChatList from "./ChatList";
+import {routes} from "../routes";
+import {chats} from '../helpers/chatsData';
+import {nanoid} from 'nanoid';
+import AddNewChat from "./AddNewChat";
 
 export default class Messenger extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            messages: {
-                1: {text: "Привет!", sender: 'bot'},
-                2: {text: "Здравствуйте!", sender: 'bot'},
-            },
-            newMessage: "",
-            user: "currentUser"
+            chats,
+            newMessage: ""
         };
         this.onSubmitNewMessage = this.onSubmitNewMessage.bind(this);
         this.onChangeNewMessage = this.onChangeNewMessage.bind(this);
     }
 
-    componentDidUpdate(prevProps, prevState) {
-        let msgBefore = [...prevState.messages];
-        let msgAfter = [...this.state.messages];
+    robotAnswer() {
+        const {chats} = this.state;
+        const currentChat = this.currentChat;
 
-        if (msgAfter.length > 0 && msgBefore.length < msgAfter.length && msgAfter.pop().user !== "bot") {
+        currentChat.messages = [...this.currentChat.messages, {
+            id: nanoid(),
+            author: "bot",
+            text: "Не приставай ко мне, я робот!"
 
-            setTimeout(() =>
-                    this.setState({
-                        messages: [
-                            ...this.state.messages,
-                            {text: 'Не приставай ко мне, я робот!', user: 'bot'}
-                        ]
-                    }),
-                500);
+        }];
+        chats[currentChat.id] = currentChat;
 
-        }
+        this.setState({
+            chats: chats,
+        });
+
 
     }
 
 
     onSubmitNewMessage() {
+        const {chats} = this.state;
+        const currentChat = this.currentChat;
+
+        currentChat.messages = [
+             ...this.currentChat.messages,
+            {
+                id: nanoid(),
+                author: "me",
+                text: this.state.newMessage
+
+            }];
+
+        chats[currentChat.id] = currentChat;
+
+
         this.setState({
-            messages: [...this.state.messages, {user: this.state.user, text: this.state.newMessage}],
+            chats: chats,
             newMessage: ""
         });
 
+        setTimeout(() => this.robotAnswer(), 1000)
+    }
 
+    addChat(chatTitle) {
+        const {chats} = this.state;
+        const id = chats[chats.length - 1].id + 1;
+        const updatedChats = chats.concat({
+            id: id,
+            title: chatTitle,
+            messages: [],
+        });
+        this.setState({
+            chats: updatedChats
+        });
     }
 
     onChangeNewMessage(newMessage) {
@@ -52,26 +81,59 @@ export default class Messenger extends Component {
         })
     }
 
+    get currentChat() {
+        const {chats} = this.state;
+        const {match} = this.props;
+        let currentChat = null;
+        if (match && chats[match.params.id]) {
+            currentChat = chats[match.params.id]
+        }
+        return currentChat;
+    }
+
+    get messages() {
+        let messages = null;
+
+        if (this.currentChat) {
+            messages = this.currentChat.messages;
+        }
+        return messages;
+    }
+
 
     render() {
-
-        let messageField = this.state.messages.map((message) => {
-            return <MessageComponent text={message.text} key={message.text} user={message.user}/>
-        });
+        const messages = this.messages;
         return (
-            <div className="h-100">
-
-                <div className="d-flex flex-column h-90">
-                    <div className="d-flex flex-column bg-light p-2 h-100"
-                         style={{overflowY: 'scroll'}}>
-                        {messageField}
-                    </div>
+            <div className="d-flex w-100 justify-content-between h-100">
+                <div className="w-25 border bg-light">
+                    <ChatList chats={this.state.chats}/>
+                    <AddNewChat submit={(chatTitle) => this.addChat(chatTitle)}/>
                 </div>
-                <AddMessage
-                    newMessage={this.state.newMessage}
-                    onChange={this.onChangeNewMessage}
-                    onSubmit={this.onSubmitNewMessage}
-                />
+                <div className="w-75 border">
+
+                    {<div className="h-100">
+
+                        <div className="d-flex flex-column h-90">
+                            <div className="d-flex flex-column bg-light p-2 h-100"
+                                 style={{overflowY: 'scroll'}}>
+                                {this.props.match.params.id ?
+                                    messages.length > 0 ?
+                                        messages.map((message) => {
+                                            return <MessageComponent text={message.text} key={message.text}
+                                                                     user={message.user}/>
+                                        })
+                                        : 'Сообщений нет'
+                                    : "Выберите чат"
+                                }
+                            </div>
+                        </div>
+                        <AddMessage
+                            newMessage={this.state.newMessage}
+                            onChange={this.onChangeNewMessage}
+                            onSubmit={this.onSubmitNewMessage}
+                        />
+                    </div>}
+                </div>
             </div>
 
         );

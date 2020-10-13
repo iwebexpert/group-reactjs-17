@@ -3,18 +3,22 @@ import React, {Component} from 'react';
 import {NavLink} from 'react-router-dom';
 import ContentSend from 'material-ui/svg-icons/content/send';
 
-let  ChatList = ({chats}) =>{
-    console.log (chats)
 
-            return chats.map((chat) => {
-                return <NavLink to={`/chat/${chat.id}`} activeClassName="selected">
+let ChatList = ({chats}) => {
+
+    return (
+
+        <div>
+            {chats.map((chat) => {
+                return <NavLink key={chat.id} to={`/chats/${+chat.id}`} activeClassName="selected">
                     <ListItem
-                        primaryText={1}
                         leftIcon={<ContentSend/>}
                     >{chat.title}</ListItem>
                 </NavLink>
-            })
 
+            })}
+
+        </div>)
 
 
 };

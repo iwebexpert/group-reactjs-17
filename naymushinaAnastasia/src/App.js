@@ -1,18 +1,21 @@
 import React from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import Layout from "./components/Layout";
-import {BrowserRouter, Route, Switch} from 'react-router-dom';
-import Messenger from "./components/Messenger";
+import {BrowserRouter,Route, Switch} from 'react-router-dom';
+import Header from "./components/Header";
+import {routes} from './routes';
 
 
 function App() {
     return (
         <BrowserRouter>
-        <MuiThemeProvider>
-            <Switch>
-                <Route exact={true} path='/' component={Layout}/>
-            </Switch>
-        </MuiThemeProvider>
+            <MuiThemeProvider>
+                <div className="h-90">
+                <Header/>
+                <Switch>
+                    {routes.map((route, index) => (<Route key={index} {...route} />))}
+                </Switch>
+                </div>
+            </MuiThemeProvider>
         </BrowserRouter>
     );
 }
