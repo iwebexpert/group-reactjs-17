@@ -1,45 +1,28 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {nanoid} from 'nanoid'
 import {Profile} from '../components/profile'
-import {profileGetAction, profileChangeAction} from '../actions/profileActions'
+import {profilesUpdateAction} from '../actions/profilesActions'
 
 class ProfileContainerClass extends React.Component {
-   componentDidMount() {
-      const {id} = this.props
-      
-      if (id === undefined) {
-         this.props.getProfile()
-      }
-   }
-
-   handleProfileChange = (title) => {
-      const {profileChange} = this.props
-      profileChange(title)
-   }
-
    render() {
-      const {id, name} = this.props
+      const {author, profileUpdate} = this.props
 
       return (
-         <Profile id={id} name={name} handleProfileChange={this.handleProfileChange}/>
+         <Profile author={author} profileUpdate={profileUpdate}/>
       )
    }
 }
 
 function mapStateToProps(state, ownProps) {
-   const {profile} = state.profileReducer
-
+   const {profile} = state.profilesReducer
    return {
-      id: profile.id,
-      name: profile.name
+      author: profile.name
    }
 }
 
 function mapDispatchToProps(dispatch) {
    return {
-      getProfile: () => dispatch(profileGetAction()),
-      profileChange: (name) => dispatch(profileChangeAction(name))
+      profileUpdate: (name) => dispatch(profilesUpdateAction(name))
    }
 }
 

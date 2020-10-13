@@ -3,68 +3,70 @@ import {connect} from 'react-redux'
 import {nanoid} from 'nanoid'
 import {push} from 'connected-react-router'
 import {Messenger} from '../components/messenger'
-import {chatsGetAction, chatsAddAction, chatsDelAction, setChatAsReaded, chatsMessageSendAction} from '../actions/chatsActions'
-import {profileGetAction} from '../actions/profileActions'
+import {chatsLoadAction, chatsAddAction, chatsDelAction,
+   setChatAsReaded, chatsMessageSendAction} from '../actions/chatsActions'
 
 class MessengerContainerClass extends React.Component {
    componentDidMount() {
-      const {author, chats} = this.props
-
-      if (author === undefined) {
-         this.props.getProfile()
-      }
+      const {chats, getChats, redirect} = this.props
 
       if (!chats.length) {
-         this.props.getChats()
+         getChats()
       }
+
+      redirect(0)
    }
 
-   handleChatAdd = (title) => {
-      const {chats, addChat, redirect} = this.props
+   addChat = (title) => {
+      const {chats, addChatToStore, redirect} = this.props
       const id = chats[chats.length - 1].id + 1
 
-      addChat(id, title)
+      addChatToStore(id, title)
       redirect(id)
    }
 
-   handleMessageSend = (message) => {
-      const {messages, author} = this.props
+   delChat = (id) => {
+      const {delChatFromStore, redirect} = this.props
+      redirect(0)
+
+      delChatFromStore(id)
+   }
+
+   sendMessage = (message) => {
+      const {messages, author, sendMessageToStore} = this.props
 
       if (messages) {
          message.id = nanoid()
          message.author = author
          message.chatId = this.props.chatId
-         this.props.sendMessage(message)
+         sendMessageToStore(message)
       } else alert('Не выбран чат для этого сообщения')
    }
 
    render() {
-      const {author, chats, messages, chatId, redirect, setChatAsReaded, delChat} = this.props
+      const {isLoading, isError, chats, chatId, getChats,
+         messages, redirect, delChat} = this.props
 
       return (
          <Messenger
-            author={author}
+            isLoading={isLoading}
+            isError={isError}
+            getChats={getChats}
             chats={chats}
             chatId={chatId}
-            messages={messages}
-            handleMessageSend={this.handleMessageSend}
-            handleChatAdd={this.handleChatAdd}
+            addChat={this.addChat}
+            delChat={this.delChat}
             redirect={redirect}
-            delChat={delChat}
-            setChatAsReaded={setChatAsReaded} />
+            messages={messages}
+            sendMessage={this.sendMessage} />
       )
    }
 }
 
 function mapStateToProps(state, ownProps) {
-   const {chats} = state.chatsReducer
-   const {profile} = state.profileReducer
+   const {chats, loading, error} = state.chatsReducer
+   const {profile} = state.profilesReducer
    const {match} = ownProps
-
-   let messages = null
-   if (match && chats[match.params.id]) {
-      messages = chats[match.params.id].messages
-   }
 
    const chatsArray = []
    for (let key in chats) {
@@ -72,12 +74,19 @@ function mapStateToProps(state, ownProps) {
          chatsArray.push({
             id: chats[key].id,
             title: chats[key].title,
-            readed: chats[key].readed,
+            readed: chats[key].readed
          })
       }
    }
 
+   let messages = null
+   if (match && chats[match.params.id]) {
+      messages = chats[match.params.id].messages
+   }
+
    return {
+      isLoading: loading,
+      isError: error,
       author: profile.name,
       chats: chatsArray,
       messages,
@@ -89,12 +98,11 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
    return {
-      getProfile: () => dispatch(profileGetAction()),
-      getChats: () => dispatch(chatsGetAction()),
-      addChat: (id, title) => dispatch(chatsAddAction(id, title)),
-      delChat: (id) => dispatch(chatsDelAction(id)),
-      setChatAsReaded: (id) => dispatch(setChatAsReaded(id)),
-      sendMessage: (message) => dispatch(chatsMessageSendAction(message)),
+      getProfile: () => dispatch(profilesGetAction()),
+      getChats: () => dispatch(chatsLoadAction()),
+      addChatToStore: (id, title) => dispatch(chatsAddAction(id, title)),
+      delChatFromStore: (id) => dispatch(chatsDelAction(id)),
+      sendMessageToStore: (message) => dispatch(chatsMessageSendAction(message)),
       redirect: (chatId) => dispatch(push(`/chat/${chatId}`))
    }
 }

@@ -1,22 +1,58 @@
 import update from 'react-addons-update'
-import {nanoid} from 'nanoid'
-import {CHATS_GET, CHATS_ADD, CHATS_DEL, SET_CHAT_AS_READED, CHATS_MESSAGE_SEND} from '../actions/chatsActions'
-import {chats} from '../helpers/defaultChatsData'
 import {APP_NAME} from '../config/config.js'
+import {
+   CHATS_LOAD_REQUEST,
+   CHATS_LOAD_SUCCESS,
+   CHATS_LOAD_FAILURE,
+   CHATS_ADD,
+   CHATS_DEL,
+   SET_CHAT_READED_STATE,
+   CHATS_MESSAGE_SEND} from '../actions/chatsActions'
 
 const initialState = {
+   loading: false,
+   error: false,
    chats: []
 }
 
 export const chatsReducer = (state = initialState, action) => {
    switch (action.type) {
 
-      // получение списка чатов по-умолчанию
-      case CHATS_GET:
-         return {
+      // получение списка чатов c json-сервера
+      case CHATS_LOAD_REQUEST:
+            return {
+                ...state,
+                loading: true,
+                error: false,
+            }
+
+      case CHATS_LOAD_SUCCESS:
+        return {
             ...state,
-            chats
+            loading: false,
+            chats: action.payload
+        }
+
+      case CHATS_LOAD_FAILURE:
+         return {
+             ...state,
+             loading: false,
+             error: true
          }
+
+      // переключение бейджика непрочитанности сообщений
+      case SET_CHAT_READED_STATE:
+         if (state.chats.length) {
+            return update(state, {
+               chats: {
+                  [action.chatId]: {
+                     readed: {$set: action.readed}
+                  }
+               }
+            })
+         }
+
+         return state
 
       // добавление нового чата
       case CHATS_ADD:
@@ -33,39 +69,27 @@ export const chatsReducer = (state = initialState, action) => {
 
       // удаление чата
       case CHATS_DEL:
-         let chats = state.chats
+         const {chats} = state
+
          chats.splice(action.id, 1)
          chats.filter((chat, index) => chat.id = index)
 
-         return {chats}
-
-      // переключение бейджика непрочитанности сообщений
-      case SET_CHAT_AS_READED:
-         return update(state, {
-            chats: {
-               [action.id]: {
-                  readed: {$set: true}
-               }
-            }
-         })
+         return update(state, {chats: {$set: chats}})
 
       // добавление нового сообщения в чат
       case CHATS_MESSAGE_SEND:
-         const status = action.message.author === APP_NAME ? false : true
-
          return update(state, {
             chats: {
                [action.message.chatId]: {
-                  readed: {$set: status},
                   messages: {
                      $push: [{
                         id: action.message.id,
                         text: action.message.text,
                         author: action.message.author
                      }]
-                  },
-               },
-            },
+                  }
+               }
+            }
          })
 
       default:
