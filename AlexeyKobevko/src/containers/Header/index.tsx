@@ -1,37 +1,27 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useState } from 'react';
 import styled, { css } from 'styled-components';
 import { useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import { Burger } from './components/Burger';
-import { Data } from '@types';
-import { ModeButton } from '@components/ModeButton';
-import { Box, Text } from '@components/basic';
+import { Data, RootState } from '@types';
+import { ModeButton } from '@app/components/ModeButton';
+import { Box, Text } from '@app/components/basic';
 import { useTheme } from '@theme';
-import { Avatar } from '@components/Avatar';
+import { Avatar } from '@app/components/Avatar';
+import { useAction } from '@app/hooks';
+import { toggleMode } from '@app/store/mode/actions';
 
 export const Header: FC = () => {
   const [isChecked, setChecked] = useState<boolean>(false);
-  const [mode, setMode] = useState<string>('night');
+  const { mode } = useSelector((store: RootState) => store.mode);
   const { colors, indents } = useTheme();
   const history = useHistory();
+  const changeMode = useAction(toggleMode);
 
   const modeHandler = () => {
-    const mode = localStorage.getItem('mode');
-    if (mode === 'night') {
-      localStorage.setItem('mode', 'day');
-      setMode('day');
-    } else {
-      localStorage.setItem('mode', 'night');
-      setMode('night');
-    }
+    changeMode();
   };
-
-  useEffect(() => {
-    const currentMode = localStorage.getItem('mode');
-    if (currentMode) {
-      setMode(currentMode);
-    }
-  }, []);
 
   const profileHandler = () => history.push('/profile');
 

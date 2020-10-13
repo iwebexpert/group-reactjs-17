@@ -1,8 +1,8 @@
 import React, { FC, useRef } from 'react';
 
-import { Header } from '../Header';
+import { Header } from '@app/containers/Header';
+import { Sidebar } from '@app/containers/Sidebar';
 import { LayoutBox, PageContent, PageLayoutBox, SectionBox, SidebarBox } from './styled';
-import { Sidebar } from '../Sidebar';
 
 const Layout: FC = ({ children }) => {
   const mode = localStorage.getItem('mode');

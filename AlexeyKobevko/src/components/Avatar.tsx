@@ -1,5 +1,5 @@
 import React, { FC, useState, useRef, useEffect } from 'react';
-import { Box, BoxType, Image, Text } from '@components/basic';
+import { Box, BoxType, Image, Text } from '@app/components/basic';
 import { useTheme } from '@theme';
 
 interface AvatarProps extends BoxType {

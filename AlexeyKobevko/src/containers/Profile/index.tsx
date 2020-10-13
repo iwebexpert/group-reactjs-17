@@ -1,12 +1,23 @@
 import React, { FC } from 'react';
-import { Box } from '@components/basic';
 import styled, { css } from 'styled-components';
+import { useSelector } from 'react-redux';
 
-export const Profile: FC = () => (
-  <PageBox>
-    <Box>Тут будет профиль</Box>
-  </PageBox>
-);
+import { Box, Text } from '@app/components/basic';
+import { RootState } from '@types';
+import { useTheme } from '@theme';
+
+export const Profile: FC = () => {
+  const { profile } = useSelector((store: RootState) => store.profile);
+  const { colors } = useTheme();
+  return (
+    <PageBox>
+      <Box>
+        <Text color={colors.mainWhite}>{profile.name}</Text>
+        <Text color={colors.mainWhite}>{profile.age}</Text>
+      </Box>
+    </PageBox>
+  );
+};
 
 const PageBox = styled(Box).attrs(({ theme: { indents } }) => ({
   px: indents.i10,
