@@ -18,10 +18,20 @@ class ChatListContainerClass extends React.Component {
         this.props.redirect(url);
     }
 
+    handleChatsReload = () => {
+        this.props.chatsLoadAction();
+    }
+
     render() {
-    const {chats} = this.props;
+    const {chats, isLoading, isError} = this.props;
         return (
-            <ChatList chats = {chats} onSend = {this.redirectToUrl} />
+            <ChatList 
+            chats = {chats}
+            isLoading = {isLoading}
+            isError = {isError}  
+            onSend = {this.redirectToUrl} 
+            handleChatsReload = {this.handleChatsReload}
+            />
         );
     }
 }
@@ -33,6 +43,8 @@ function mapStateToProps(state, ownProps){
 
     return {
         chats,
+        isLoading: state.chats.loading,
+        isError: state.chats.error,
     };
 }
 
