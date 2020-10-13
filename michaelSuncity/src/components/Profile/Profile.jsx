@@ -10,7 +10,13 @@ export class Profile extends Component
 
         if(isLoading){
             return(
-                <div>Loading...</div>
+                <div className="container">
+                    <div className="circle circle-1"></div>
+                    <div className="circle circle-2"></div>
+                    <div className="circle circle-3"></div>
+                    <div className="circle circle-4"></div>
+                    <div className="circle circle-5"></div>
+                </div>
             );
         }
 
