@@ -1,29 +1,30 @@
-import React, { FC, MouseEvent, KeyboardEvent } from 'react';
+import React, { FC, useState, ChangeEvent } from 'react';
 import Textarea from 'react-expanding-textarea';
 import styled, { css } from 'styled-components';
-import { Box } from '@components/basic';
-import { SendIcon } from '@components/icons/SendIcon';
+import { Box } from '@app/components/basic';
+import { SendIcon } from '@app/components/icons/SendIcon';
 import { Data } from '@types';
 
+type Message = {
+  text: string;
+  author: string;
+};
+
 interface MessageFieldProps {
-  value: string;
-  name: string;
-  placeholder: string;
-  onChange: (e: any) => void;
-  onClick: (event: MouseEvent<HTMLDivElement>) => void;
-  onKeyDown: (e: KeyboardEvent<HTMLTextAreaElement>) => void;
+  placeholder?: string;
   forwardRef?: any;
+  onSend: (e: Message) => void;
 }
 
-export const MessageField: FC<MessageFieldProps> = ({
-  value,
-  name,
-  placeholder,
-  onChange,
-  onClick,
-  onKeyDown,
-  forwardRef,
-}) => {
+export const MessageField: FC<MessageFieldProps> = ({ placeholder, forwardRef, onSend }) => {
+  const [text, setText] = useState<string>('');
+  const author = '@Djedaj';
+
+  const handleMessageSend = (): void => {
+    onSend({ text, author });
+    setText('');
+  };
+
   return (
     <>
       <Wrapper>
@@ -31,14 +32,13 @@ export const MessageField: FC<MessageFieldProps> = ({
           <Helper />
           <Content mode="night">
             <Field
-              onKeyDown={onKeyDown}
-              value={value}
-              name={name}
-              onChange={onChange}
+              value={text}
+              name="text"
+              onChange={(e: ChangeEvent<HTMLTextAreaElement>) => setText(e.target.value)}
               placeholder={placeholder}
               ref={forwardRef}
             />
-            <Button onClick={onClick}>
+            <Button onClick={handleMessageSend}>
               <SendIcon />
             </Button>
           </Content>

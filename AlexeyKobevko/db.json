@@ -1,0 +1,70 @@
+{
+  "chats": [
+    {
+      "id": 0,
+      "title": "Тестовый чат"
+    },
+    {
+      "id": 1,
+      "title": "Рабочий чат"
+    },
+    {
+      "id": 2,
+      "title": "Друзья"
+    }
+  ],
+  "messages": [
+    {
+      "id": 0,
+      "author": "WebDev",
+      "text": "React.js!",
+      "chatId": 0
+    },
+    {
+      "id": 1,
+      "author": "WebDev",
+      "text": "Test!",
+      "chatId": 0
+    },
+    {
+      "id": 2,
+      "author": "WebDev",
+      "text": "Hi!",
+      "chatId": 1
+    },
+    {
+      "id": 3,
+      "author": "WebDev",
+      "text": "Какие есть задачи?",
+      "chatId": 1
+    },
+    {
+      "id": 4,
+      "author": "WebDev",
+      "text": "React.js!",
+      "chatId": 2
+    },
+    {
+      "id": 5,
+      "author": "WebDev",
+      "text": "Hi!",
+      "chatId": 0
+    },
+    {
+      "id": 6,
+      "author": "WebDev",
+      "text": "Test!",
+      "chatId": 2
+    },
+    {
+      "id": 7,
+      "author": "WebDev",
+      "text": "Что нового?)",
+      "chatId": 2
+    }
+  ],
+  "profile": {
+    "name": "@Jedi",
+    "age": 35
+  }
+}

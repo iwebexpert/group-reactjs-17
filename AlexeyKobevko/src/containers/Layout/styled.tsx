@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 
-import { Box } from '@components/basic';
+import { Box } from '@app/components/basic';
 
 export const LayoutBox = styled(Box)`
   min-height: 100%;

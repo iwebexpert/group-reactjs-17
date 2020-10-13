@@ -1,46 +1,32 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import { Box, Text } from '@components/basic';
+import { Box, Text } from '@app/components/basic';
 import { useTheme } from '@theme';
-import { chats as chatsData } from '../../helpers/chatsData';
-import { Data } from '@types';
-import { Button } from '@components/Button';
+import { RootState } from '@types';
+import { Button } from '@app/components/Button';
+import { useSelector } from 'react-redux';
+import { chatsAddAction } from '@app/store/chats/actions';
+import { useAction } from '@app/hooks';
 
 export const Sidebar: FC = () => {
-  const [chats, setChat] = useState<Array<Data.Chat>>([]);
   const [chatName, setChatName] = useState<string>('');
   const [showInput, setShowInput] = useState<boolean>(false);
+  const { entries } = useSelector((store: RootState) => store.chats);
+  const addChat = useAction(chatsAddAction);
   const { header, colors, indents } = useTheme();
 
-  useEffect(() => {
-    const storage = localStorage.getItem('chats');
-    if (storage) {
-      setChat(JSON.parse(storage));
-    } else {
-      setChat(chatsData);
-      localStorage.setItem('chats', JSON.stringify(chatsData));
-    }
-  }, []);
-
   const addChatHandler = () => {
-    const message = { id: 0, author: 'Bot', text: `Welcome to ${chatName}` };
-    const newChat = { id: chats[chats.length - 1].id + 1, title: chatName, messages: [message] };
-    setChat([...chats, newChat]);
     setShowInput(!showInput);
     setChatName('');
-    const str = localStorage.getItem('chats');
-    if (str) {
-      const store = JSON.parse(str);
-      store.push(newChat);
-      localStorage.setItem('chats', JSON.stringify(store));
-    }
+    const nextId = entries[entries.length - 1].id + 1;
+    addChat(nextId, chatName);
   };
 
   return (
     <Box py={header.height}>
       <ul style={{ listStyle: 'none' }}>
-        {chats.map(chat => (
+        {entries.map(chat => (
           <li key={chat.id}>
             <Link to={`/chat/${chat.id}`}>
               <Text color={colors.mainWhite}>{chat.title}</Text>

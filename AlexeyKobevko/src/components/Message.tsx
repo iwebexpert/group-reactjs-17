@@ -2,8 +2,8 @@ import React, { FC } from 'react';
 import styled, { css } from 'styled-components';
 
 import { Data } from '@types';
-import { Box, Text } from '@components/basic';
-import { Avatar } from '@components/Avatar';
+import { Box, Text } from '@app/components/basic';
+import { Avatar } from '@app/components/Avatar';
 import { useTheme } from '@theme';
 
 export const Message: FC<Data.Message> = ({ text, author }) => {
