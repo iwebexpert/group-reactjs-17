@@ -45,7 +45,6 @@ class AppContainerClass extends Component {
 
     handleChatRedirect = (newChatId) => {
         const { chats, redirect } = this.props
-        // let chatId  = chats[newChatId].id
         redirect(newChatId)
     }
 

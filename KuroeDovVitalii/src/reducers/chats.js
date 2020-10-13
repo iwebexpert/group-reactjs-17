@@ -1,10 +1,9 @@
 import update from 'react-addons-update'
 import { nanoid } from 'nanoid'
-import { CHATS_LOAD, CHATS_MESSAGE_SEND, CHATS_MESSAGE_DELETE, CHATS_ADD, CHAT_DELETE, CHAT_SELECT, CHAT_MESSAGE_ALERT } from '../actions/chats'
-import { AvatarGenerator } from 'random-avatar-generator'
-const generator = new AvatarGenerator()
-import { citates } from '../helpers/citates'
+import { CHATS_LOAD, CHATS_MESSAGE_SEND, CHATS_MESSAGE_DELETE, 
+        CHATS_ADD, CHAT_DELETE, CHAT_SELECT, CHAT_MESSAGES_DELETE  } from 'actions/chats'
 
+import { citates } from '../helpers/citates'
 import { chats } from '../helpers/chatsData'
 
 const initialState = {
@@ -24,7 +23,6 @@ export const chatReducer = (state = initialState, action) => {
             }
 
         case CHATS_MESSAGE_SEND:
-
             return update(state, {
                 entries: {
                     [action.payload.numSelectedChat]: {
@@ -38,21 +36,14 @@ export const chatReducer = (state = initialState, action) => {
             })
 
         case CHATS_MESSAGE_DELETE:
-            console.log(action.payload)
             const { id, messageId } = action.payload
             const messages = state.entries[id].messages
-            const message = messages.filter(item => item.id === messageId)
             const filterMessage = messages.filter(item => item.id !== messageId)
-            return {
-                ...state,
-                entries: {
-                    ...state.entries,
-                    [id] : {
-                        ...state.entries[id],
-                        messages: filterMessage
-                    }
-                },
-            }
+
+            return update(state, {
+                entries: { [id] : { $merge: { messages: filterMessage } } }
+            })
+          
         
         case CHATS_ADD: 
             return update(state, {
@@ -65,31 +56,28 @@ export const chatReducer = (state = initialState, action) => {
                         messages: [{
                             name: action.payload.name, 
                             text: citates[Math.floor(Math.random() * 10) + 1].text, 
-                            id: nanoid(4) }
-                        ]
+                            id: nanoid(4) 
+                        }]
                     }
                 }},
                 $merge: { selected: action.payload.id, currentChatName: action.payload.name, chatId: action.payload.id },
             })
        
         case CHAT_DELETE: 
-            console.log(action.payload, 'CHAT_DELETE')
             const { entries } = state;
             const { [action.payload]: _, ...newEntries } = entries;
             
-            return update(state, {$set:
-                { entries: newEntries }
-            })
+            return update(state, {$set: { entries: newEntries } })
         
+        case CHAT_MESSAGES_DELETE: 
+            return update(state, {
+                entries: { [action.payload]: { $merge : { messages: [] } } }
+            })
+
         case CHAT_SELECT: 
-        console.log(state)
             return update(state, { 
-                entries: {
-                    [action.payload.chatId] : { 
-                        $merge: { fire: false }
-                    }
-                },
-                $merge: { selected: action.payload.chatId, currentChatName: action.payload.chatName, }
+                entries: { [action.payload.chatId] : { $merge: { fire: false } } },
+                $merge: { selected: action.payload.chatId, currentChatName: action.payload.chatName }
             })
         
         default: 

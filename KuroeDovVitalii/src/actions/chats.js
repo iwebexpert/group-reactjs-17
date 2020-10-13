@@ -10,6 +10,7 @@ export const CHAT_DELETE_INFORM = 'CHAT_DELETE_INFORM'
 export const CHATS_ADD_INFORM = 'CHATS_ADD_INFORM'
 export const CHATS_MESSAGE_DELETE_INFORM = 'CHATS_MESSAGE_DELETE_INFORM'
 export const CHAT_SELECT_INFORM = 'CHAT_SELECT_INFORM'
+export const CHAT_MESSAGES_DELETE = 'CHAT_MESSAGES_DELETE'
 
 
 
@@ -64,5 +65,10 @@ export const selectChatAction = (chatId) => ({
 
 export const selectChatInformAction = (chatId) => ({
     type: CHAT_SELECT_INFORM,
+    payload: chatId
+})
+
+export const deleteChatMessageAction = (chatId) => ({
+    type: CHAT_MESSAGES_DELETE,
     payload: chatId
 })

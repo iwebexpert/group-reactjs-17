@@ -36,9 +36,16 @@ main{
     cursor: pointer;
 }
 
+.chatList{
+    height: 70vh;
+
+}
+.chatList a:first-child .MuiListItem-gutters {
+    margin-top: .5rem;
+}
 .chat-list{
     width: 30%;
-    overflow-y: scroll;
+    /* overflow-y: scroll; */
     height: 89vh;
     padding: 1rem 1rem 0 0;
 }
@@ -93,6 +100,7 @@ main{
     position: absolute;
     align-self: center;
     top: 15rem;
+    left: 15rem;
 }
 
 .chatList-header__text{

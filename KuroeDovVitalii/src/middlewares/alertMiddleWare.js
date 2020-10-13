@@ -1,5 +1,6 @@
 import { alertCloseAction, alertSendAction, ALERT_SEND_INFORM, ALERT_CLOSE_INFORM } from 'actions/alerts'
-import { nanoid } from 'nanoid'
+
+let timeoutId = 0
 
 export const alertMiddleWare = store => next => action => {
 
@@ -27,7 +28,8 @@ export const alertMiddleWare = store => next => action => {
         }))
 
         if (!action.payload.isSelect) {
-            setTimeout(() => {store.dispatch(alertCloseAction(false))}, 4000)
+            clearTimeout(timeoutId)
+            timeoutId = setTimeout(() => {store.dispatch(alertCloseAction(false))}, 4000)
         }
     }
 

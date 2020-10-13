@@ -1,7 +1,7 @@
 import React, { Fragment, Component } from 'react'
 import { connect } from 'react-redux'
 import Chat from 'components/Chat/Chat'
-import { chatsMessageSendAction } from 'actions/chats'
+import { chatsMessageSendAction, deleteChatMessageAction } from 'actions/chats'
 
 class ChatContainerClass extends Component {
     
@@ -11,10 +11,17 @@ class ChatContainerClass extends Component {
         this.props.chatsMessageSendAction(message)
     }
 
+    handleDeleteChatMessage = (chatId) => {
+        this.props.deleteChatMessageAction(chatId)
+    }
+
     render() {
         return (
             <>
-                <Chat { ...this.props } handleMessageSend={ this.handleMessageSend } />
+                <Chat 
+                { ...this.props } 
+                handleMessageSend={ this.handleMessageSend } 
+                handleDeleteChatMessage={ this.handleDeleteChatMessage } />
             </>
         )
     }
@@ -23,6 +30,7 @@ class ChatContainerClass extends Component {
 const mapDispatchToProps = (dispatch) => {
     return {
         chatsMessageSendAction: (message) => dispatch(chatsMessageSendAction(message)),
+        deleteChatMessageAction: (chatId) => dispatch(deleteChatMessageAction(chatId))
     }
 }
 

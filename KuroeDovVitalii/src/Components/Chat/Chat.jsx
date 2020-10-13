@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
+import { nanoid } from 'nanoid'
 import Message from 'components/Message/Message'
 import { IconButton, TextField, Typography, Paper, Divider } from '@material-ui/core' 
 import SendIcon  from '@material-ui/icons/SendRounded'
-import { nanoid } from 'nanoid'
+import DeleteIcon from '@material-ui/icons/Delete'
 import ScrollableFeed from 'react-scrollable-feed'
 
 class Chat extends Component {
@@ -46,6 +47,10 @@ class Chat extends Component {
         this.setState({ input: event.target.value })
     }
 
+    handleDeleteChatMessage = () => {
+        this.props.handleDeleteChatMessage(this.props.chatId,)
+    }
+
     render() {
         const { id }  = this.props.match.params
         const { chatId, isLoading, chats } = this.props
@@ -83,7 +88,7 @@ class Chat extends Component {
                         <Divider />
                         <div className="chat-footer">
                             <TextField 
-                                disabled={ id === undefined ? true : false }
+                                disabled={ id === undefined || chats[chatId] === undefined }
                                 autoFocus
                                 fullWidth
                                 size="small"
@@ -94,10 +99,20 @@ class Chat extends Component {
                                 onKeyUp={ (event) => this.handleKeyUp(event, this.state.input) }/>
 
                             <IconButton
-                                disabled={ id === undefined ? true : false }
+                                disabled={ id === undefined || chats[chatId] === undefined }
                                 color="primary" 
                                 onClick={ () => this.handleClick(this.state.input) }>
                                     <SendIcon/>
+                            </IconButton>
+                            
+                            <IconButton
+                                disabled={ id === undefined || chats[chatId] === undefined }
+                                aria-label="delete"
+                                className="MuiListItem-root.Mui-selected"
+                                color="primary" 
+                                onClick= { this.handleDeleteChatMessage }
+                                >
+                                    <DeleteIcon  />
                             </IconButton>
                         </div>
                     </Paper>
