@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 
 import {Profile} from '../components/Profile';
-import {profilesLoadAction} from '../actions/profiles';
+import {profilesLoadAction, profilesUpdateAction} from '../actions/profiles';
 
 class ProfileContainerClass extends React.Component {
     componentDidMount(){
@@ -12,10 +12,24 @@ class ProfileContainerClass extends React.Component {
         }
     }
 
+    handleProfileReload = () => {
+        this.props.profilesLoadAction();
+    }
+
+    handleProfileUpdate = (profile) => {
+        this.props.profilesUpdateAction(profile);
+    }
+
     render(){
-        const {profiles} = this.props;
+        const {profiles, isLoading, isError} = this.props;
         return (
-            <Profile profiles={profiles} />
+            <Profile 
+            profiles = {profiles}
+            isLoading = {isLoading}
+            isError = {isError}
+            handleProfileReload = {this.handleProfileReload}
+            handleProfileUpdate = {this.handleProfileUpdate}
+             />
         );
     }
 }
@@ -26,12 +40,15 @@ function mapStateToProps(state, ownProps){
 
     return {
         profiles,
+        isLoading: state.profiles.loading,
+        isError: state.profiles.error,
     };
 }
 
 function mapDispatchToProps(dispatch){
     return {
         profilesLoadAction: () => dispatch(profilesLoadAction()),
+        profilesUpdateAction: (profile) => dispatch(profilesUpdateAction(profile)),
     };
 }
 

@@ -26,7 +26,14 @@ export class ChatList extends Component {
 
    render(){
 
-    const {chats} = this.props;
+    const {chats, isLoading, isError, handleChatsReload} = this.props;
+
+    if(isLoading){
+        return(
+            <div>Loading...</div>
+        );
+    }
+
     const chatsList = chats.map((item) => (
         <ListItem button className="button-menu" key={item.id}>
             <ListItemIcon><ChatIcon /></ListItemIcon>
@@ -83,7 +90,13 @@ export class ChatList extends Component {
         </List>
         <Divider />
         <List>
-            {chatsList}
+            {isError ? 
+                <div>Error...Попробуйте получить чаты позднее
+                    <div>
+                        <button onClick={handleChatsReload}>Обновить чаты</button>
+                    </div>
+                </div> 
+                : chatsList}
         </List>
         <ListItem button className="button-menu">
             <ListItemIcon><AddCircleIcon /></ListItemIcon>
