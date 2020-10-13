@@ -21,11 +21,11 @@ export class MessageForm extends Component {
   };
 
   onSubmitForm = () => {
-    const {text} = this.state;
+    const {text, author} = this.state;
     const {onSend} = this.props;
 
-    if (!text) {
-      alert('Введите текст сообщения');
+    if (!text || !author) {
+      alert('Введите имя и текст сообщения');
       return;
     }
 
@@ -47,6 +47,7 @@ export class MessageForm extends Component {
     return (
       <div className="message-form-container">
         <TextField
+          variant="outlined"
           name="author"
           onChange={this.onChangeInputHandler}
           value={author}
@@ -59,7 +60,7 @@ export class MessageForm extends Component {
           value={text}
           variant="outlined"
           multiline
-          autoFocus/>
+          autoFocus />
         <Fab
           variant="round"
           color="primary"
