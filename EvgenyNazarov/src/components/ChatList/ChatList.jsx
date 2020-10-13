@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
 
 import {Link} from 'react-router-dom';
-import {List, ListItem, ListItemText, ListItemIcon} from '@material-ui/core';
+import {ListItem, ListItemText, ListItemIcon} from '@material-ui/core';
 import DraftsIcon from '@material-ui/icons/Drafts';
+
+import './ChatList.css';
 
 export class ChatList extends Component
 {
@@ -16,6 +18,7 @@ export class ChatList extends Component
                     <DraftsIcon />
                 </ListItemIcon>
                 <Link to={`/chats/${item.id}`}><ListItemText primary={item.title} /></Link>
+                {item.fire && <div className='red'>!</div>}
             </ListItem>
         ));
         return(

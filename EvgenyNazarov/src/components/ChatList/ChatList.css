@@ -1,0 +1,10 @@
+.red {
+    margin-left: 10px;
+    background-color: #c60b27;
+    height: 20px;
+    width: 20px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    text-align: center;
+}

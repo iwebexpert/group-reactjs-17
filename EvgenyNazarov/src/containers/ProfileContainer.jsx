@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {profilesLoadAction} from '../actions/profiles';
 
-import {Avatar, Grid, Paper, Typography} from "@material-ui/core";
+import {Profile} from "components/Profile";
 
 class ProfileContainerClass extends React.Component {
     componentDidMount(){
@@ -11,25 +11,22 @@ class ProfileContainerClass extends React.Component {
         }
     }
 
-    render() {
-        const {profiles} = this.props;
-        const ProfileList = profiles.map((item) => (
-            <Paper key={item.id} className="message-paper">
-                <Grid container wrap="nowrap" spacing={2}>
-                    <Grid item>
-                        <Avatar />
-                    </Grid>
-                    <Grid item xs zeroMinWidth>
-                        <Typography noWrap>{item.title} </Typography>
-                        <Typography noWrap>Логин: {item.name} </Typography>
-                        <Typography noWrap>E-mail: {item.email}</Typography>
-                    </Grid>
-                </Grid>
-            </Paper>
-        ));
-        return (<div>
-            {ProfileList}
-        </div>)
+    handleProfilesReload = () => {
+        this.props.profilesLoadAction();
+    };
+
+    render(){
+        // console.log(this.props);
+        const {profiles, isLoading, isError} = this.props;
+
+        return (
+            <Profile
+                profiles={profiles}
+                isLoading={isLoading}
+                isError={isError}
+                handleProfilesReload={this. handleProfilesReload}
+            />
+        );
     }
 }
 
@@ -37,6 +34,8 @@ function mapStateToProps(state, ownProps){
     const profiles = state.profiles.entries;
     return {
         profiles,
+        isLoading: state.profiles.loading,
+        isError: state.profiles.error,
     };
 }
 
