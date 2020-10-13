@@ -4,7 +4,7 @@ import { DefaultLayout } from '@components/layout'
 
 import { TextField, Button } from '@material-ui/core'
 
-const ProfilePage = ({profile, onSubmit}) => {
+const ProfilePage = ({profile, onSubmit, isLoading, isError}) => {
   const [value, setValue] = useState('')
   
   const onChangeHandler = (event) => {
@@ -21,13 +21,17 @@ const ProfilePage = ({profile, onSubmit}) => {
     }
   }
   
+  if (isError) {
+    return <h1>При обновлении профиля произошла ошибка</h1>
+  }
+  
   return (
     <DefaultLayout>
       <Typography
         variant="h1"
         align="center"
       >
-        Имя: {profile.name}
+        Имя: { isLoading ? 'Loading...' : profile.name}
       </Typography>
   
       <Container>

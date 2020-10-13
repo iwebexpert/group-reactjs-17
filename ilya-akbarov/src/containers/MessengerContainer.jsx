@@ -19,7 +19,6 @@ class MessengerContainerClass extends Component {
     }
   }
   
-  
   onSubmit = (message) => {
     const {chatId} = this.props
     this.props.chatsMessageSendAction({
@@ -46,12 +45,22 @@ class MessengerContainerClass extends Component {
   }
   
   render() {
-    const {chats, messages, username} = this.props
+    const {
+      chats,
+      messages,
+      username,
+      isLoading,
+      isError,
+      isProfileLoading,
+    } = this.props
     
     return (
       <ChatsPage
         chats={chats}
         messages={messages}
+        isLoading={isLoading}
+        isError={isError}
+        isProfileLoading={isProfileLoading}
         onSubmit={this.onSubmit}
         username={username}
         handleChatAdd={this.handleChatAdd}
@@ -82,7 +91,10 @@ function mapStateToProps(state, ownProps) {
     chats: chatsArray,
     messages,
     chatId: match.params.id || null,
-    username: profile.name
+    username: profile.name,
+    isLoading: state.chats.loading,
+    isError: state.chats.error,
+    isProfileLoading: state.profile.loading
   }
 }
 
