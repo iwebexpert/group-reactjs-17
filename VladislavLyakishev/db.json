@@ -1,0 +1,51 @@
+{
+  "chats": [
+    {
+      "id": 0,
+      "title": "Main"
+    },
+    {
+      "id": 1,
+      "title": "Test"
+    },
+    {
+      "id": 2,
+      "title": "Friends"
+    }
+  ],
+  "messages": [
+    {
+      "id": 0,
+      "text": "Hi, Main",
+      "author": "Main author",
+      "chatId": 0
+    },
+    {
+      "id": 1,
+      "text": "Hi, Main, two",
+      "author": "Main author",
+      "chatId": 0
+    },
+    {
+      "id": 2,
+      "text": "Hi, Test",
+      "author": "Test author",
+      "chatId": 1
+    },
+    {
+      "id": 3,
+      "text": "Hi, Friends",
+      "author": "Friends author",
+      "chatId": 2
+    },
+    {
+      "id": 4,
+      "text": "Hi, Friends, two",
+      "author": "Friends author",
+      "chatId": 2
+    }
+  ],
+  "profile": {
+    "name": "Имя получено с сервера"
+  }
+}

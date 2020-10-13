@@ -20,10 +20,20 @@ class ChatsnavContainerClass extends Component {
         redirect(chatId)
     }
 
+    handleChatsReload = () => {
+        this.props.chatsLoadAction()
+    }
+
     render() {
-        const {chats} = this.props;
+        const {chats, isLoading, isError} = this.props;
         return (
-            <ChatsNav chats={chats} addChat={this.addChatHandler}/>
+            <ChatsNav
+              chats={chats}
+              addChat={this.addChatHandler}
+              isLoading={isLoading}
+              isError={isError}
+              handleChatsReload={this.handleChatsReload}
+            />
         );
     }
 }
@@ -34,6 +44,8 @@ function mapStateToProps(state, ownProps) {
 
     return {
         chats,
+        isLoading: state.chats.loading,
+        isError: state.chats.error
     }
 }
 

@@ -3,13 +3,19 @@ import {connect} from 'react-redux';
 import {nanoid} from "nanoid";
 import {Messenger} from '../components/Messenger';
 import {chatsLoadAction, chatsMessageSendAction} from '../actions/chats';
+import {profileLoadAction} from '../actions/profile'
 
 class MessengerContainerClass extends Component {
     componentDidMount() {
-        const {chatsLoadAction, chats} = this.props;
+        const {chatsLoadAction, chats, profileLoadAction, profile} = this.props;
         if (!chats.length) {
             chatsLoadAction();
         }
+        if (!profile.name.trim()) {
+            profileLoadAction();
+        }
+
+
     }
 
     handleMessageSend = (message) => {
@@ -20,9 +26,16 @@ class MessengerContainerClass extends Component {
 
 
     render() {
-        const {messages} = this.props;
+        const {messages, isError, isLoading, profile} = this.props;
+        console.log('Props container', profile)
+
         return (
-            <Messenger messages={messages} handleMessageSend={this.handleMessageSend}/>
+            <Messenger messages={messages}
+                       handleMessageSend={this.handleMessageSend}
+                       isError={isError}
+                       isLoading={isLoading}
+                       profile={profile}
+            />
         );
     }
 }
@@ -39,12 +52,16 @@ function mapStateToProps(state, ownProps) {
         messages,
         chatId: match ? match.params.id : null,
         chats,
+        isLoading: state.chats.loading,
+        isError: state.chats.error,
+        profile: state.profile
     }
 }
 
 function mapDispatchToProps(dispatch) {
     return {
         chatsLoadAction: () => dispatch(chatsLoadAction()),
+        profileLoadAction: () => dispatch(profileLoadAction()),
         chatsMessageSendAction: (message) => dispatch(chatsMessageSendAction(message)),
     }
 }

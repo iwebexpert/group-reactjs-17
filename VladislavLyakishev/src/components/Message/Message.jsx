@@ -11,6 +11,7 @@ export class Message extends Component {
       'message-sender': author !== 'BOT',
       'message-incoming': author === 'BOT'
     });
+
     return (
         <div className={classes}>
           <Paper className="message">

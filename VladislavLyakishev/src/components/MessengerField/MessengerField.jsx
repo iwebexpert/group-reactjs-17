@@ -6,9 +6,15 @@ import './MessengerField.scss'
 
 export class MessengerField extends Component {
 
+
   state = {
     author: '',
     message: ''
+  }
+
+  componentDidMount() {
+    const {profile} = this.props
+    this.state.author = profile.name
   }
 
   inputFieldHandler = (event) => {
@@ -42,7 +48,9 @@ export class MessengerField extends Component {
   }
 
   render() {
+    const {profile} = this.props
     const {author, message} = this.state
+    console.log('Props Field', profile)
     return (
       <>
         <div className="messenger-form">
@@ -51,7 +59,8 @@ export class MessengerField extends Component {
               variant="outlined"
               name='author'
               onChange={this.inputFieldHandler}
-              value={author}
+              value={profile.name}
+              disabled
           />
           <TextField
               className="messenger-form_message"
