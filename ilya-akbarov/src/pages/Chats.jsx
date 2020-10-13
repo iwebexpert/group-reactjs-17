@@ -14,8 +14,19 @@ class ChatsPage extends Component {
       onSubmit,
       username,
       handleChatAdd,
-      handleChatOpen
+      handleChatOpen,
+      isError,
+      isLoading,
+      isProfileLoading
     } = this.props
+    
+    if (isLoading || isProfileLoading) {
+      return <h1>Loading...</h1>
+    }
+    
+    if (isError || isProfileLoading) {
+      return <h1>Error!</h1>
+    }
     
     return (
       <Layout

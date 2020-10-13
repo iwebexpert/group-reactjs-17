@@ -1,0 +1,29 @@
+{
+  "chats": [
+    {
+      "id": 0,
+      "name": "chat 1",
+      "unread": false
+    },
+    {
+      "id": 1,
+      "name": "chat 2",
+      "unread": false
+    },
+    {
+      "id": 2,
+      "name": "chat 3",
+      "unread": false
+    }
+  ],
+  "messages": [
+    {
+      "author": "unnamed",
+      "text": "hello world",
+      "chatId": 1
+    }
+  ],
+  "profile": {
+    "name": "unnamed"
+  }
+}
