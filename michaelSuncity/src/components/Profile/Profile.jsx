@@ -6,7 +6,13 @@ export class Profile extends Component
 {
    
     render(){
-        const {profiles} = this.props;
+        const {profiles, isLoading, isError, handleProfileReload} = this.props;
+
+        if(isLoading){
+            return(
+                <div>Loading...</div>
+            );
+        }
 
         const profileList = profiles.map((item) => (
             <Paper key={item.id} className="profile">
@@ -25,7 +31,13 @@ export class Profile extends Component
         return (
             <div>
                 <h1>Profile</h1>
-                {profileList}        
+                {isError ?
+                 <div>Error...Попробуйте обновить профиль или зайти позднее
+                     <div>
+                        <button onClick={handleProfileReload}>Обновить</button>
+                    </div>
+                 </div> 
+                 : profileList}        
             </div>
         )
     }

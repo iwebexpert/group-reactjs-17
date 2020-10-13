@@ -62,5 +62,12 @@
       "text": "Что нового?)",
       "chatId": 2
     }
+  ],
+  "profiles": [
+    {
+      "id": 0,
+      "name": "John",
+      "surname": "Johnson"
+    }
   ]
 }
