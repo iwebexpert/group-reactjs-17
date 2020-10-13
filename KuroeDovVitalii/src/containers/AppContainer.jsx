@@ -44,7 +44,7 @@ class AppContainerClass extends Component {
     }
 
     handleChatRedirect = (newChatId) => {
-        const { chats, redirect } = this.props
+        const { redirect } = this.props
         redirect(newChatId)
     }
 
@@ -92,7 +92,6 @@ const mapStateToProps = (state, ownProps) => {
         users,
         chatId,
         loading
-        // chatId: match ? match.params.id : null
     }
 }
 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { nanoid } from 'nanoid'
 import Message from 'components/Message/Message'
-import { IconButton, TextField, Typography, Paper, Divider } from '@material-ui/core' 
+import { IconButton, TextField, Typography, Paper, Divider, Backdrop, CircularProgress } from '@material-ui/core' 
 import SendIcon  from '@material-ui/icons/SendRounded'
 import DeleteIcon from '@material-ui/icons/Delete'
 import ScrollableFeed from 'react-scrollable-feed'
@@ -13,9 +13,9 @@ class Chat extends Component {
         this.handleMessageSend = props.handleMessageSend.bind(this)
     }
 
-
     state = {
         input: '',
+        open: true,
     }
     
     handleSendMessage = (message) => {
@@ -37,7 +37,7 @@ class Chat extends Component {
 
     handleKeyUp = (event) => {
         if (this.state.input !== '') {
-            if (event.keyCode === 13){
+            if (event.keyCode === 13) {
                 this.handleSendMessage(this.state.input)
             }    
         }
@@ -48,17 +48,33 @@ class Chat extends Component {
     }
 
     handleDeleteChatMessage = () => {
-        this.props.handleDeleteChatMessage(this.props.chatId,)
+        this.props.handleDeleteChatMessage(this.props.chatId)
+    }
+    
+    setOpen = (value) => {
+        console.log(value)
+        this.setState({ open: value })
+    }
+
+    handleClose = () => {
+        this.setOpen(false);
+    }
+
+    handleToggle = () => {
+        this.setOpen(!this.state.open);
     }
 
     render() {
         const { id }  = this.props.match.params
-        const { chatId, isLoading, chats } = this.props
+        const { chatId, chats } = this.props
         const { firstName } = this.props.profile
         let messages = <Typography className="chat__text" >Выберите чат</Typography>
         
         if (!this.props.chats) {
-            return <div>Loading...</div>
+            return <Backdrop className="backdrop" open={this.state.open} onClick={this.handleClose}>
+                        <Typography display="block" variant="h2">Грузим Чаты... </Typography>
+                        <CircularProgress color="inherit" size="10rem"/>
+                    </Backdrop>
         }
 
         if (id !== undefined && chats && chatId && chats[chatId]) {

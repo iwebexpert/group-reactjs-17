@@ -1,12 +1,11 @@
 import React, { Component, Fragment } from 'react'
 import { Switch, Route } from 'react-router-dom'
 import '../../layout/css/style.css'
-
-import Header from '../Header/Header'
+import AlertShow from 'components/AlertShow/AlertShow'
+import Header from 'components/Header/Header'
 import { ChatContainer } from 'containers/ChatContainer'
 import { ChatListContainer } from 'containers/ChatListContainer'
 
-import AlertShow from '../AlertShow/AlertShow'
 class App extends Component {
 
     state = {

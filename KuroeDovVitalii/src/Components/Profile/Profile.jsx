@@ -46,6 +46,7 @@ export default function Profile(props) {
     const classes = useStyles()
     const [open, setOpen] = React.useState(false)
     const [firstName, setFirstName] = React.useState(props.profile.firstName)
+    const [email, setEmail] = React.useState(props.profile.email)
     const [lastName, setLastName] = React.useState(props.profile.lastName)
    
     const handleClickOpen = () => {
@@ -58,7 +59,10 @@ export default function Profile(props) {
 
     const handleLastNameChange = (event) => {
         setLastName(event.target.value)
+    }
 
+    const handleEmailChange = (event) => {
+        setEmail(event.target.value)
     }
 
     const handleClose = () => {
@@ -104,16 +108,14 @@ export default function Profile(props) {
                     <DialogContentText> 
                         Возраст : {props.profile.age}
                     </DialogContentText>
-                    <DialogContentText> 
-                        Почтовый адрес : {props.profile.email}
-                    </DialogContentText>
+                    
                     <TextField
                         autoFocus
                         margin="dense"
                         id="name"
-                        label="First Name"
-                        onChange= {handleFirstNameChange} 
-                        value= { firstName } 
+                        label="Имя"
+                        onChange={ handleFirstNameChange } 
+                        value={ firstName } 
                         onKeyUp={ (event) => handleKeyUp(event, firstName) }
                         fullWidth
                     />
@@ -121,11 +123,23 @@ export default function Profile(props) {
                         autoFocus
                         margin="dense"
                         id="name"
-                        label="Last Name"
-                        onChange= {handleLastNameChange} 
-                        value= {lastName} 
+                        label="Фамилия"
+                        onChange={ handleLastNameChange } 
+                        value={ lastName } 
                         onKeyUp={ (event) => handleKeyUp(event, lastName) }
                         fullWidth
+                    />
+                    <TextField
+                        autoFocus
+                        margin="dense"
+                        id="email"
+                        type="email"
+                        label="Почта"
+                        onChange={ handleEmailChange } 
+                        value={ email } 
+                        onKeyUp={ (event) => handleKeyUp(event, email) }
+                        fullWidth
+                        required
                     />
 
                 </DialogContent>

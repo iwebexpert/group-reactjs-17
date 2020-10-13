@@ -1,9 +1,9 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Alert from '@material-ui/lab/Alert';
-import { IconButton, Collapse, Button } from '@material-ui/core';
+import React from 'react'
+import { makeStyles } from '@material-ui/core/styles'
+import Alert from '@material-ui/lab/Alert'
+import { IconButton, Collapse, Button } from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
-import CloseIcon from '@material-ui/icons/Close';
+import CloseIcon from '@material-ui/icons/Close'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 export default function AlertShow(props) {
-  const classes = useStyles();
+  const classes = useStyles()
   const [open, setOpen] = React.useState(props.popup.status);
   
   const handleDeleteMessage = () => {
@@ -50,7 +50,7 @@ export default function AlertShow(props) {
                 color="inherit"
                 size="small"
                 onClick={() => {
-                  props.hanldeCloseAlert(false);
+                  props.hanldeCloseAlert(false)
                 }}
               >
                 <CloseIcon fontSize="inherit" />

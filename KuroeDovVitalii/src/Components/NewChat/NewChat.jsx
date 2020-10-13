@@ -103,7 +103,7 @@ export default function NewChat(props) {
     
   return (
     <div>
-        <Button variant="outlined" onClick={ handleClickOpen } >Новый чат </Button>
+        <Button variant="outlined" onClick={ handleClickOpen }>Новый чат </Button>
         <Dialog
             open={ open }
             fullWidth

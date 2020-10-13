@@ -96,6 +96,11 @@ main{
     
 }
 
+.backdrop {
+    z-index: 100!important;
+    color: #fff;
+}
+
 .chat__text{
     position: absolute;
     align-self: center;
