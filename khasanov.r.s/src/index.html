@@ -7,6 +7,40 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>App</title>
     <base href="/">
+    <link rel="manifest" href="/manifest.webmanifest">
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js').then(
+                function (registration) {
+// запрос разрешения на отпавку уведомлений
+                    Notification.requestPermission(function (result) {
+                        if(result === 'granted'){
+                            navigator.serviceWorker.ready.then(
+                                function (registration) {
+                                    registration.showNotification('Test first message');
+                                }
+                            )
+                        }
+                    })
+                    console.log('serviceWorker registration success', registration);
+                },
+                function (error) {
+                    console.log('serviceWorker registration error', error);
+                }
+            );
+        }
+
+        // отслеживание установок
+        window.addEventListener('appinstalled', function (event){
+            // fetch('url')
+            console.log('App has installed', event);
+        });
+
+        // вызывается, если приложение не было установлено
+        window.addEventListener('beforeinstallprompt', function (event){
+            console.log('App beforeinstallprompt', event);
+        });
+    </script>
 </head>
 <body>
 <div id="root"></div>
