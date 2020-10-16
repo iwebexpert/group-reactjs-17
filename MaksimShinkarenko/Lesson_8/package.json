@@ -1,5 +1,5 @@
 {
-  "name": "lesson1",
+  "name": "react.js_study",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -7,9 +7,10 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "webpack --mode development",
     "serve": "webpack-dev-server --mode development --port 4000 --open",
-    "json-server": "json-server --port 3000 --watch db.json --delay 1000",
+    "json-server": "json-server --port 3000 --watch db.json",
     "start": "concurrently \"npm:serve\" \"npm:json-server\"",
-    "build": "webpack --mode production"
+    "build": "webpack --mode production",
+    "http-server": "http-server dist"
   },
   "keywords": [],
   "author": "",
@@ -40,6 +41,7 @@
     "classnames": "^2.2.6",
     "concurrently": "^5.3.0",
     "connected-react-router": "^6.8.0",
+    "copy-webpack-plugin": "^6.2.1",
     "history": "^4.10.1",
     "nanoid": "^3.1.12",
     "prop-types": "^15.7.2",

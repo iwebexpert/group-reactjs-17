@@ -1,6 +1,7 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const CopyPlugin = require('copy-webpack-plugin')
 
 module.exports = {
     entry: path.join(__dirname, 'src', 'index.js'),
@@ -29,7 +30,10 @@ module.exports = {
                     loader: "babel-loader",
                     options: {
                         presets: ['@babel/preset-env', '@babel/preset-react'],
-                        plugins: ['@babel/plugin-proposal-class-properties'],
+                        plugins: [
+                            '@babel/plugin-proposal-class-properties',
+                            "@babel/plugin-transform-runtime", //Без этого плагина async ... await иногда переставал работать...
+                        ],
                     }
                 }
             },
@@ -52,6 +56,13 @@ module.exports = {
         }),
         new MiniCssExtractPlugin({
             filename: 'main.css',
+        }),
+        new CopyPlugin({
+            patterns: [
+                { from: path.join(__dirname, 'src', 'assets', 'images'), to: path.join(__dirname, 'dist', 'images') },
+                { from: path.join(__dirname, 'src', 'sw.js'), to: path.join(__dirname, 'dist') },
+                { from: path.join(__dirname, 'src', 'manifest.json'), to: path.join(__dirname, 'dist') },
+            ],
         }),
     ],
 

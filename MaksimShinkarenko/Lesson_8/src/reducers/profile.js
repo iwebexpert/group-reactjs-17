@@ -1,6 +1,4 @@
-import {PROFILE_LOAD, PROFILE_LOAD_SUCCESS, PROFILE_LOAD_REQUEST, PROFILE_LOAD_FAILURE} from 'actions/profile';
-
-import {profile} from '../helpers/profileData';
+import {PROFILE_LOAD_SUCCESS, PROFILE_LOAD_REQUEST, PROFILE_LOAD_FAILURE} from 'actions/profile';
 
 const initialState = {
     loading: false,
@@ -28,11 +26,6 @@ export const profileReducer = (state = initialState, action) => {
                 loading: false,
                 error: true,
             };
-        /*case PROFILE_LOAD:
-            return {
-                ...state,
-                entries: profile,
-            };*/
         default:
             {
                 return state;

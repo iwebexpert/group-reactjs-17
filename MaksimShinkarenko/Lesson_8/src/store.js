@@ -30,7 +30,7 @@ export const initStore = () => {
         persistReducer(persistConfig, createRootReducer(history)),
         initialStore,
         composeWithDevToolsUser(
-            applyMiddleware(logger, botMiddleware, chatFireMiddleware, routerMiddleware(history), reduxThunk)
+            applyMiddleware(botMiddleware, chatFireMiddleware, routerMiddleware(history), reduxThunk)
         ));
     const persistor = persistStore(store);
     return {store, persistor};

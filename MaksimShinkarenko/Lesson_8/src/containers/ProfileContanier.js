@@ -2,7 +2,6 @@ import React from "react";
 import {connect} from 'react-redux';
 import {Profile} from 'components/Profile';
 import {profileLoadAction} from 'actions/profile';
-import {Messenger} from "components/Messenger";
 
 class ProfileContainerClass extends React.Component {
     componentDidMount() {
