@@ -1,7 +1,9 @@
 import update from 'react-addons-update';
 
 import {
-    CHATS_MESSAGE_SEND,
+    CHATS_MESSAGE_SEND_REQUEST,
+    CHATS_MESSAGE_SEND_SUCCESS,
+    CHATS_MESSAGE_SEND_FAILURE,
     CHATS_LOAD_FAILURE,
     CHATS_LOAD_SUCCESS,
     CHATS_LOAD_REQUEST,
@@ -39,7 +41,7 @@ export const chatsReducer = (state = initialState, action) => {
                 error: true,
             };
 
-        case CHATS_MESSAGE_SEND:
+        case CHATS_MESSAGE_SEND_SUCCESS:
             return update(state, {
                 entries: {
                     [action.payload.chatId]: {
