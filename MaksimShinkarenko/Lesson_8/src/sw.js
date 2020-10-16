@@ -1,4 +1,4 @@
-const cacheName = 'chat-v1';
+const cacheName = 'chat-v5';
 const staticAssets = [
     './',
     './main.css',

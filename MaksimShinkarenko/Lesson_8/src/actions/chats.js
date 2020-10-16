@@ -63,9 +63,7 @@ export const chatsMessageSendFailureAction = (error) => ({
 export const chatsMessageSendAction = (message) => {
     return async (dispatch) => {
         try {
-            console.log("Пытаемся отправить")
             dispatch(chatsMessageSendRequestAction());
-            console.log("Пытаемся отправить")
             const result = await fetch('http://localhost:3000/messages', {
                 method: 'POST',
                 headers: {
@@ -75,7 +73,6 @@ export const chatsMessageSendAction = (message) => {
             });
             dispatch(chatsMessageSendSuccessAction(await result.json()));
         } catch (error) {
-            console.log("Пытаемся отправить")
             dispatch(chatsMessageSendFailureAction(error));
         }
     };

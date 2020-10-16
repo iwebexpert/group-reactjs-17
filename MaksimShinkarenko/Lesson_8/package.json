@@ -10,7 +10,7 @@
     "json-server": "json-server --port 3000 --watch db.json",
     "start": "concurrently \"npm:serve\" \"npm:json-server\"",
     "build": "webpack --mode production",
-    "http-server": "http-server dist"
+    "http-server": "http-server dist -p 4000"
   },
   "keywords": [],
   "author": "",

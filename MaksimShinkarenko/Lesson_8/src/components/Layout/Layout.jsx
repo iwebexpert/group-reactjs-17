@@ -4,7 +4,6 @@ import {Grid} from '@material-ui/core';
 import {Header} from '../Header';
 
 import './Layout.scss';
-import {chats} from "../../helpers/chatsData";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import {ConnectedRouter} from 'connected-react-router';
 import {PersistGate} from 'redux-persist/integration/react';
@@ -12,9 +11,7 @@ import {routes} from "../../routes";
 
 
 export class Layout extends Component {
-    state = {
-        chats,
-    };
+    state = {};
 
     render() {
         return (
