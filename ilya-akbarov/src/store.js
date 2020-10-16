@@ -6,6 +6,7 @@ import { createBrowserHistory } from 'history'
 import storage from 'redux-persist/lib/storage'
 import { persistReducer, persistStore } from 'redux-persist'
 import { apiMiddleware } from 'redux-api-middleware'
+import reduxThunk from 'redux-thunk'
 import { createRootReducer } from './reducers'
 
 import { botMiddleware } from './middlewares/botMiddleware'
@@ -29,7 +30,8 @@ export const initStore = () => {
       botMiddleware,
       addMessageMiddleware,
       routerMiddleware(history),
-      apiMiddleware
+      apiMiddleware,
+      reduxThunk
     )),
     
   )
