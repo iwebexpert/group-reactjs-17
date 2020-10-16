@@ -5,7 +5,7 @@ export const botMiddleware = store => next => action => {
     if(action.type === CHATS_MESSAGE_SEND){
         const {chatId, author} = action.payload;
         const prevUserMessageId = store.getState().chats.entries[chatId].messages.length - 1;
-        //console.log('botMiddleware', chatId, author);
+
         if(author !== 'Bot'){
             setTimeout(() => {
                 if(author !== store.getState().chats.entries[chatId].messages[prevUserMessageId].author){
