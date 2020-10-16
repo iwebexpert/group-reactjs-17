@@ -2,8 +2,6 @@ import {CHATS_MESSAGE_SEND, chatsFireAction, chatsUnfireAction} from 'actions/ch
 
 export const chatFireMiddleware = store => next => action => {
 
-    //Вообще не уверен в правильности подхода и понимании кода, но работает))
-
     if (action.type === CHATS_MESSAGE_SEND) {
         const {chatId} = action.payload;
         if (chatId !== store.getState().router.location.pathname.split('/').pop())

@@ -81,13 +81,16 @@ export const chatsReducer = (state = initialState, action) => {
             });
 
         case CHATS_UNFIRE:
-            return update(state, {
-                entries: {
-                    [action.payload]: {
-                        $merge: {fire: false}
+            if (state.entries.length) {
+                return update(state, {
+                    entries: {
+                        [action.payload]: {
+                            fire: {$set: false}
+                        }
                     }
-                }
-            });
+                })
+            }
+            return state;
 
         default:
             return state;
