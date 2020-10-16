@@ -1,63 +1,63 @@
 {
   "chats": [
     {
-      "id": 0,
+      "id": "0",
       "fire": false,
       "title": "Тестовый чат"
     },
     {
-      "id": 1,
+      "id": "1",
       "fire": false,
       "title": "Рабочий чат"
     },
     {
-      "id": 2,
+      "id": "2",
       "fire": false,
       "title": "Друзья"
     }
   ],
   "messages": [
     {
-      "id": 0,
+      "id": "0",
       "author": "WebDev",
       "text": "React.js!",
-      "chatId": 0
+      "chatId": "0"
     },
     {
-      "id": 1,
+      "id": "1",
       "author": "WebDev",
       "text": "Hi!",
-      "chatId": 0
+      "chatId": "0"
     },
     {
-      "id": 2,
+      "id": "2",
       "author": "WebDev",
       "text": "React.js!",
-      "chatId": 1
+      "chatId": "1"
     },
     {
-      "id": 3,
+      "id": "3",
       "author": "WebDev",
       "text": "Привет!",
-      "chatId": 1
+      "chatId": "1"
     },
     {
-      "id": 4,
+      "id": "4",
       "author": "WebDev",
       "text": "Что нового?",
-      "chatId": 2
+      "chatId": "2"
     },
     {
-      "id": 5,
+      "id": "5",
       "author": "WebDev",
       "text": "Hi!",
-      "chatId": 2
+      "chatId": "2"
     },
     {
-      "id": 6,
+      "id": "6",
       "author": "WebDev",
       "text": "Hi!",
-      "chatId": 0
+      "chatId": "0"
     },
     {
       "text": "123123",
@@ -103,7 +103,7 @@
     }
   ],
   "profile": {
-    "id": 0,
+    "id": "0",
     "name": "Makc"
   }
 }
