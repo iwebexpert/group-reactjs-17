@@ -1,6 +1,4 @@
 import { createStore, applyMiddleware } from 'redux'
-import { composeWithDevTools } from 'redux-devtools-extension'
-import logger from 'redux-logger'
 import { routerMiddleware } from 'connected-react-router'
 import { createBrowserHistory } from 'history'
 import storage from 'redux-persist/lib/storage'
@@ -25,15 +23,13 @@ export const initStore = () => {
   const store = createStore(
     persistReducer(persistConfig, createRootReducer(history)),
     initialStore,
-    composeWithDevTools(applyMiddleware(
-      logger,
+    applyMiddleware(
       botMiddleware,
       addMessageMiddleware,
       routerMiddleware(history),
       apiMiddleware,
       reduxThunk
-    )),
-    
+    ),
   )
   const persistor = persistStore(store)
   return { store, persistor }
