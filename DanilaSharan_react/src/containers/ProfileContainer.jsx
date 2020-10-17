@@ -17,9 +17,13 @@ class ProfileContainerClass extends React.Component {
   }
 
   render() {
-    const { profile } = this.props
+    const { profile, isLoading, isError } = this.props
     return (
-      <Profile profile={profile} onSubmit={this.onSubmit}
+      <Profile
+        profile={profile}
+        onSubmit={this.onSubmit}
+        isLoading={isLoading}
+        isError={isError}
       />
     )
   }
@@ -28,7 +32,9 @@ class ProfileContainerClass extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    profile: state.profile.entries
+    profile: state.profile.entries,
+    isLoading: state.profile.loading,
+    isError: state.profile.error,
   }
 }
 

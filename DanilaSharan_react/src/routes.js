@@ -1,6 +1,5 @@
 import {About} from "./pages/About";
 import {Error} from "./pages/Error";
-// import {Messenger} from "./components/Messenger";
 import {MessengerContainer} from "./containers/MessengerContainer";
 import {ProfileContainer} from "./containers/ProfileContainer";
 

@@ -2,39 +2,56 @@ import update from 'react-addons-update';
 
 import {
   CHATS_MESSAGE_SEND,
-  CHATS_LOAD,
+  CHATS_LOAD_FAILURE,
+  CHATS_LOAD_REQUEST,
+  CHATS_LOAD_SUCCESS,
   CHATS_ADD,
   CHAT_FIRE,
   CHAT_UNFIRE,
-  CHAT_DELETE,
-  MESSAGE_DELETE,
+  // CHAT_DELETE,
+  // MESSAGE_DELETE,
 } from '../actions/chats';
-
-import {chats} from '../helpers/chatsData';
 
 const initialState = {
   loading: false,
+  error: false,
   entries: [],
 };
 
 export const chatsReducer = (state = initialState, action) => {
+  console.log('АКТИОН!!!!!!!!!!!!!!!!!!!!!!!!!!!', action)
   switch(action.type) {
-    case CHATS_LOAD:
+    case CHATS_LOAD_REQUEST:
       return {
         ...state,
-        entries: chats,
+        loading: true,
+        error: false
       };
 
-    case CHAT_DELETE:
-      return update(state, {
-        entries: {$splice: null}
-      });
-
-    case MESSAGE_DELETE:
+    case CHATS_LOAD_SUCCESS:
       return {
         ...state,
-        entries: chats,
+        loading: false,
+        entries: action.payload,
       };
+
+    case CHATS_LOAD_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: true,
+      };
+
+    // case CHAT_DELETE:
+    //   return update(state, {
+    //     entries: {$splice: null}
+    //   });
+    //
+    // case MESSAGE_DELETE:
+    //   return {
+    //     ...state,
+    //     entries: chats,
+    //   };
 
     case CHATS_MESSAGE_SEND:
       return update(state, {

@@ -14,12 +14,32 @@ import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
 import PersonIcon from "@material-ui/icons/Person";
 import {ArrowBackIos} from "@material-ui/icons";
+import Button from "@material-ui/core/Button";
 
 export class Messenger extends Component
 {
     render()
     {
-        const {chats, messages, username, handleMessageSend, handleChatAdd,  handleChatOpen} = this.props;
+        const {
+            chats,
+            messages,
+            username,
+            handleMessageSend,
+            handleChatAdd,
+            handleChatOpen,
+            handleChatsReload,
+            isLoading,
+            isError
+        } = this.props;
+
+        if(isLoading){
+            return (<div>Loading...</div>)
+        }
+
+        if(isError){
+            return (<div>Error... Попробуйте полчить чаты позднее. <Button onClick={handleChatsReload}>Обновить чаты</Button></div>)
+        }
+
 
         const chatsList = chats.map((item) => (
             <ListItem

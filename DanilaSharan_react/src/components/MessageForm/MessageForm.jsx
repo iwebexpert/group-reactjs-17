@@ -10,7 +10,13 @@ export class MessageForm extends Component
 {
     state = {
         text: '',
+        author: '',
     };
+
+    componentDidMount() {
+        const {username} = this.props;
+        this.setState({author: username});
+    }
 
     static propTypes = {
         onSend: PropTypes.func.isRequired,

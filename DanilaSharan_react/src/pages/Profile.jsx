@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 import { TextField, Button, Box, Container } from '@material-ui/core'
 
-const Profile = ({profile, onSubmit}) => {
+const Profile = ({profile, onSubmit, isLoading, isError}) => {
   const [value, setValue] = useState('')
 
   const onChangeHandler = (event) => {
@@ -19,13 +19,17 @@ const Profile = ({profile, onSubmit}) => {
     }
   }
 
+  if (isError) {
+    return <h1>При обновлении профиля произошла ошибка</h1>
+  }
+
   return (
     <>
       <Box
         align="left"
         ml={10}
       >
-        <h1>{profile.name}</h1>
+        <h1>{ isLoading ? 'Loading...' : profile.name}</h1>
       </Box>
       <Container>
         <form onSubmit={onSubmitHandler}>
