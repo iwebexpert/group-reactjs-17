@@ -1,5 +1,3 @@
-import { createAction } from 'redux-api-middleware'
-
 export const CHATS_MESSAGE_SEND = 'CHATS_MESSAGE_SEND'
 export const CHAT_ADD = 'CHAT_ADD'
 export const CHAT_FIRE = 'CHAT_FIRE'
@@ -28,13 +26,29 @@ export const chatUnfireAction = (chatId) => ({
   payload: { chatId }
 })
 
-export const chatsLoadAction = () => createAction({
-  endpoint: 'http://localhost:3500/chats?_embed=messages',
-  method: 'GET',
-  headers: { 'Content-type': 'application/json' },
-  types: [
-    CHATS_LOAD_REQUEST,
-    CHATS_LOAD_SUCCESS,
-    CHATS_LOAD_FAILURE
-  ]
+export const chatsLoadErrorAction = (error) => ({
+  type: CHATS_LOAD_FAILURE,
+  payload: error,
 })
+
+export const chatsLoadRequestAction = () => ({
+  type: CHATS_LOAD_REQUEST
+})
+
+export const chatsLoadSuccessAction = (chats) => ({
+  type: CHATS_LOAD_SUCCESS,
+  payload: chats,
+})
+
+export const chatsLoadAction = () => async(dispatch) => {
+  try {
+    dispatch(chatsLoadRequestAction())
+    const response = await fetch('http://localhost:3500/chats?_embed=messages')
+    const chats = await response.json()
+    dispatch(chatsLoadSuccessAction(chats))
+  } catch(err) {
+    dispatch(chatsLoadErrorAction(err))
+  }
+}
+
+
