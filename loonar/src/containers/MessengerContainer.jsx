@@ -26,13 +26,20 @@ class MessengerContainerClass extends React.Component {
         redirect(lastId);
     };
 
+    handleChatsReload = () => {
+        this.props.chatsLoadAction();
+    };
 
     render(){
         // console.log(this.props);
-        const {chats, messages} = this.props;
+        const {chats, messages, isLoading, isError, profile} = this.props;
+        console.log(profile)
         return (
             <Messenger chats={chats}
+            profile={profile}
             messages={messages}
+            isLoading={isLoading}
+            isError={isError}
             handleMessageSend={this.handleMessageSend}
             handleChatAdd={this.handleChatAdd} />
         );
@@ -62,8 +69,11 @@ function mapStateToProps(state, ownProps){
     return {
         chats: chatsArray,
         messages,
+        profile: state.profile.data,
         chatId: match ? match.params.id : null,
         lastId,
+        isLoading: state.chats.loading,
+        isError: state.chats.error,
     };
 }
 

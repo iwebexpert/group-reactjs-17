@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {nanoid} from 'nanoid';
 import {Switch, Route, Link} from 'react-router-dom';
-import {push} from 'connected-react-router';
+
 import {Grid, List, ListItem, ListItemText} from '@material-ui/core';
 import WhatshotIcon from '@material-ui/icons/Whatshot';
 import PropTypes from 'prop-types';
@@ -18,9 +18,6 @@ export class Messenger extends Component
         chats,
     };
 
-    static propTypes = {
-        push: PropTypes.func.isRequired,
-    };
 
     handleMessageSend = (message) => {
         const {chats} = this.state;
@@ -57,9 +54,6 @@ export class Messenger extends Component
         });
     }
 
-    handleNavigate = (link) => {
-        this.props.push(link);
-    }
 
     // componentDidUpdate(){
     //     if(this.messages.length){
@@ -84,21 +78,21 @@ export class Messenger extends Component
 
     render()
     {
-        // console.log(this.state);
-        // const {chats} = this.state;
-        // const messages = this.messages;
-        const {chats, messages, handleMessageSend, handleChatAdd} = this.props;
-        
+
+        const {profile, chats, messages, handleMessageSend, handleChatAdd, isLoading, isError, handleChatsReload} = this.props;
+        console.log(profile)
+        if(isLoading){
+            return (<div>Loading...</div>);
+        }
+
+        if(isError){
+            return (<div>Error... Попробуйте получить чаты позднее. <button onClick={handleChatsReload}>Обновить чаты</button></div>);
+        }
+
         const chatsList = chats.map((item) => (
-            //не могу получить огонь
-            //push по методичке тоже не получилось
-            
-        <ListItem button key={item.id} onClick = {() => this.handleNavigate(`/chats/${item.id}`)}>
-            {/* <Link to={`/chats/${item.id}`}> */}
-                <ListItemText primary={item.title} />
-            {/* </Link> */}
-            
-            {item.fire && <WhatshotIcon />}
+
+        <ListItem key={item.id}>
+            <Link to={`/chats/${item.id}`}><ListItemText primary={item.title} /></Link>
         </ListItem>
         ));
         
@@ -115,7 +109,9 @@ export class Messenger extends Component
                  <div className="messages-list ">
                      {messages ? <MessageList items={messages} /> : <div>Выберите чат слева</div>}
                  </div>
-                 {messages && <MessageForm onSend={handleMessageSend} />}
+                 <div>
+                    {messages && <MessageForm onSend={handleMessageSend} profile={profile}/>}
+                 </div>
              </Grid>
             </>
             );

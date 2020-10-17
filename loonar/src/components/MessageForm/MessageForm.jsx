@@ -14,7 +14,15 @@ export class MessageForm extends Component
     static propTypes = {
         onSend: PropTypes.func.isRequired,
     };
-
+    componentDidMount() {
+        console.log(this.state.author)
+        if (!this.state.author && this.props.profile && this.props.profile.name) {
+            this.setState({
+                text: '',
+                author: this.props.profile.name
+            });
+        }
+    }
     // onChangeInputHandler = (event) => {
     //     this.setState({text: event.target.value});
     // };
@@ -25,20 +33,26 @@ export class MessageForm extends Component
     };
 
     onSubmitForm = () => {
-        const {text} = this.state;
+        const {text, author} = this.state;
         const {onSend} = this.props;
 
-        if(!text){
-            alert('Введите текст сообщения');
-            return;
+        if (!text || !author) {
+            alert('Заполните форму');
+            return
         }
+        this.props.onSend(this.state);
+        this.setState({text: '', author: author})
 
-        if(typeof onSend === 'function'){
-            onSend(this.state);
-            this.setState({text: ''});
-        }
+        // if(!text){
+        //     alert('Введите текст сообщения');
+        //     return;
+        // }
 
-        console.log(this.state);
+        // if(typeof onSend === 'function'){
+        //     onSend(this.state);
+        //     this.setState({text: ''});
+        // }
+
     };
     onKeyUp = (event) => {
         if (event.ctrlKey && event.keyCode === 13){
