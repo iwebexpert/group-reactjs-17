@@ -1,0 +1,313 @@
+{
+  "chats": [
+    {
+      "id": "0",
+      "fire": false,
+      "title": "Тестовый чат"
+    },
+    {
+      "id": "1",
+      "fire": false,
+      "title": "Рабочий чат"
+    },
+    {
+      "id": "2",
+      "fire": false,
+      "title": "Друзья"
+    }
+  ],
+  "messages": [
+    {
+      "id": "0",
+      "author": "WebDev",
+      "text": "React.js!",
+      "chatId": "0"
+    },
+    {
+      "id": "1",
+      "author": "WebDev",
+      "text": "Hi!",
+      "chatId": "0"
+    },
+    {
+      "id": "2",
+      "author": "WebDev",
+      "text": "React.js!",
+      "chatId": "1"
+    },
+    {
+      "id": "3",
+      "author": "WebDev",
+      "text": "Привет!",
+      "chatId": "1"
+    },
+    {
+      "id": "4",
+      "author": "WebDev",
+      "text": "Что нового?",
+      "chatId": "2"
+    },
+    {
+      "id": "5",
+      "author": "WebDev",
+      "text": "Hi!",
+      "chatId": "2"
+    },
+    {
+      "id": "6",
+      "author": "WebDev",
+      "text": "Hi!",
+      "chatId": "0"
+    },
+    {
+      "text": "1",
+      "author": "123",
+      "id": "1eBE8GQDFwjZ3DK8AiCu0",
+      "chatId": "0"
+    },
+    {
+      "text": "1",
+      "author": "1",
+      "id": "fEGbr6ZLFu8Gj58TWUm35",
+      "chatId": "0"
+    },
+    {
+      "id": "45OIkbPGXLl9L_5-lCYOU",
+      "chatId": "0",
+      "text": "Hi, 1! Это бот...",
+      "author": "Bot"
+    },
+    {
+      "text": "1",
+      "author": "1",
+      "id": "9dD5AnLHyu7AYWIwcmt6H",
+      "chatId": "0"
+    },
+    {
+      "text": "11",
+      "author": "1",
+      "id": "3oYMbL5slrLA4Cp9UMtuz",
+      "chatId": "2"
+    },
+    {
+      "text": "1",
+      "author": "1",
+      "id": "cUi9ZSCzmz5WJqxi4tve6",
+      "chatId": "0"
+    },
+    {
+      "text": "11",
+      "author": "1",
+      "id": "qWFyOIW13gC2NfZyhAXNu",
+      "chatId": "0"
+    },
+    {
+      "id": "uIldFrCiVjhSYDc8Kz91W",
+      "chatId": "0",
+      "text": "Hi, 1! Это бот...",
+      "author": "Bot"
+    },
+    {
+      "text": "11",
+      "author": "1",
+      "id": "yyRF0ZaIzapp4ZEEyR8bX",
+      "chatId": "0"
+    },
+    {
+      "id": "ju71MMl0At1OoB2zSV_8j",
+      "chatId": "0",
+      "text": "Hi, 1! Это бот...",
+      "author": "Bot"
+    },
+    {
+      "text": "11",
+      "author": "1",
+      "id": "ncUjAQfsaX2RAgDWwh3HB",
+      "chatId": "0"
+    },
+    {
+      "text": "11",
+      "author": "1",
+      "id": "7FLJnT5WWavBxOVsTxZV6",
+      "chatId": "0"
+    },
+    {
+      "text": "11",
+      "author": "1",
+      "id": "GcPirRMBuYkZB_0YLPPi1",
+      "chatId": "0"
+    },
+    {
+      "text": "11",
+      "author": "1",
+      "id": "LOaOSoof6TraGWKiai6L5",
+      "chatId": "0"
+    },
+    {
+      "text": "111",
+      "author": "1",
+      "id": "LY7ThFpeP4lkDyZOEBzZv",
+      "chatId": "0"
+    },
+    {
+      "text": "111",
+      "author": "11",
+      "id": "vuhXF6_2gy9s8rxc075LY",
+      "chatId": "0"
+    },
+    {
+      "text": "11",
+      "author": "1",
+      "id": "VRDbe1f_sjFBXnWL4tIVq",
+      "chatId": "0"
+    },
+    {
+      "text": "1",
+      "author": "123",
+      "id": "ywsfKW2iqYTTcnZ3vpRin",
+      "chatId": "0"
+    },
+    {
+      "text": "1",
+      "author": "1",
+      "id": "Da4cIzgCJH5zpo1kFrO9X",
+      "chatId": "0"
+    },
+    {
+      "text": "11",
+      "author": "1",
+      "id": "xPo3xFE4KahW6Uj6uGp7p",
+      "chatId": "0"
+    },
+    {
+      "id": "tydUFa-F-YbmUCK0qRnQf",
+      "chatId": "0",
+      "text": "Hi, 1! Это бот...",
+      "author": "Bot"
+    },
+    {
+      "text": "asdasd",
+      "author": "asd",
+      "id": "sNDFeSsPbPbcp3JAXqNV_",
+      "chatId": "2"
+    },
+    {
+      "text": "asasd",
+      "author": "qw",
+      "id": "4iLOVHYJ6VHXOQpNtsdd6",
+      "chatId": "2"
+    },
+    {
+      "id": "j4RHaBsiCFw3BYVhrPwnU",
+      "chatId": "2",
+      "text": "Hi, qw! Это бот...",
+      "author": "Bot"
+    },
+    {
+      "text": "aagr",
+      "author": "123",
+      "id": "NytmbvLBpBZUK2_ZW-TYq",
+      "chatId": "1"
+    },
+    {
+      "id": "S0FHCsHh9C17BB8r0IZQq",
+      "chatId": "1",
+      "text": "Hi, 123! Это бот...",
+      "author": "Bot"
+    },
+    {
+      "text": "a",
+      "author": "123",
+      "id": "9NoyhbAHMlH9RfbO2oE-K",
+      "chatId": "1"
+    },
+    {
+      "id": "ArvFgD4I6-rYPwg7j_VDW",
+      "chatId": "1",
+      "text": "Hi, 123! Это бот...",
+      "author": "Bot"
+    },
+    {
+      "text": "asd",
+      "author": "asd",
+      "id": "tWUS2NloJ-1qcfI2zeXTo",
+      "chatId": "1"
+    },
+    {
+      "text": "asdasd",
+      "author": "asd",
+      "id": "8g4qUIUFthqFqC8Db6tdg",
+      "chatId": "1"
+    },
+    {
+      "id": "EHZ6E2YEqNIEGRo0efJuJ",
+      "chatId": "1",
+      "text": "Hi, asd! Это бот...",
+      "author": "Bot"
+    },
+    {
+      "text": "asd",
+      "author": "asd",
+      "id": "wYgKcbPfwEls9VL2CDSSX",
+      "chatId": "2"
+    },
+    {
+      "id": "ydI3xRmxBqzaWSVBhG5g4",
+      "chatId": "2",
+      "text": "Hi, asd! Это бот...",
+      "author": "Bot"
+    },
+    {
+      "text": "sd",
+      "author": "s",
+      "id": "5gUtzjB3AFLtzXj2hYY4B",
+      "chatId": "2"
+    },
+    {
+      "id": "2VKes7pC2n6yFw83gBNWt",
+      "chatId": "2",
+      "text": "Hi, s! Это бот...",
+      "author": "Bot"
+    },
+    {
+      "text": "aas",
+      "author": "a",
+      "id": "hdEu1J2_t74P5uE6gliqc",
+      "chatId": "2"
+    },
+    {
+      "id": "X8EuC-0oNAZBljflMAmI0",
+      "chatId": "2",
+      "text": "Hi, a! Это бот...",
+      "author": "Bot"
+    },
+    {
+      "text": "asd",
+      "author": "sad",
+      "id": "E-EVmqnfq3Vg3MnZ0bWG9",
+      "chatId": "0"
+    },
+    {
+      "text": "asd",
+      "author": "asd",
+      "id": "CzFrj2dcsqM1gkHxw7AVd",
+      "chatId": "0"
+    },
+    {
+      "text": "dsa",
+      "author": "dsa",
+      "id": "cn3iDweqppZEzpzHtvN3G",
+      "chatId": "1"
+    },
+    {
+      "id": "e7bzcpfqiHgjYMjFUmKif",
+      "chatId": "1",
+      "text": "Hi, dsa! Это бот...",
+      "author": "Bot"
+    }
+  ],
+  "profile": {
+    "id": 0,
+    "name": "Makc"
+  }
+}
