@@ -22,20 +22,7 @@ export class Profile extends Component
             );
         }
 
-        const profileList = profiles.map((item) => (
-            <Paper key={item.id} className="profile">
-                <Grid container wrap="nowrap" spacing={2}>
-                    <Grid item>
-                        <Avatar>{item.name.slice(0,1).toUpperCase()}</Avatar>
-                    </Grid>
-                    <Grid item xs zeroMinWidth>
-                        <Typography noWrap>Name: {item.name} </Typography>
-                        <Typography noWrap>Surname: {item.surname}</Typography>
-                    </Grid>
-                </Grid>
-            </Paper>
-        ));
-
+        const avatar = `${profiles.name}`;       
         return (
             <div>
                 <h1>Profile</h1>
@@ -45,7 +32,19 @@ export class Profile extends Component
                         <button onClick={handleProfileReload}>Обновить</button>
                     </div>
                  </div> 
-                 : profileList}
+                 : <div>
+                        <Paper key={profiles.id} className="profile">
+                            <Grid container wrap="nowrap" spacing={2}>
+                                <Grid item>
+                                    <Avatar>{avatar.slice(0,1).toUpperCase()}</Avatar>
+                                </Grid>
+                                <Grid item xs zeroMinWidth>
+                                    <Typography noWrap>Name: {profiles.name} </Typography>
+                                    <Typography noWrap>Surname: {profiles.surname}</Typography>
+                                </Grid>
+                            </Grid>
+                        </Paper>
+                    </div>}
                 <h1>Update profile</h1>
                 <ProfileForm onSend = {handleProfileUpdate} />
             </div>

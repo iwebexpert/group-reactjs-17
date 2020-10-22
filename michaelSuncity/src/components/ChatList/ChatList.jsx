@@ -16,9 +16,6 @@ import './ChatList.scss';
 import {chats} from '../../helpers/chatsData';
 
 export class ChatList extends Component {
-    /* state = {
-        chats,
-    }*/
 
     redirectToProfile = () => {
         this.props.onSend(`/profile`);

@@ -22,10 +22,6 @@ const persistConfig = {
 };
 
 
-/*export const store = createStore(createRootReducer(history), composeWithDevTools(
-    applyMiddleware(logger, botMiddleware, routerMiddleware(history)),
-    ));*/
-
 export const initStore = () => {
      const initialStore = {};
      const store = createStore(

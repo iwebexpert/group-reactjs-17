@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import {TextField, Fab} from '@material-ui/core';
 import {Send} from '@material-ui/icons';
 
-//import {chats} from '../../helpers/chatsData';
 
 export class AddChat extends Component
 {
@@ -34,10 +33,7 @@ export class AddChat extends Component
         if(typeof onSend === 'function'){
             onSend(this.state);
         }
-        /*
-        const newId = this.state.chats.length;
-        chats.push({id: newId, title: title, messages: [{id: 0, author: 'Bot', text: `Стартовал чат "${title}"`}]});
-        */
+       
         console.log(this.state.title);
     };
  

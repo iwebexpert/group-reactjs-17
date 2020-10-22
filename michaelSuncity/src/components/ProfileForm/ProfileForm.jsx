@@ -16,9 +16,6 @@ export class ProfileForm extends Component
         onSend: PropTypes.func.isRequired,
     };
 
-    /*onChangeInputHandler = (event) => {
-        this.setState({text: event.target.value});
-    };*/
 
     onChangeInputHandler = (event) => {
         const fieldName = event.target.name;

@@ -15,9 +15,6 @@ import {Messenger} from '../Messenger';
 import {ChatListContainer} from '../../containers/ChatListContainer';
 
 import {Switch, Route, Link} from 'react-router-dom';
-//import {Home} from 'pages/Home';
-//import {About} from 'pages/About';
-//import {Error} from 'pages/Error';
 import {routes} from '../../routes';
 
 
@@ -141,15 +138,6 @@ export const Layout = () => {
       >
         <div className={classes.drawerHeader} />
         <div>
-           {/*<Switch>
-                <Route path="/" exact component={Messenger} />
-                <Route path="/about" exact>
-                    <About />
-                </Route>
-                <Route path="*">
-                    <Error />
-                </Route>
-           </Switch>*/}
               <Switch>
                 {routes.map((route, index) => (<Route key={index} {...route} />))}
             </Switch>

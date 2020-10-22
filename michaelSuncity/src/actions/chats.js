@@ -11,10 +11,6 @@ export const CHATS_LOAD_FAILURE = 'CHATS_LOAD_FAILURE';
 export const CHATS_FIRE = 'CHATS_FIRE';
 export const CHATS_UNFIRE = 'CHATS_UNFIRE';
 
-/*export const chatsLoadAction = () => ({
-    type: CHATS_LOAD,
-});*/
-
 export const chatsMessageSendAction = (message) => ({
     type: CHATS_MESSAGE_SEND,
     payload: message,

@@ -9,7 +9,7 @@ import {
     PROFILES_UPDATE_FAILURE
 } from '../actions/profiles';
 
-//import {profiles} from '../helpers/profilesData';
+
 
 const initialState = {
     loading: false,
