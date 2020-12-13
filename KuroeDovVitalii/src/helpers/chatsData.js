@@ -1,35 +1,34 @@
-
-import { nanoid } from 'nanoid'
-import { AvatarGenerator } from 'random-avatar-generator'
+import { nanoid } from "nanoid"
+import { AvatarGenerator } from "random-avatar-generator"
 const generator = new AvatarGenerator()
 
-export const chats = {
-    [nanoid(4)]: {
+export const chats = [
+    {
         id: nanoid(4),
-        name: 'Сушист',
-        fire : true,
+        name: "Сушист",
+        fire: true,
         avatar: generator.generateRandomAvatar(),
-        messages: [{ name: "me", text: "first", id: nanoid(4) }]
+        messages: [{ name: "me", text: "first", id: nanoid(4) }],
     },
-    [nanoid(4)]: {
+    {
         id: nanoid(4),
-        name: 'Визажист',
-        fire : true,
+        name: "Визажист",
+        fire: true,
         avatar: generator.generateRandomAvatar(),
-        messages: [{ name: "me", text: "second", id: nanoid(4) }]
+        messages: [{ name: "me", text: "second", id: nanoid(4) }],
     },
-    [nanoid(4)]: {
+    {
         id: nanoid(4),
-        name: 'Массажист',
-        fire : true,
+        name: "Массажист",
+        fire: true,
         avatar: generator.generateRandomAvatar(),
-        messages: [{ name: "me", text: "third", id: nanoid(4) }]
+        messages: [{ name: "me", text: "third", id: nanoid(4) }],
     },
-    [nanoid(4)]: {
+    {
         id: nanoid(4),
-        name: 'Хореограф',
-        fire : true,
+        name: "Хореограф",
+        fire: true,
         avatar: generator.generateRandomAvatar(),
-        messages: [{ name: "me", text: "one more", id: nanoid(4) }]
-    }
-}
+        messages: [{ name: "me", text: "one more", id: nanoid(4) }],
+    },
+]

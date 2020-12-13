@@ -1,24 +1,23 @@
-const path = require('path')
-const HtmlWebPackPlugin = require('html-webpack-plugin')
+const path = require("path")
+const HtmlWebPackPlugin = require("html-webpack-plugin")
 
 module.exports = {
     entry: {
-        main: './src/index.jsx'
+        main: "./src/index.jsx",
     },
     output: {
-        path: path.resolve(__dirname, 'dist'),
-        filename: 'app.js'
+        path: path.resolve(__dirname, "dist"),
+        filename: "app.js",
     },
     resolve: {
-        extensions: ['.js', '.jsx'],
+        extensions: [".js", ".jsx"],
         alias: {
-            actions: path.join(__dirname, 'src', 'actions'),
-            reducers: path.join(__dirname, 'src', 'reducers'),
-            containers: path.join(__dirname, 'src', 'containers'),
-            middlewares: path.join(__dirname, 'src', 'middlewares'),
-            components: path.join(__dirname, 'src', 'Components')
-
-        }
+            actions: path.join(__dirname, "src", "actions"),
+            reducers: path.join(__dirname, "src", "reducers"),
+            containers: path.join(__dirname, "src", "containers"),
+            middlewares: path.join(__dirname, "src", "middlewares"),
+            components: path.join(__dirname, "src", "components"),
+        },
     },
     module: {
         rules: [
@@ -28,30 +27,27 @@ module.exports = {
                 use: {
                     loader: "babel-loader",
                     options: {
-                        presets: [
-                            "@babel/preset-env", 
-                            "@babel/preset-react"
-                        ]
-                    }
-                }
+                        presets: ["@babel/preset-env", "@babel/preset-react"],
+                    },
+                },
             },
             {
                 test: /\.css$/,
-                loader: 'style-loader!css-loader'
-            }
-        ]
+                loader: "style-loader!css-loader",
+            },
+        ],
     },
     devServer: {
         contentBase: path.join(__dirname, "dist"),
         compress: true,
         port: 9001,
-        historyApiFallback: true
+        historyApiFallback: true,
     },
-    devtool: 'inline-source-map',
+    devtool: "inline-source-map",
     plugins: [
         new HtmlWebPackPlugin({
-            filename: 'index.html',
-            template: path.join(__dirname, "public", "index.html")
-        })
-    ]
+            filename: "index.html",
+            template: path.join(__dirname, "public", "index.html"),
+        }),
+    ],
 }

@@ -1,63 +1,41 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import { Chip, Avatar, Typography, IconButton } from '@material-ui/core'
-import DeleteIcon from '@material-ui/icons/Delete'
-import classNames from 'classnames'
+import React from "react"
+import PropTypes from "prop-types"
+import { Chip, Avatar, Typography, IconButton } from "@material-ui/core"
+import DeleteIcon from "@material-ui/icons/Delete"
+import classNames from "classnames"
 
-export default class Message extends Component {
+export default function Message(props) {
+    const { message, chatId, user, avatar, masterAvatar, deleteMessage } = props
+    const classes = classNames("message", {
+        me__message: message.name === "me",
+        bot__message: message.name !== "me",
+    })
+    const [isSelectMessage, setIsSelectMessage] = React.useState(false)
 
-    state = {
-        isSelectMessage: false,
+    const handleDelete = () => {
+        deleteMessage(chatId, message.id)
     }
 
-    handleSelect = () => {
-        this.setState( {isSelectMessage: !this.state.isSelectMessage} )
-    }
-
-    handleDelete = () => {
-        this.setState({ isSelectMessage: !this.state.isSelectMessage })
-        let isSelectMessage = !this.state.isSelectMessage
-        this.props.handleAlert(
-            `выбрано сообщение ${this.props.message.name} : ${this.props.message.text}`,
-            'inform', 
-            isSelectMessage,
-            this.props.message.id
-         )
-    }
-    
-    static propTypes = {
-        message: PropTypes.shape({
-            text: PropTypes.string.isRequired,
-            name: PropTypes.string.isRequired,
-        })
-    }
- 
-    render() {
-        const { avatar, masterAvatar } = this.props
-        const classes = classNames('message', {
-            'me__message' : this.props.message.name === 'me',
-            'bot__message' : this.props.message.name !== 'me'
-        }) 
-
-        return(
-            <div className="message-block"> 
-                <Chip 
-                    deleteIcon={ <DeleteIcon /> } 
-                    color={ this.props.message.name === 'me' ? 'primary' : 'secondary' }
-                    className={ classes }
-                    clicable="true"
-                    onDelete={ this.handleDelete } 
-                    label={ 
-                        <Typography variant="caption" className="chip-label">
-                            { this.props.message.name === 'me' ? this.props.user : this.props.message.name } : { this.props.message.text }
-                        </Typography> }
-                    avatar={ 
-                        <Avatar src={ this.props.message.name === 'me' ? masterAvatar : avatar }> 
-                            { this.props.message.name }
-                        </Avatar> } 
-                    />
-            </div>
-        )
-    }
+    return (
+        <div className="message-block">
+            <Chip
+                deleteIcon={<DeleteIcon />}
+                color={message.name === "me" ? "primary" : "secondary"}
+                className={classes}
+                clicable="true"
+                onDelete={handleDelete}
+                label={
+                    <Typography variant="caption" className="chip-label">
+                        {message.name === "me" ? user : message.name}:
+                        {message.text}
+                    </Typography>
+                }
+                avatar={
+                    <Avatar src={message.name === "me" ? masterAvatar : avatar}>
+                        {message.name}
+                    </Avatar>
+                }
+            />
+        </div>
+    )
 }
-

@@ -1,81 +1,85 @@
-import React, { Component, Fragment } from 'react'
-import { Switch, Route } from 'react-router-dom'
-import '../../layout/css/style.css'
-import AlertShow from 'components/AlertShow/AlertShow'
-import Header from 'components/Header/Header'
-import { ChatContainer } from 'containers/ChatContainer'
-import { ChatListContainer } from 'containers/ChatListContainer'
+import React from "react"
+import { Switch, Route } from "react-router-dom"
+import "../../layout/css/style.css"
+import AlertShow from "components/AlertShow/AlertShow"
+import HeaderContainer from "containers/HeaderContainer"
+import ChatContainer from "containers/ChatContainer"
+import ChatListContainer from "containers/ChatListContainer"
 
-class App extends Component {
-
-    state = {
-        title: 'React GB',
+export default function App(props) {
+    const [state, setState] = React.useState({
         currentActiveChat: null,
         currentActiveChatName: null,
         error: null,
-    }
+    })
 
-    timeoutID = null
+    const {
+        chats, //массив чатов
+        loadChats, // загрузка чатов
+        loadProfile, //загрузка профиля
+        profile, //профиль
+        currentChatName,
+        users, //массив пользователей
+        loadUsers, //загрузка пользователей
+        handleAlert,
+        hanldeCloseAlert,
+        handleDeleteMessage,
+        popup,
+    } = props
 
-    hanldeCloseAlert = (value) => {
-        this.props.handleCloseAlert(value)
-    }
+    React.useLayoutEffect(() => {
+        if (chats.length <= 0) {
+            loadChats()
+        }
+    }, [chats])
 
-    handleAlert = (value, type = 'inform', isSelect = false, messageId) => {
-        this.props.handleShowAlert({ value, type, isSelect, messageId })
-    }
+    React.useLayoutEffect(() => {
+        if (Object.keys(profile).length === 0) {
+            loadProfile()
+        }
+    }, [profile])
 
-    handleNewChat = (data) => {
-        this.props.handleNewChat(data)
-    }
+    React.useLayoutEffect(() => {
+        if (users.length === 0) {
+            loadUsers()
+        }
+    }, [users])
 
-    handleNameChange = (data) => {
-        this.props.handleNameChange(data)
-        this.handleAlert(`Изменения сохраненны`)
-    }
-
-    handleDeleteMessage = (value) => {
-        const { handleDelete } = this.props
-        handleDelete({
-            messageId: value.id, 
-            isSelect: value.isSelect, 
-            id: this.props.selected
-        })
-    }
-
-    render(){
-        return(
-            <Fragment>
-                <Header 
-                    title={ this.state.title } 
-                    profile={ this.props.profile } 
-                    chatName={ this.props.currentChatName }
-                    users={ this.props.users }
-                    handleNewChat={ this.handleNewChat }
-                    handleNameChange={ this.handleNameChange }/>
-                <main>
-                    <Switch>
-                        <Route path='/' exact render={ (props) => 
-                            <ChatContainer 
-                                { ...props }
-                                handleAlert={ this.handleAlert }
-                                hanldeCloseAlert={ this.hanldeCloseAlert } />}
-                        />
-                        <Route path='/:id' exact render={ (props) => 
-                            <ChatContainer 
-                                { ...props }
-                                handleAlert={ this.handleAlert }
-                                hanldeCloseAlert={ this.hanldeCloseAlert } />}
-                        />
-                    </Switch>
-                    <ChatListContainer />
-                    <AlertShow 
-                        handleDeleteMessage={ this.handleDeleteMessage }
-                        popup={ this.props.popup } 
-                        hanldeCloseAlert={ this.hanldeCloseAlert } />
-                </main>
-            </Fragment>
-        )
-    }
+    return (
+        <>
+            <HeaderContainer chatName={currentChatName} />
+            <main>
+                <Switch>
+                    <Route
+                        path="/"
+                        exact
+                        render={(props) => (
+                            <ChatContainer
+                                {...props}
+                                handleAlert={handleAlert}
+                                hanldeCloseAlert={hanldeCloseAlert}
+                            />
+                        )}
+                    />
+                    <Route
+                        path="/chats/:id"
+                        exact
+                        render={(props) => (
+                            <ChatContainer
+                                {...props}
+                                handleAlert={handleAlert}
+                                hanldeCloseAlert={hanldeCloseAlert}
+                            />
+                        )}
+                    />
+                </Switch>
+                <ChatListContainer />
+                <AlertShow
+                    handleDeleteMessage={handleDeleteMessage}
+                    popup={popup}
+                    hanldeCloseAlert={hanldeCloseAlert}
+                />
+            </main>
+        </>
+    )
 }
-export default App 

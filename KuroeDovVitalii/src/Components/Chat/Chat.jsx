@@ -1,142 +1,207 @@
-import React, { Component } from 'react'
-import { nanoid } from 'nanoid'
-import Message from 'components/Message/Message'
-import { IconButton, TextField, Typography, Paper, Divider, Backdrop, CircularProgress } from '@material-ui/core' 
-import SendIcon  from '@material-ui/icons/SendRounded'
-import DeleteIcon from '@material-ui/icons/Delete'
-import ScrollableFeed from 'react-scrollable-feed'
+import React from "react"
+import { nanoid } from "nanoid"
+import Message from "components/Message/Message"
+import {
+    IconButton,
+    TextField,
+    Typography,
+    Paper,
+    Divider,
+    Backdrop,
+    CircularProgress,
+} from "@material-ui/core"
+import SendIcon from "@material-ui/icons/SendRounded"
+import DeleteIcon from "@material-ui/icons/Delete"
+import ScrollableFeed from "react-scrollable-feed"
 
-class Chat extends Component {
-    constructor(props) {
-        super(props)
-        this.handleAlert = props.handleAlert.bind(this)
-        this.handleMessageSend = props.handleMessageSend.bind(this)
-    }
-
-    state = {
-        input: '',
+export default function Chat(props) {
+    const [state, setState] = React.useState({
+        input: "",
         open: true,
-    }
-    
-    handleSendMessage = (message) => {
-        const { id } = this.props.match.params
-        this.setState({ input: '' }, 
-        this.handleMessageSend(
-            { 
-                name: 'me', 
-                text: message, 
-                id: nanoid(4) 
-            }, id, id))
-    }
+    })
 
-    handleClick = (value) => {
-        if (this.state.input !== '') {
-            this.handleSendMessage(value)
+    const {
+        match,
+        chatId,
+        chats,
+        profile,
+        selected,
+        chat,
+        sendMessage,
+        deleteMessage,
+    } = props
+    const { firstName } = profile
+
+    const [messageCount, setMessageCount] = React.useState(0)
+
+    let messages = <Typography className="chat__text">Выберите чат</Typography>
+
+    const handleChange = (event) => {
+        setState({ ...state, input: event.target.value })
+    }
+    const handleAlert = () => {}
+    const handleClick = () => {
+        if (state.input !== "") {
+            sendMessage(chatId, {
+                name: "me",
+                text: state.input,
+            })
+            setState({ ...state, input: "" })
         }
     }
 
-    handleKeyUp = (event) => {
-        if (this.state.input !== '') {
+    const handleKeyUp = (event) => {
+        if (state.input !== "") {
             if (event.keyCode === 13) {
-                this.handleSendMessage(this.state.input)
-            }    
+                sendMessage(chatId, {
+                    name: "me",
+                    text: state.input,
+                })
+                setState({ ...state, input: "" })
+            }
         }
     }
 
-    handleChange = (event) => {
-        this.setState({ input: event.target.value })
-    }
-
-    handleDeleteChatMessage = () => {
-        this.props.handleDeleteChatMessage(this.props.chatId)
-    }
-    
-    setOpen = (value) => {
-        console.log(value)
-        this.setState({ open: value })
-    }
-
-    handleClose = () => {
-        this.setOpen(false);
-    }
-
-    handleToggle = () => {
-        this.setOpen(!this.state.open);
-    }
-
-    render() {
-        const { id }  = this.props.match.params
-        const { chatId, chats } = this.props
-        const { firstName } = this.props.profile
-        let messages = <Typography className="chat__text" >Выберите чат</Typography>
-        
-        if (!this.props.chats) {
-            return <Backdrop className="backdrop" open={this.state.open} onClick={this.handleClose}>
-                        <Typography display="block" variant="h2">Грузим Чаты... </Typography>
-                        <CircularProgress color="inherit" size="10rem"/>
-                    </Backdrop>
+    const handleDeleteChatMessage = () => {}
+    React.useLayoutEffect(() => {
+        if (!chat) {
+            return (
+                <Backdrop
+                    className="backdrop"
+                    open={state.open}
+                    onClick={handleClose}
+                >
+                    <Typography display="block" variant="h2">
+                        Грузим Чаты...
+                    </Typography>
+                    <CircularProgress color="inherit" size="10rem" />
+                </Backdrop>
+            )
         }
+    }, [chat])
 
-        if (id !== undefined && chats && chatId && chats[chatId]) {
-            const avatar = chats[chatId].avatar
-            const currentChat = chats[chatId].messages 
-            messages = currentChat.map( (item) => 
-                <Message 
-                    key={ item.id } 
-                    avatar={ avatar } 
-                    user={ firstName }
-                    masterAvatar={ this.props.profile.avatar }
-                    handleAlert={ this.handleAlert } 
-                    message={ item } />)
-            
-        } else {
-            <Typography>Выберите чат</Typography>
-        }
-        return(
+    return (
+        <>
             <section className="chat">
                 <Paper elevation={5}>
                     <div className="message-list">
                         <ScrollableFeed>
-                            { messages }
+                            {chatId === undefined
+                                ? messages
+                                : chat.messages.map((item) => (
+                                      <Message
+                                          key={item.id}
+                                          avatar={chat.avatar}
+                                          chatId={chat.id}
+                                          user={firstName}
+                                          chatName={chat.name}
+                                          masterAvatar={profile.avatar}
+                                          handleAlert={handleAlert}
+                                          message={item}
+                                          deleteMessage={deleteMessage}
+                                      />
+                                  ))}
                         </ScrollableFeed>
                     </div>
                     <Paper elevation={3}>
                         <Divider />
                         <div className="chat-footer">
-                            <TextField 
-                                disabled={ id === undefined || chats[chatId] === undefined }
+                            <TextField
+                                disabled={chatId === undefined}
                                 autoFocus
                                 fullWidth
                                 size="small"
                                 label="введи текст"
                                 variant="outlined"
-                                value={ this.state.input } 
-                                onChange={ this.handleChange } 
-                                onKeyUp={ (event) => this.handleKeyUp(event, this.state.input) }/>
+                                value={state.input}
+                                onChange={handleChange}
+                                onKeyUp={(event) => handleKeyUp(event)}
+                            />
 
                             <IconButton
-                                disabled={ id === undefined || chats[chatId] === undefined }
-                                color="primary" 
-                                onClick={ () => this.handleClick(this.state.input) }>
-                                    <SendIcon/>
+                                disabled={chatId === undefined}
+                                color="primary"
+                                onClick={handleClick}
+                            >
+                                <SendIcon />
                             </IconButton>
-                            
+
                             <IconButton
-                                disabled={ id === undefined || chats[chatId] === undefined }
+                                disabled={chatId === undefined}
                                 aria-label="delete"
                                 className="MuiListItem-root.Mui-selected"
-                                color="primary" 
-                                onClick= { this.handleDeleteChatMessage }
-                                >
-                                    <DeleteIcon  />
+                                color="primary"
+                                onClick={handleDeleteChatMessage}
+                            >
+                                <DeleteIcon />
                             </IconButton>
                         </div>
                     </Paper>
                 </Paper>
-
             </section>
-        )
-    }
+        </>
+    )
+
+    // if (id !== undefined && chats && chatId && chats[chatId]) {
+    //     messages = currentChat.map((item) => (
+
+    //     ))
+    // } else {
+    //     ;<Typography>Выберите чат</Typography>
+    // }
 }
 
-export default Chat
+// class Chat extends Component {
+//     constructor(props) {
+//         super(props)
+//         this.handleAlert = props.handleAlert.bind(this)
+//         this.handleMessageSend = props.handleMessageSend.bind(this)
+//     }
+
+//     state = {
+//         input: "",
+//         open: true,
+//     }
+
+//     handleSendMessage = (message) => {
+//         const { id } = this.props.match.params
+//         this.setState(
+//             { input: "" },
+//             this.handleMessageSend(
+//                 {
+//                     name: "me",
+//                     text: message,
+//                     id: nanoid(4),
+//                 },
+//                 id,
+//                 id
+//             )
+//         )
+//     }
+
+//
+
+//     handleChange = (event) => {
+//         this.setState({ input: event.target.value })
+//     }
+
+//     handleDeleteChatMessage = () => {
+//         this.props.handleDeleteChatMessage(this.props.chatId)
+//     }
+
+//     setOpen = (value) => {
+//         console.log(value)
+//         this.setState({ open: value })
+//     }
+
+//     handleClose = () => {
+//         this.setOpen(false)
+//     }
+
+//     handleToggle = () => {
+//         this.setOpen(!this.state.open)
+//     }
+
+// }
+
+// export default Chat

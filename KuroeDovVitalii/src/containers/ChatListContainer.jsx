@@ -1,50 +1,21 @@
-import React, { Fragment, Component } from 'react'
-import { connect } from 'react-redux'
-import ChatList from 'components/ChatList/ChatList'
+import { connect } from "react-redux"
+import ChatList from "components/ChatList/ChatList"
 
-import { chatDeleteInformAction, selectChatInformAction, selectChatAction } from 'actions/chats'
+import { selectChatAction, chatDeleteAction } from "actions/chats"
 
-class ChatListContainerClass extends Component {
-
-    handleChatDelete = (chatId) => {
-        this.props.chatDeleteInformAction(chatId)
-    } 
-
-    handleSelectChat = (data) => {
-        this.props.selectChatAction(data)
-    }
-
-    render() {
-        return (
-            <ChatList 
-                selected={ this.props.selected }
-                chats={ this.props.chats } 
-                handleChatDelete={this.handleChatDelete}
-                handleSelectChat={ this.handleSelectChat }
-                selectChat={ this.handleCurrentChatName } 
-                currentActiveChat={ this.props.currentActiveChat }/>
-        )
-    }
+const mapDispatchToProps = {
+    deleteChat: chatDeleteAction,
+    selectChat: selectChatAction,
 }
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        chatDeleteInformAction: (chatId) => dispatch(chatDeleteInformAction(chatId)),
-        selectChatInformAction: (chatId) => dispatch(selectChatInformAction(chatId)),
-        selectChatAction: (data) => dispatch(selectChatAction(data)),
-
-    }
-}
-
-const mapStateToProps = (state, ownProps) => {
-        const chats = state.chats.entries
-        const { selected } = state.chats
+const mapStateToProps = (store) => {
+    const chats = store.chats.entries
+    const { selected } = store.chats
 
     return {
         chats,
         selected,
-        
     }
 }
 
-export const ChatListContainer = connect(mapStateToProps, mapDispatchToProps)(ChatListContainerClass)
+export default connect(mapStateToProps, mapDispatchToProps)(ChatList)

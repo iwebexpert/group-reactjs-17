@@ -1,50 +1,26 @@
-import React, { Fragment, Component } from 'react'
-import { connect } from 'react-redux'
-import Chat from 'components/Chat/Chat'
-import { chatsMessageSendAction, deleteChatMessageAction } from 'actions/chats'
+import { connect } from "react-redux"
+import Chat from "components/Chat/Chat"
+import { chatsMessageSendAction, chatsMessageDeleteAction } from "actions/chats"
 
-class ChatContainerClass extends Component {
-    
-    handleMessageSend = (message, id, numSelectedChat) => {
-        message.chatId = id
-        message.numSelectedChat = numSelectedChat
-        this.props.chatsMessageSendAction(message)
-    }
-
-    handleDeleteChatMessage = (chatId) => {
-        this.props.deleteChatMessageAction(chatId)
-    }
-
-    render() {
-        return (
-            <>
-                <Chat 
-                { ...this.props } 
-                handleMessageSend={ this.handleMessageSend } 
-                handleDeleteChatMessage={ this.handleDeleteChatMessage } />
-            </>
-        )
-    }
+const mapDispatchToProps = {
+    sendMessage: chatsMessageSendAction,
+    deleteMessage: chatsMessageDeleteAction,
+    handleMessageSend: chatsMessageSendAction,
 }
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        chatsMessageSendAction: (message) => dispatch(chatsMessageSendAction(message)),
-        deleteChatMessageAction: (chatId) => dispatch(deleteChatMessageAction(chatId))
-    }
-}
-
-const mapStateToProps = (state, ownProps) => {
-    console.log(state)
-    const chats = state.chats.entries
+const mapStateToProps = (store, ownProps) => {
+    const chats = store.chats.entries
+    const { selected } = store.chats
     const { match } = ownProps
-    const { profile } = state.profile
+    const { profile } = store.profile
 
     return {
         chats,
+        chat: selected ? chats.find((item) => item.id === selected) : {},
         profile,
-        chatId: match ? match.params.id : null
+        selected,
+        chatId: match ? match.params.id : null,
     }
 }
 
-export const ChatContainer = connect(mapStateToProps, mapDispatchToProps)(ChatContainerClass)
+export default connect(mapStateToProps, mapDispatchToProps)(Chat)
