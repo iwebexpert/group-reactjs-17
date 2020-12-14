@@ -1,5 +1,3 @@
-import update from "react-addons-update"
-
 import { profile } from "../helpers/profileData"
 import { users } from "../helpers/usersData"
 
@@ -35,6 +33,7 @@ export const profileReducer = (state = initialState, action) => {
             return {
                 ...state,
                 profile: {
+                    ...state.profile,
                     firstName: firstName,
                     lastName: lastName,
                 },

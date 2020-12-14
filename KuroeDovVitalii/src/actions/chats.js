@@ -1,16 +1,10 @@
 export const CHATS_LOAD = "CHATS_LOAD"
 export const CHATS_MESSAGE_SEND = "CHATS_MESSAGE_SEND"
 export const CHATS_MESSAGE_DELETE = "CHATS_MESSAGE_DELETE"
-export const PROFILE_LOAD = "PROFILE_LOAD"
 export const CHATS_ADD = "CHATS_ADD"
 export const CHAT_DELETE = "CHAT_DELETE"
 export const CHAT_SELECT = "CHAT_SELECT"
-export const CHAT_MESSAGE_ALERT = "CHAT_MESSAGE_ALERT"
 export const CHAT_MESSAGES_DELETE = "CHAT_MESSAGES_DELETE"
-
-export const profileLoadAction = () => ({
-    type: PROFILE_LOAD,
-})
 
 export const chatsLoadAction = () => ({
     type: CHATS_LOAD,

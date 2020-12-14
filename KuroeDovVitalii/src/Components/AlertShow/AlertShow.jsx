@@ -7,7 +7,7 @@ import useStyles from "./style"
 
 export default function AlertShow(props) {
     const classes = useStyles()
-    const { popup, deleteMessage, hanldeCloseAlert } = props
+    const { popup, deleteMessage, closeAlert } = props
     const [open, setOpen] = React.useState(popup.status)
 
     const handleDeleteMessage = () => {
@@ -43,7 +43,7 @@ export default function AlertShow(props) {
                                 color="inherit"
                                 size="small"
                                 onClick={() => {
-                                    hanldeCloseAlert(false)
+                                    closeAlert(false)
                                 }}
                             >
                                 <CloseIcon fontSize="inherit" />

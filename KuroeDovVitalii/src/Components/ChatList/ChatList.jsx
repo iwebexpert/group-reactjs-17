@@ -4,7 +4,7 @@ import ChatListItem from "components/ChatListItem/ChatListItem"
 import ScrollableFeed from "react-scrollable-feed"
 
 export default function ChatList(props) {
-    const { chats, selected, selectChat, deleteChat } = props
+    const { chats, selected, selectChat, deleteChat, redirect } = props
 
     return (
         <aside className="chat-list">
@@ -29,6 +29,7 @@ export default function ChatList(props) {
                                 <ChatListItem
                                     key={chatItem.id}
                                     item={chatItem}
+                                    redirect={redirect}
                                     deleteChat={deleteChat}
                                     selectChat={selectChat}
                                     selected={selected}

@@ -1,5 +1,4 @@
 import React from "react"
-import { nanoid } from "nanoid"
 import Message from "components/Message/Message"
 import {
     IconButton,
@@ -11,7 +10,6 @@ import {
     CircularProgress,
 } from "@material-ui/core"
 import SendIcon from "@material-ui/icons/SendRounded"
-import DeleteIcon from "@material-ui/icons/Delete"
 import ScrollableFeed from "react-scrollable-feed"
 
 export default function Chat(props) {
@@ -32,14 +30,12 @@ export default function Chat(props) {
     } = props
     const { firstName } = profile
 
-    const [messageCount, setMessageCount] = React.useState(0)
-
     let messages = <Typography className="chat__text">Выберите чат</Typography>
 
     const handleChange = (event) => {
         setState({ ...state, input: event.target.value })
     }
-    const handleAlert = () => {}
+
     const handleClick = () => {
         if (state.input !== "") {
             sendMessage(chatId, {
@@ -62,7 +58,6 @@ export default function Chat(props) {
         }
     }
 
-    const handleDeleteChatMessage = () => {}
     React.useLayoutEffect(() => {
         if (!chat) {
             return (
@@ -96,7 +91,6 @@ export default function Chat(props) {
                                           user={firstName}
                                           chatName={chat.name}
                                           masterAvatar={profile.avatar}
-                                          handleAlert={handleAlert}
                                           message={item}
                                           deleteMessage={deleteMessage}
                                       />
@@ -125,16 +119,6 @@ export default function Chat(props) {
                             >
                                 <SendIcon />
                             </IconButton>
-
-                            <IconButton
-                                disabled={chatId === undefined}
-                                aria-label="delete"
-                                className="MuiListItem-root.Mui-selected"
-                                color="primary"
-                                onClick={handleDeleteChatMessage}
-                            >
-                                <DeleteIcon />
-                            </IconButton>
                         </div>
                     </Paper>
                 </Paper>
@@ -154,7 +138,6 @@ export default function Chat(props) {
 // class Chat extends Component {
 //     constructor(props) {
 //         super(props)
-//         this.handleAlert = props.handleAlert.bind(this)
 //         this.handleMessageSend = props.handleMessageSend.bind(this)
 //     }
 
@@ -183,10 +166,6 @@ export default function Chat(props) {
 
 //     handleChange = (event) => {
 //         this.setState({ input: event.target.value })
-//     }
-
-//     handleDeleteChatMessage = () => {
-//         this.props.handleDeleteChatMessage(this.props.chatId)
 //     }
 
 //     setOpen = (value) => {

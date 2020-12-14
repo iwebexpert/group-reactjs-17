@@ -1,6 +1,5 @@
 import { CHAT_DELETE } from "actions/chats"
-import { push } from "connected-react-router"
-import { alertSendInformAction } from "actions/alerts"
+import { alertSendAction } from "actions/alerts"
 
 export const chatDeleteMiddleWare = (store) => (next) => (action) => {
     if (action.type === CHAT_DELETE) {
@@ -10,13 +9,12 @@ export const chatDeleteMiddleWare = (store) => (next) => (action) => {
         )
 
         store.dispatch(
-            alertSendInformAction({
+            alertSendAction({
                 value: `чат "${chat.name}" удален`,
                 type: "inform",
                 isSelect: false,
             })
         )
-        push("/")
     }
 
     return next(action)

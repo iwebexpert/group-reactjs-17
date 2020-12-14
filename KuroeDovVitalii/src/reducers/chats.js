@@ -1,4 +1,3 @@
-import update from "react-addons-update"
 import { nanoid } from "nanoid"
 import {
     CHATS_LOAD,
@@ -35,6 +34,7 @@ export const chatReducer = (state = initialState, action) => {
                 (item) => item.id === chatId
             )
             state.entries[chatSendIndex].messages.push(message)
+            state.entries[chatSendIndex].fire = message.fire
             return {
                 ...state,
                 entries: [...state.entries],
@@ -58,17 +58,21 @@ export const chatReducer = (state = initialState, action) => {
             }
 
         case CHATS_ADD:
-            return update(state, {
-                entries: {
-                    $merge: {
-                        [action.payload.id]: {
-                            id: action.payload.id,
-                            name: action.payload.name,
+            if (action.payload.error) {
+                return {
+                    ...state,
+                }
+            } else {
+                return {
+                    ...state,
+                    entries: [
+                        ...state.entries,
+                        {
+                            ...action.payload.newChat,
                             fire: true,
-                            avatar: action.payload.avatar,
                             messages: [
                                 {
-                                    name: action.payload.name,
+                                    name: action.payload.newChat.name,
                                     text:
                                         citates[
                                             Math.floor(Math.random() * 10) + 1
@@ -77,14 +81,10 @@ export const chatReducer = (state = initialState, action) => {
                                 },
                             ],
                         },
-                    },
-                },
-                $merge: {
-                    selected: action.payload.id,
-                    currentChatName: action.payload.name,
+                    ],
                     chatId: action.payload.id,
-                },
-            })
+                }
+            }
 
         case CHAT_DELETE:
             return {
@@ -96,15 +96,21 @@ export const chatReducer = (state = initialState, action) => {
             }
 
         case CHAT_MESSAGES_DELETE:
-            return update(state, {
-                entries: { [action.payload]: { $merge: { messages: [] } } },
-            })
+            const newChatMessagesDeleteIndex = state.entries.findIndex(
+                (item) => item.id === action.payload
+            )
+            state.entries[newChatMessagesDeleteIndex].messages = []
+
+            return {
+                ...state,
+                entries: state.entries,
+            }
 
         case CHAT_SELECT:
             const selectChatIndex = state.entries.findIndex(
                 (item) => item.id === action.payload
             )
-
+            state.entries[selectChatIndex].fire = false
             return {
                 ...state,
                 selected: action.payload,

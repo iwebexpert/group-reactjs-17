@@ -1,8 +1,8 @@
 import React from "react"
 import { Switch, Route } from "react-router-dom"
 import "../../layout/css/style.css"
-import AlertShow from "components/AlertShow/AlertShow"
 import HeaderContainer from "containers/HeaderContainer"
+import AlertShowContainer from "containers/AlertShowContainer"
 import ChatContainer from "containers/ChatContainer"
 import ChatListContainer from "containers/ChatListContainer"
 
@@ -21,10 +21,7 @@ export default function App(props) {
         currentChatName,
         users, //массив пользователей
         loadUsers, //загрузка пользователей
-        handleAlert,
-        hanldeCloseAlert,
         handleDeleteMessage,
-        popup,
     } = props
 
     React.useLayoutEffect(() => {
@@ -53,32 +50,16 @@ export default function App(props) {
                     <Route
                         path="/"
                         exact
-                        render={(props) => (
-                            <ChatContainer
-                                {...props}
-                                handleAlert={handleAlert}
-                                hanldeCloseAlert={hanldeCloseAlert}
-                            />
-                        )}
+                        render={(props) => <ChatContainer {...props} />}
                     />
                     <Route
                         path="/chats/:id"
                         exact
-                        render={(props) => (
-                            <ChatContainer
-                                {...props}
-                                handleAlert={handleAlert}
-                                hanldeCloseAlert={hanldeCloseAlert}
-                            />
-                        )}
+                        render={(props) => <ChatContainer {...props} />}
                     />
                 </Switch>
                 <ChatListContainer />
-                <AlertShow
-                    handleDeleteMessage={handleDeleteMessage}
-                    popup={popup}
-                    hanldeCloseAlert={hanldeCloseAlert}
-                />
+                <AlertShowContainer handleDeleteMessage={handleDeleteMessage} />
             </main>
         </>
     )

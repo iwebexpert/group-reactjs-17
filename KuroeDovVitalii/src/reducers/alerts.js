@@ -1,47 +1,45 @@
-import update from 'react-addons-update'
-import { ALERT_LOAD, ALERT_SEND, ALERT_CLOSE } from '../actions/alerts'
+import update from "react-addons-update"
+import { ALERT_LOAD, ALERT_SEND, ALERT_CLOSE } from "../actions/alerts"
 
 const initialState = {
-    popup: []
+    popup: [],
 }
 
 export const alertReducer = (state = initialState, action) => {
-    switch(action.type) {
-        
-        case ALERT_LOAD: 
+    switch (action.type) {
+        case ALERT_LOAD:
             return {
                 ...state,
                 popup: {
-                    text: '',
+                    text: "",
                     status: false,
-                    type: '',
-                    id: '',
+                    type: "",
+                    id: "",
                     isSelect: false,
-                }
+                },
             }
 
         case ALERT_SEND:
-            return update(state, {
+            return {
+                ...state,
                 popup: {
-                    $merge: { ...action.payload }
+                    ...action.payload,
                 },
-            })
-        
+            }
+
         case ALERT_CLOSE:
-            return update(state, {
+            return {
+                ...state,
                 popup: {
-                    $merge: {
-                        text: '',
-                        status: false,
-                        type: '',
-                        id: '',
-                        isSelect: false,
-                    }
-                }
-            })
+                    text: "",
+                    status: false,
+                    type: "",
+                    id: "",
+                    isSelect: false,
+                },
+            }
 
-
-        default: 
+        default:
             return state
-    } 
-}  
+    }
+}

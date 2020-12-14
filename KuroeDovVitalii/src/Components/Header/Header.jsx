@@ -1,12 +1,5 @@
-import React, { Component } from "react"
-import {
-    AppBar,
-    Toolbar,
-    IconButton,
-    Typography,
-    Button,
-    ButtonGroup,
-} from "@material-ui/core"
+import React from "react"
+import { AppBar, Toolbar, Typography, ButtonGroup } from "@material-ui/core"
 import Profile from "components/Profile/Profile"
 import NewChat from "components/NewChat/NewChat"
 
